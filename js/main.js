@@ -9,8 +9,10 @@ window.onload = startGame;
 function startGame() {
 
     game.state.add('init', initState);
-    game.state.add('about', aboutState);
-    game.state.add('instructions', instructionsState);
+    game.state.add('screenAbout', aboutState);
+    game.state.add('screenInstructions', instructionsState);
+    game.state.add('screenPlayer', playerState);
+    game.state.add('level1', level1State);
 
 
     game.state.start('init');
