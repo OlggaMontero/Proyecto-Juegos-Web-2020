@@ -30,4 +30,12 @@ function createPlayer() {
     function back(){
         game.state.start('init');
     }
+    
+    buttonSelectionPlayer = game.add.button(10, 10, 'button', ChangeName);
+    buttonSelectionPlayer.scale.setTo(0.2);
+
+    function ChangeName(){
+        //Pasarle un parámetro al cartel que habrá en level1
+        game.state.start('init');
+    }
 }
