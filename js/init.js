@@ -10,8 +10,10 @@ let initState = {
 };
 
 function preloadInit() {
-    game.load.image('button', 'assets/imgs/button.png');
     game.load.image('bg', 'assets/imgs/bg.jpg');
+    game.load.image('buttonAbout', 'assets/imgs/button_about.png');
+    game.load.image('buttonPlayer', 'assets/imgs/button_PlayerSelection.png');
+    game.load.image('buttonInstructions', 'assets/imgs/button_instructions.png');
     game.load.image('buttonLevel1', 'assets/imgs/level1.png');
 }
 
@@ -28,20 +30,20 @@ function createInit() {
     let posX = game.world.width - SHIP_OFFSET_HOR;
     let posY = game.world.height - SHIP_OFFSET_VER;
 
-    btnAbout = game.add.button(posX+200, posY, 'button', startAbout);
+    btnAbout = game.add.button(posX+250, posY+50, 'buttonAbout', startAbout);
     btnAbout.anchor.setTo(0.5, 0.5)
-    btnAbout.scale.setTo(0.1);
+    btnAbout.scale.setTo(0.15);
 
-    btnInstructions = game.add.button(posX+350, posY, 'button', startInstructions);
-    btnInstructions.anchor.setTo(0.5, 0.5)
-    btnInstructions.scale.setTo(0.1);
+    btnInstructions = game.add.button(posX+425, posY+50, 'buttonInstructions', startInstructions);
+    btnInstructions.anchor.setTo(0.5, 0.5);
+    btnInstructions.scale.setTo(0.6);
 
-    btnPlayer = game.add.button(posX+500, posY, 'button', startPlayer);
-    btnPlayer.anchor.setTo(0.5, 0.5)
-    btnPlayer.scale.setTo(0.1);
+    btnPlayer = game.add.button(posX+350, posY-50, 'buttonPlayer', startPlayer);
+    btnPlayer.anchor.setTo(0.5, 0.5);
+    btnPlayer.scale.setTo(0.6);
 
     btnLevel1 = game.add.button(posX+350, posY-200, 'buttonLevel1', startLevel1);
-    btnLevel1.anchor.setTo(0.5, 0.5)
+    btnLevel1.anchor.setTo(0.5, 0.5);
     btnLevel1.scale.setTo(0.7);
 
 

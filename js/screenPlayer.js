@@ -9,6 +9,7 @@ let playerState = {
 
 function preloadPlayer() {
     game.load.image('bg', 'assets/imgs/bg.jpg');
+    game.load.image('buttonBack', 'assets/imgs/button_back.png');
     game.load.image('button', 'assets/imgs/button.png');
 }
 
@@ -18,14 +19,17 @@ function createPlayer() {
     let h = game.world.height;
     fondo = game.add.tileSprite(0, 0, w, h, 'bg');
 
-    let textI = 'Esta es la pantalla del jugador, deberá escoger su nombre y habilitar el botón';
-    let styleI = {font: '20px Arial', fill: '#FFFFFF'};
+    
+    let textI = 'En esta pantalla el jugador\n';
+    textI += 'debe escoger un nombre o escribir\n';
+    textI += 'el suyo';
+    let styleI = {font: '18px Arial', fill: '#FFFFFF'};
     let instructions = game.add.text(TEXT_OFFSET_HOR_P, TEXT_OFFSET_VER_P, textI, styleI);
 
     let extPosX = 200;
     let extPosY = 350;
-    buttonBack = game.add.button(extPosX, extPosY, 'button', back);
-    buttonBack.scale.setTo(0.1);
+    buttonBack = game.add.button(extPosX-150, extPosY+350, 'buttonBack', back);
+    buttonBack.scale.setTo(0.7);
 
     function back(){
         game.state.start('init');

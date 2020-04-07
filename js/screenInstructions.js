@@ -9,7 +9,7 @@ let instructionsState = {
 
 function preloadInstructions() {
     game.load.image('bg', 'assets/imgs/bg.jpg');
-    game.load.image('button', 'assets/imgs/button.png');
+    game.load.image('buttonBack', 'assets/imgs/button_back.png');
 }
 
 function createInstructions() {
@@ -24,8 +24,8 @@ function createInstructions() {
 
     let extPosX = 200;
     let extPosY = 350;
-    buttonBack = game.add.button(extPosX, extPosY, 'button', back);1
-    buttonBack.scale.setTo(0.1);
+    buttonBack = game.add.button(extPosX-150, extPosY+350, 'buttonBack', back);1
+    buttonBack.scale.setTo(0.7);
 
     function back(){
         game.state.start('init');
