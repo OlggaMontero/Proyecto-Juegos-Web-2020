@@ -43,4 +43,7 @@ function createLevel(){
     character.body.collideWorldBounds = true;
     character.body.bounce.y = 1;
     character.body.gravity.y = 500;
+
+    //Aquí iría en teoría la variable del nombre que le pasemos:
+    //const cuadroTexto = new type(input);
 }
