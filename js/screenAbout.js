@@ -26,7 +26,7 @@ function createAbout() {
 
     let extPosX = 200;
     let extPosY = 350;
-    buttonBack = game.add.button(extPosX, extPosY, 'button', back);1
+    buttonBack = game.add.button(extPosX, extPosY, 'button', back);
     buttonBack.scale.setTo(0.1);
 
     function back(){
