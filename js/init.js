@@ -19,10 +19,10 @@ function preloadInit() {
 
 function createInit() {
 
-    game.world.setBounds(0, 0, 400, 800);
-    
     let w = game.world.width;
     let h = game.world.height;
+
+    game.world.setBounds(0, 0, w, h);  
     fondo = game.add.tileSprite(0, 0, w, h, 'bg');
 
     selected = null;
@@ -30,19 +30,19 @@ function createInit() {
     let posX = game.world.width - SHIP_OFFSET_HOR;
     let posY = game.world.height - SHIP_OFFSET_VER;
 
-    btnAbout = game.add.button(posX+250, posY+50, 'buttonAbout', startAbout);
+    btnAbout = game.add.button(posX-250, posY+50, 'buttonAbout', startAbout);
     btnAbout.anchor.setTo(0.5, 0.5)
     btnAbout.scale.setTo(0.15);
 
-    btnInstructions = game.add.button(posX+425, posY+50, 'buttonInstructions', startInstructions);
+    btnInstructions = game.add.button(posX+325, posY+50, 'buttonInstructions', startInstructions);
     btnInstructions.anchor.setTo(0.5, 0.5);
     btnInstructions.scale.setTo(0.6);
 
-    btnPlayer = game.add.button(posX+350, posY-50, 'buttonPlayer', startPlayer);
+    btnPlayer = game.add.button(posX+50, posY+50, 'buttonPlayer', startPlayer);
     btnPlayer.anchor.setTo(0.5, 0.5);
     btnPlayer.scale.setTo(0.6);
 
-    btnLevel1 = game.add.button(posX+350, posY-200, 'buttonLevel1', startLevel1);
+    btnLevel1 = game.add.button(posX+50, posY-200, 'buttonLevel1', startLevel1);
     btnLevel1.anchor.setTo(0.5, 0.5);
     btnLevel1.scale.setTo(0.7);
 

@@ -1,4 +1,4 @@
-const GAME_STAGE_WIDTH = 400;
+const GAME_STAGE_WIDTH = 1000;
 const GAME_STAGE_HEIGHT = 800;
 
 let game = new Phaser.Game(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT, Phaser.CANVAS, 'game');
