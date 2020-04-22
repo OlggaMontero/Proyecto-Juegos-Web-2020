@@ -13,7 +13,7 @@ let life;
 let lifeText;
 let nameText;
 let platforms = [];
-let platformOffset = 50;
+let platformOffset = 0;
 let rightkeyDown = false;
 let leftkeyDown = false;
 
@@ -32,30 +32,31 @@ function createLevel1() {
 
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    leftKey.onDown.add(moveLeft, this);
+    rightKey.onDown.add(moveRight, this);
     createStage();
+}
+
+function moveRight()
+{
+    for(i = 0; i < platforms.length; i++)
+    {
+        platforms[i].x += platforms[i].width;
+    }
+
+}
+
+function moveLeft()
+{
+    for(i = 0; i < platforms.length; i++)
+    {
+        platforms[i].x -= platforms[i].width;      
+    }
 }
 
 function updateLevel1()
 {
-    game.physics.arcade.collide(character, platforms);
-    rightkeyDown = false;
-    leftkeyDown = false;
-    if (leftKey.isDown && leftkeyDown == false)
-    {
-        leftkeyDown = true;
-        for(i = 0; i < platforms.length; i++)
-        {
-            platforms[i].x -= platforms[i].width;      
-        }  
-    }
-    else if (rightKey.isDown && rightkeyDown == false)
-    {
-        rightkeyDown = true;
-        for(i = 0; i < platforms.length; i++)
-        {
-            platforms[i].x += platforms[i].width;
-        }
-    }     
+    game.physics.arcade.collide(character, platforms);  
 }
 
 function createStage()
@@ -89,10 +90,25 @@ function createPlatforms()
         let platform = game.add.sprite(platformOffset, 400, 'platform');
         platform.scale.setTo(0.3, 0.3);
         game.physics.arcade.enable(platform);
-        //platform.body.collideWorldBounds = true;
         platform.body.immovable = true;
-        platformOffset += platform.width;       
+        platformOffset += platform.width;
+        platform.checkWorldBounds = true;
+        platform.events.onOutOfBounds.add(platformOut, this);      
         platforms.push(platform);
+    }
+}
+
+function platformOut(platform)
+{
+    if (platform.x < 0)
+    {
+        platform.x = game.width - platform.width;
+        console.log("izquierda");
+    }
+    else if (platform.x > game.width)
+    {
+        platform.x = 0;
+        console.log("derecha");
     }
 }
 
