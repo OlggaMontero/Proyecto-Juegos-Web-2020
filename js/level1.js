@@ -5,7 +5,8 @@ let level1State = {
     create: createLevel1,
     update: updateLevel1
 };
-
+let NEW_HEIGHT = 3200;
+let NEW_WIDTH = 400;
 let x = 300;
 let y = 750;
 let level;
@@ -29,6 +30,7 @@ function createLevel1() {
 
     level = 1;
     life = 100;
+    game.scale.setGameSize(NEW_WIDTH, NEW_HEIGHT)
 
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
