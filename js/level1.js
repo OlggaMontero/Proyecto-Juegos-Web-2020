@@ -3,8 +3,9 @@ let level1State = {
 
     preload: preloadLevel1,
     create: createLevel1,
-    update: updateLevel1
+    update: updateLevel1,
 };
+
 let NEW_HEIGHT = 3200;
 let NEW_WIDTH = 400;
 let x = 300;
@@ -13,7 +14,7 @@ let level;
 let life;
 let lifeText;
 let nameText;
-let platforms = [];
+let platforms;
 let platformOffset = 0;
 let rightkeyDown = false;
 let leftkeyDown = false;
@@ -28,9 +29,10 @@ function preloadLevel1() {
 
 function createLevel1() {
 
+    game.scale.setGameSize(NEW_WIDTH, NEW_HEIGHT);
+    
     level = 1;
     life = 100;
-    game.scale.setGameSize(NEW_WIDTH, NEW_HEIGHT)
 
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
@@ -39,11 +41,17 @@ function createLevel1() {
     createStage();
 }
 
+function updateLevel1()
+{
+    game.physics.arcade.collide(character, platforms); 
+}
+
 function moveRight()
 {
     for(i = 0; i < platforms.length; i++)
     {
-        platforms[i].x += platforms[i].width;
+        movePlatformRight(platforms[i]);
+        //platforms.children[i].x += 1;
     }
 
 }
@@ -52,28 +60,23 @@ function moveLeft()
 {
     for(i = 0; i < platforms.length; i++)
     {
-        platforms[i].x -= platforms[i].width;      
+        movePlatformLeft(platforms[i]);
+        //platforms.children[i].x -= 1;   
     }
-}
-
-function updateLevel1()
-{
-    game.physics.arcade.collide(character, platforms);  
 }
 
 function createStage()
 {
-    game.world.setBounds(0, 0, 400, 3200);   
-    fondo = game.add.tileSprite(0, 0, 400, 3200, 'bg');
+    game.world.setBounds(1, 0, NEW_WIDTH-2, NEW_HEIGHT, true, true, true, true);   
+    fondo = game.add.tileSprite(0, 0, NEW_WIDTH, NEW_HEIGHT, 'bg');
     
-    createPlatforms();   
+    createPlatforms(400);   
     createCharacter();
     createHUD();   
    
     //Aquí iría en teoría la variable del nombre que le pasemos:
     //const cuadroTexto = new type(input);
 }
-
 
 function createCharacter()
 {
@@ -85,32 +88,17 @@ function createCharacter()
     character.body.gravity.y = 500;    
 }
 
-function createPlatforms()
-{   
-    for(i = 0; i < 5; i++)
-    {
-        let platform = game.add.sprite(platformOffset, 400, 'platform');
-        platform.scale.setTo(0.3, 0.3);
-        game.physics.arcade.enable(platform);
-        platform.body.immovable = true;
-        platformOffset += platform.width;
-        platform.checkWorldBounds = true;
-        platform.events.onOutOfBounds.add(platformOut, this);      
-        platforms.push(platform);
-    }
-}
-
-function platformOut(platform)
+function createPlatforms(positionY)
 {
-    if (platform.x < 0)
+    //platforms = game.add.group();
+    platforms = [];
+
+    for(i = 0; i < 8; i++)
     {
-        platform.x = game.width - platform.width;
-        console.log("izquierda");
-    }
-    else if (platform.x > game.width)
-    {
-        platform.x = 0;
-        console.log("derecha");
+        let platform = createPlatform(platformOffset, positionY);
+        platformOffset += 40;
+        //platforms.add(platform);
+        platforms.push(platform);
     }
 }
 
@@ -122,7 +110,6 @@ function createHUD()
 
 function createLife()
 {
-
     lifeText = game.add.text(x-30, y-700, life + '% ');
     lifeText.anchor.setTo(0.5);
 
