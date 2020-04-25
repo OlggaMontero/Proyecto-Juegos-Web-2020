@@ -9,7 +9,7 @@ let instructionsState = {
 };
 
 function preloadInstructions() {
-    game.load.image('bg', 'assets/imgs/bg.jpg');
+    game.load.image('bg', 'assets/imgs/instructionsScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
 
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');

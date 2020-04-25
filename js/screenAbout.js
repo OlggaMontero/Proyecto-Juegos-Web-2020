@@ -9,7 +9,7 @@ let aboutState = {
 };
 
 function preloadAbout() {
-    game.load.image('bg', 'assets/imgs/bg.jpg');
+    game.load.image('bg', 'assets/imgs/aboutScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
 
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');

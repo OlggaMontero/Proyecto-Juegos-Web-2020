@@ -9,7 +9,7 @@ let playerState = {
 };
 
 function preloadPlayer() {
-    game.load.image('bg', 'assets/imgs/bg.jpg');
+    game.load.image('bg', 'assets/imgs/playerScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
     game.load.image('button', 'assets/imgs/button.png');
 
