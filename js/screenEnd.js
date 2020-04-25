@@ -17,9 +17,15 @@ let clockText = 0;
 
 function preloadEnd() {
     game.load.image('bg', 'assets/imgs/bg.jpg');
+
+    game.load.audio('musicEndScreen', 'assets/snds/musicEndScreen.wav');
 }
 
 function createEnd() {
+
+    musicEndScreen = game.add.audio('musicEndScreen');
+    musicEndScreen.loop = true;
+    musicEndScreen.play();
 
     SKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
 
@@ -35,12 +41,12 @@ function createEnd() {
 
     counter = 15;
     createTimer();
-    updateTime();
 
 }
 
 function updateEnd(){
     if (SKey.isDown) {
+        musicEndScreen.stop();
         game.state.start('init');
     }
 }
@@ -64,6 +70,7 @@ function updateCounter() {
     counter--;
     clockText.setText('Counter: ' + counter + '  ');
     if (counter == 0){
+        musicEndScreen.stop();
         game.state.start('init');
     }
 }

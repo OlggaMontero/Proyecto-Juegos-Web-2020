@@ -4,16 +4,22 @@ const TEXT_OFFSET_VER_P = 40;
 let playerState = {
 
     preload: preloadPlayer,
-    create: createPlayer
+    create: createPlayer,
+    update: updatePlayer
 };
 
 function preloadPlayer() {
     game.load.image('bg', 'assets/imgs/bg.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
     game.load.image('button', 'assets/imgs/button.png');
+
+    game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
+
 }
 
 function createPlayer() {
+
+    optionOnHover = game.add.audio('OptionOnHover');
 
     let w = game.world.width;
     let h = game.world.height;
@@ -28,7 +34,8 @@ function createPlayer() {
 
     let extPosX = 200;
     let extPosY = 350;
-    buttonBack = game.add.button(extPosX-150, extPosY+350, 'buttonBack', back);
+    buttonBack = game.add.button(extPosX-100, extPosY+350, 'buttonBack', back);
+    buttonBack.anchor.setTo(0.5, 0.5);
     buttonBack.scale.setTo(0.7);
 
     function back(){
@@ -59,4 +66,15 @@ function createPlayer() {
     var parent = document.getElementById("parentDiv");
     parent.appendChild(input);
 */
+}
+
+function updatePlayer(){
+
+    if (buttonBack.input.pointerOver()){
+        buttonBack.scale.setTo(0.9, 0.9);
+        optionOnHover.play();
+    }
+    else{
+        buttonBack.scale.setTo(0.6, 0.6);
+    }
 }

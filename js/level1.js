@@ -24,6 +24,8 @@ function preloadLevel1() {
     game.load.image('platform_trap', 'assets/imgs/platform_trap.png');
     game.load.image('character', 'assets/imgs/character.png');
     game.load.image('healthBar', 'assets/imgs/healthBar.jpg');
+
+    game.load.audio('musicFirstLevel', 'assets/snds/musicFirstLevel.wav');
 }
 
 function createLevel1() {
@@ -31,6 +33,10 @@ function createLevel1() {
     level = 1;
     life = 100;
     game.scale.setGameSize(NEW_WIDTH, NEW_HEIGHT)
+
+    musicFirstLevel = game.add.audio('musicFirstLevel');
+    musicFirstLevel.loop = true;
+    musicFirstLevel.play();
 
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
