@@ -47,7 +47,7 @@ function createEnd() {
 function updateEnd(){
     if (SKey.isDown) {
         musicEndScreen.stop();
-        game.state.start('init');
+        game.state.start('level1');
     }
 }
 

@@ -8,6 +8,7 @@ let aboutState = {
     update: updateAbout
 };
 
+
 function preloadAbout() {
     game.load.image('bg', 'assets/imgs/aboutScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
@@ -23,15 +24,24 @@ function createAbout() {
     let h = game.world.height;
     fondo = game.add.tileSprite(0, 0, w, h, 'bg');
 
-    let textI = 'El nombre del equipo es: Los ancestrales\n';
-    textI += 'y esta es la pantalla del about';
-    let styleI = {font: '18px Arial', fill: '#FFFFFF'};
-    let instructions = game.add.text(TEXT_OFFSET_HOR, TEXT_OFFSET_VER, textI, styleI);
+    let styleText = {font: '27px Sniglet', fill: '#000000', fontWeight: 'bold'};
+    let styleText2 = {font: '27px Sniglet', fill: '#000000', fontWeight: 'bold', fontStyle: 'italic'};
 
+    let textI = 'Olga Montero, Fernando Soria and Sara Montagud';
+    let instructionsI = game.add.text(TEXT_OFFSET_HOR+240, TEXT_OFFSET_VER+265, textI, styleText);
+
+    let textJ = 'Los ancestrales';
+    let instructionsJ = game.add.text(TEXT_OFFSET_HOR+170, TEXT_OFFSET_VER+380, textJ, styleText2);
+
+    let textK = 'Apple Jump is a skill game where you must move the\n'
+    textK += 'platforms to get the ball to the end.\n';
+    textK += 'You will find power-ups and traps that will make\n';
+    textK += 'the game more exciting.';
+    let instructionsK = game.add.text(TEXT_OFFSET_HOR+275, TEXT_OFFSET_VER+505, textK, styleText);
 
     let extPosX = 200;
     let extPosY = 350;
-    buttonBack = game.add.button(extPosX-100, extPosY+350, 'buttonBack', back);
+    buttonBack = game.add.button(extPosX-50, extPosY+350, 'buttonBack', back);
     buttonBack.anchor.setTo(0.5, 0.5);
     buttonBack.scale.setTo(0.7);
 

@@ -26,15 +26,14 @@ function createPlayer() {
     fondo = game.add.tileSprite(0, 0, w, h, 'bg');
 
     
-    let textI = 'En esta pantalla el jugador\n';
-    textI += 'debe escoger un nombre o escribir\n';
-    textI += 'el suyo';
-    let styleI = {font: '18px Arial', fill: '#FFFFFF'};
-    let instructions = game.add.text(TEXT_OFFSET_HOR_P, TEXT_OFFSET_VER_P, textI, styleI);
+    let textI = 'En esta pantalla el jugador debe escoger un nombre\n';
+    textI += 'o escribir el suyo\n';
+    let styleI = {font: '25px Sniglet', fill: '#000000', fontWeight: 'bold', align: 'center'};
+    let instructions = game.add.text(TEXT_OFFSET_HOR_P+300, TEXT_OFFSET_VER_P+300, textI, styleI);
 
     let extPosX = 200;
     let extPosY = 350;
-    buttonBack = game.add.button(extPosX-100, extPosY+350, 'buttonBack', back);
+    buttonBack = game.add.button(extPosX-50, extPosY+350, 'buttonBack', back);
     buttonBack.anchor.setTo(0.5, 0.5);
     buttonBack.scale.setTo(0.7);
 
@@ -42,7 +41,7 @@ function createPlayer() {
         game.state.start('init');
     }
     
-    buttonSelectionPlayer = game.add.button(100, 100, 'button', ChangeName);
+    buttonSelectionPlayer = game.add.button(400, 500, 'button', ChangeName);
     buttonSelectionPlayer.scale.setTo(0.11);
 
     function ChangeName(){

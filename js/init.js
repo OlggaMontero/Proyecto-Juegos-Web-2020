@@ -12,6 +12,7 @@ let initState = {
     update: updateInit
 };
 
+
 function preloadInit() {
     //cargamos las imagenes
     game.load.image('bg', 'assets/imgs/bg.jpg');
