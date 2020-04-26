@@ -1,4 +1,3 @@
-
 let level1State = {
 
     preload: preloadLevel1,
@@ -6,21 +5,21 @@ let level1State = {
     update: updateLevel1,
 };
 
-let NEW_HEIGHT = 3200;
-let NEW_WIDTH = 400;
+let STAGE_HEIGHT = 3200;
+let STAGE_WIDTH = 400;
+let CANVAS_HEIGHT = 800;
+let CANVAS_WIDTH  = 400;
 let x = 300;
 let y = 750;
 let level;
 let life;
 let lifeText;
 let nameText;
-let platforms;
-let platformOffset = 0;
-let rightkeyDown = false;
-let leftkeyDown = false;
+let platforms = [];
 
 function preloadLevel1() {
-    game.load.image('bg', 'assets/imgs/bg.jpg');
+    game.load.image('background', 'assets/imgs/background_level1.png');
+    game.load.image('ground', 'assets/imgs/ground.png');
     game.load.image('platform', 'assets/imgs/platform_normal.png');
     game.load.image('platform_trap', 'assets/imgs/platform_trap.png');
     game.load.image('character', 'assets/imgs/character.png');
@@ -31,7 +30,7 @@ function preloadLevel1() {
 
 function createLevel1() {
 
-    game.scale.setGameSize(NEW_WIDTH, NEW_HEIGHT);
+    game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
     
     level = 1;
     life = 100;
@@ -49,7 +48,7 @@ function createLevel1() {
 
 function updateLevel1()
 {
-    game.physics.arcade.collide(character, platforms); 
+    game.physics.arcade.collide(character, platforms);
 }
 
 function moveRight()
@@ -59,7 +58,6 @@ function moveRight()
         movePlatformRight(platforms[i]);
         //platforms.children[i].x += 1;
     }
-
 }
 
 function moveLeft()
@@ -73,10 +71,14 @@ function moveLeft()
 
 function createStage()
 {
-    game.world.setBounds(1, 0, NEW_WIDTH-2, NEW_HEIGHT, true, true, true, true);   
-    fondo = game.add.tileSprite(0, 0, NEW_WIDTH, NEW_HEIGHT, 'bg');
+    game.world.setBounds(1, 0, STAGE_WIDTH-2, STAGE_HEIGHT, true, true, true, true);   
+    background = game.add.tileSprite(0, 0, STAGE_WIDTH, STAGE_HEIGHT, 'background');
+    ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
     
-    createPlatforms(400);   
+    createPlatforms(400, [1,1,2,1,2,1,1,2,2,1]);
+    createPlatforms(600, [1,2,1,1,2,2,1,2,1,1]);
+    createPlatforms(800, [2,2,2,1,2,1,2,2,2,1]);
+    createPlatforms(1000, [1,2,1,1,2,2,1,2,1,1]);    
     createCharacter();
     createHUD();   
    
@@ -84,24 +86,14 @@ function createStage()
     //const cuadroTexto = new type(input);
 }
 
-function createCharacter()
-{
-    character = game.add.sprite(150, 100, 'character');
-    character.scale.setTo(0.05, 0.05);
-    game.physics.arcade.enable(character);
-    character.body.collideWorldBounds = true;
-    character.body.bounce.y = 1;
-    character.body.gravity.y = 500;    
-}
-
-function createPlatforms(positionY)
+function createPlatforms(positionY, platformTypes)
 {
     //platforms = game.add.group();
-    platforms = [];
+    let platformOffset = 0;
 
-    for(i = 0; i < 8; i++)
+    for(i = 0; i < platformTypes.length; i++)
     {
-        let platform = createPlatform(platformOffset, positionY);
+        let platform = createPlatform(platformOffset, positionY, platformTypes[i]);
         platformOffset += 40;
         //platforms.add(platform);
         platforms.push(platform);
@@ -112,20 +104,6 @@ function createHUD()
 {
     createLife(); //hud de la barra de vida
     createInfoLevel(); //hud de info del nivel
-}
-
-function createLife()
-{
-    lifeText = game.add.text(x-30, y-700, life + '% ');
-    lifeText.anchor.setTo(0.5);
-
-    lifeText.font = '20px Revalia';
-    lifeText.fontSize = 20;
-    lifeText.fixedToCamera = true;
-
-    healthBar = game.add.sprite(x-270, y-720, 'healthBar');
-    healthBar.scale.setTo(0.15, 0.15);
-    healthBar.fixedToCamera = true;
 }
 
 function createInfoLevel()
@@ -152,8 +130,3 @@ function createInfoLevel()
     nameText.fixedToCamera = true;
 }
 
-function characterHurt()
-{
-    healthBar.width = healthBar.width - 10; //para cuando el personaje sea herido, baja la barra
-    life -= 10; //por poner un ejemplo
-}

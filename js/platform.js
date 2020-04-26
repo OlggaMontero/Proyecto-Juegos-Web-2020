@@ -1,10 +1,24 @@
-function createPlatform(x, y)
-{           
-    let platform = game.add.sprite(x, y, 'platform');
+function createPlatform(x, y, type)
+{
+    let platform;
+    if (type == 1)
+    {
+        platform = game.add.sprite(x, y, 'platform');
+        game.physics.arcade.enable(platform);
+        platform.body.immovable = true
+    }
+    else if (type == 2)
+    {
+        platform = game.add.sprite(x, y, 'platform_trap');
+        game.physics.arcade.enable(platform);
+        platform.body.bounce.y = 0.1;
+        platform.body.immovable = true;
+        platform.body.onCollide = new Phaser.Signal();
+        platform.body.onCollide.add(playerHitsTrap, this);
+
+    }            
     platform.width = 40;
     platform.height = 40;
-    game.physics.arcade.enable(platform);
-    platform.body.immovable = true;
     platform.checkWorldBounds = true;
     platform.events.onOutOfBounds.add(platformOut, this);
     
@@ -32,6 +46,15 @@ function platformOut(platform)
     {
         platform.x = 0;
         console.log("derecha");
+    }
+}
+
+function playerHitsTrap(platform)
+{
+    if (character.y < platform.y)
+    {
+        characterHurt(10);
+        platform.destroy();
     }
 }
 
