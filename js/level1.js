@@ -16,6 +16,7 @@ let life;
 let lifeText;
 let nameText;
 let platforms = [];
+let remainingPlatforms = 20;
 
 function preloadLevel1() {
     game.load.image('background', 'assets/imgs/background_level1.png');
@@ -26,6 +27,8 @@ function preloadLevel1() {
     game.load.image('healthBar', 'assets/imgs/healthBar.jpg');
 
     game.load.audio('musicFirstLevel', 'assets/snds/musicFirstLevel.wav');
+
+    game.load.json('levelOneJSON', 'levels/levelOneJSON.json');
 }
 
 function createLevel1() {
@@ -43,7 +46,9 @@ function createLevel1() {
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
     leftKey.onDown.add(moveLeft, this);
     rightKey.onDown.add(moveRight, this);
+    
     createStage();
+
 }
 
 function updateLevel1()
@@ -75,12 +80,9 @@ function createStage()
     background = game.add.tileSprite(0, 0, STAGE_WIDTH, STAGE_HEIGHT, 'background');
     ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
     
-    createPlatforms(400, [1,1,2,1,2,1,1,2,2,1]);
-    createPlatforms(600, [1,2,1,1,2,2,1,2,1,1]);
-    createPlatforms(800, [2,2,2,1,2,1,2,2,2,1]);
-    createPlatforms(1000, [1,2,1,1,2,2,1,2,1,1]);    
     createCharacter();
-    createHUD();   
+    createHUD();
+    loadJSON('levelOneJSON');
    
     //Aquí iría en teoría la variable del nombre que le pasemos:
     //const cuadroTexto = new type(input);
@@ -88,14 +90,12 @@ function createStage()
 
 function createPlatforms(positionY, platformTypes)
 {
-    //platforms = game.add.group();
     let platformOffset = 0;
 
     for(i = 0; i < platformTypes.length; i++)
     {
         let platform = createPlatform(platformOffset, positionY, platformTypes[i]);
         platformOffset += 40;
-        //platforms.add(platform);
         platforms.push(platform);
     }
 }
@@ -116,7 +116,7 @@ function createInfoLevel()
     levelText.fixedToCamera = true;
     
     //plataformas que quedan para llegar al fin del nivel (cambiar cuando lo tengamos)
-    remainingPlatformsText = game.add.text(x-30, y+10, 'Remaining Platforms: ');
+    remainingPlatformsText = game.add.text(x-30, y+10, 'Remaining Platforms: ' + remainingPlatforms);
     remainingPlatformsText.anchor.setTo(0.5, 0.5);
     remainingPlatformsText.font = '20px Revalia';
     remainingPlatformsText.fontSize = 20;
@@ -128,5 +128,34 @@ function createInfoLevel()
     nameText.font = '20px Revalia';
     nameText.fontSize = 20;
     nameText.fixedToCamera = true;
+}
+
+function loadJSON(level){
+    let levelJSON = game.cache.getJSON('levelOneJSON');
+
+    let i;
+    numberOfPlatforms = levelJSON.ObjectsInMap.platforms.length;
+
+    //metemos las plataformas
+    for (i=0; i<numberOfPlatforms; i++){
+        let x = levelJSON.ObjectsInMap.platforms[i].position.x;
+        let y = levelJSON.ObjectsInMap.platforms[i].position.y;
+        let type = levelJSON.ObjectsInMap.platforms[i].type;
+        createPlatformJSON(x, y, type);
+    }
+}
+
+function createPlatformJSON(x, y, platformTypes){
+
+    x = 0
+    let i;
+
+    for(i = 0; i < 10; i++)
+    {
+        let platform = createPlatform(x, y, platformTypes[i]);
+        x += 40;
+        platforms.push(platform);
+    }
+
 }
 

@@ -40,12 +40,10 @@ function platformOut(platform)
     if (platform.x <= 0)
     {     
         platform.x = game.width - platform.width;
-        console.log("izquierda");
     }
     else if (platform.x >= game.width)
     {
         platform.x = 0;
-        console.log("derecha");
     }
 }
 
