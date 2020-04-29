@@ -158,4 +158,3 @@ function createPlatformJSON(x, y, platformTypes){
     }
 
 }
-
