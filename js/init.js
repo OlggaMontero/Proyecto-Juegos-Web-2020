@@ -20,8 +20,8 @@ function preloadInit() {
     game.load.image('buttonPlayer', 'assets/imgs/button_PlayerSelection.png');
     game.load.image('buttonInstructions', 'assets/imgs/button_instructions.png');
     game.load.image('buttonLevel1', 'assets/imgs/level1.png');
-    //game.load.image('character', 'assets/imgs/character.png');
-    //game.load.image('platform', 'assets/imgs/platform.png');//Esto igual sobra depende de como quede
+    game.load.image('character', 'assets/imgs/character.png');
+    game.load.image('platform', 'assets/imgs/platform.png');
 
     //cargamos los audios
     game.load.audio('MusicMenu', 'assets/snds/MusicMenu.wav');
@@ -96,7 +96,7 @@ function createInit() {
 
 function updateInit(){
     onHoverButton();
-    //game.physics.arcade.collide(character, platforms); //Esto hace que la pantalla se ponga en negro y no sé porqué
+    game.physics.arcade.collide(character, platform);
 }
 
 function onHoverButton(){
@@ -135,19 +135,12 @@ function onHoverButton(){
     else{
         btnLevel1.scale.setTo(0.7);
     }
-/*function createAnimation(){
-    platform = game.add.sprite(50, 400, 'platform'); //Aquí no haría falta una imagen platform
+}
+function createAnimation(){
+    platform = game.add.sprite(50, 400, 'platform');
     platform.scale.setTo(0.5, 0.3);
     game.physics.arcade.enable(platform);
     platform.body.collideWorldBounds = true;
     platform.body.immovable = true;
-
-    //Y aquí mi duda es si esto sobraría porque ya está     createCharacter(); que se usa en character js todo preparado.
-    character = game.add.sprite(150, 100, 'character');
-    character.scale.setTo(0.1, 0.1);
-    game.physics.arcade.enable(character);
-    character.body.collideWorldBounds = true;
-    character.body.bounce.y = 1;
-    character.body.gravity.y = 500;
-}*/
+    createCharacter();
 }
