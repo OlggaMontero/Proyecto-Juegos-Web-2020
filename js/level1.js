@@ -28,7 +28,7 @@ function preloadLevel1() {
 
     game.load.audio('musicFirstLevel', 'assets/snds/musicFirstLevel.wav');
 
-    game.load.json('levelOneJSON', 'levels/levelOneJSON.json');
+    //game.load.json('levelOneJSON', '../levels/levelOneJSON.json');
 }
 
 function createLevel1() {
@@ -82,7 +82,11 @@ function createStage()
     
     createCharacter();
     createHUD();
-    loadJSON('levelOneJSON');
+    //loadJSON('levelOneJSON');
+    createPlatforms(400, [1,1,2,1,2,1,1,2,2,1]);
+    createPlatforms(600, [1,2,1,1,2,2,1,2,1,1]);
+    createPlatforms(800, [2,2,2,1,2,1,2,2,2,1]);
+    createPlatforms(1000, [1,2,1,1,2,2,1,2,1,1]);
    
     //Aquí iría en teoría la variable del nombre que le pasemos:
     //const cuadroTexto = new type(input);
