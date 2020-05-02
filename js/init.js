@@ -20,6 +20,7 @@ function preloadInit() {
     game.load.image('buttonPlayer', 'assets/imgs/button_PlayerSelection.png');
     game.load.image('buttonInstructions', 'assets/imgs/button_instructions.png');
     game.load.image('buttonLevel1', 'assets/imgs/level1.png');
+    game.load.image('buttonLevel2', 'assets/imgs/level2.png');
     game.load.image('character', 'assets/imgs/character.png');
     game.load.image('platform', 'assets/imgs/platform.png');
 
@@ -69,6 +70,10 @@ function createInit() {
     btnLevel1.anchor.setTo(0.5, 0.5);
     btnLevel1.scale.setTo(0.7);
 
+    btnLevel2 = game.add.button(posX+250, posY-200, 'buttonLevel2', startLevel2);
+    btnLevel2.anchor.setTo(0.5, 0.5);
+    btnLevel2.scale.setTo(0.1);
+
 
     function startAbout() {
         optionChosen.play();
@@ -87,10 +92,16 @@ function createInit() {
 
     function startLevel1(){
         musicMenu.destroy();
-        musicMenu.stop
         optionChosen.play();
         game.state.start('level1');
     }
+
+    function startLevel2(){
+        musicMenu.destroy();
+        optionChosen.play();
+        game.state.start('level2');
+    }
+
     createAnimation();
 }
 
@@ -135,7 +146,18 @@ function onHoverButton(){
     else{
         btnLevel1.scale.setTo(0.7);
     }
+
+    if (btnLevel2.input.pointerOver()){
+        btnLevel2.scale.setTo(0.12, 0.12);
+        optionOnHover.play();
+    }
+    else{
+        btnLevel2.scale.setTo(0.1);
+    }
+
 }
+
+
 function createAnimation(){
     platform = game.add.sprite(50, 400, 'platform');
     platform.scale.setTo(0.5, 0.3);

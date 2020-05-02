@@ -28,4 +28,10 @@ function characterHurt(damage)
     healthBar.width = healthBar.width - damage; 
     life -= damage;
     lifeText.setText(life + '%'); 
+
+    if (life <= 0){
+        musicFirstLevel.destroy();
+        condicion = 'derrota';
+        game.state.start('screenEnd');
+    }
 }

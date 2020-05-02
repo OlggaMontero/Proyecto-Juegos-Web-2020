@@ -17,6 +17,8 @@ let lifeText;
 let nameText;
 let platforms = [];
 let remainingPlatforms = 20;
+let condicion;
+
 
 function preloadLevel1() {
     game.load.image('background', 'assets/imgs/background_level1.png');
@@ -25,10 +27,12 @@ function preloadLevel1() {
     game.load.image('platform_trap', 'assets/imgs/platform_trap.png');
     game.load.image('character', 'assets/imgs/character.png');
     game.load.image('healthBar', 'assets/imgs/healthBar.jpg');
+    game.load.image('enemy', 'assets/imgs/enemy.png');
 
     game.load.audio('musicFirstLevel', 'assets/snds/musicFirstLevel.wav');
+    game.load.audio('rebound', 'assets/snds/Rebound.wav');
 
-    //game.load.json('levelOneJSON', '../levels/levelOneJSON.json');
+    game.load.text('level', 'levels/levelOneJSON.json', true);
 }
 
 function createLevel1() {
@@ -53,7 +57,8 @@ function createLevel1() {
 
 function updateLevel1()
 {
-    game.physics.arcade.collide(character, platforms);
+    game.physics.arcade.collide(character, platforms, collisionPlatform());
+    //game.physics.arcade.collide(enemy, character, collisionEnemy());
 }
 
 function moveRight()
@@ -82,12 +87,15 @@ function createStage()
     
     createCharacter();
     createHUD();
-    //loadJSON('levelOneJSON');
+    loadJSON('level');
+    //createEnemy();
+
+    /*
     createPlatforms(400, [1,1,2,1,2,1,1,2,2,1]);
     createPlatforms(600, [1,2,1,1,2,2,1,2,1,1]);
     createPlatforms(800, [2,2,2,1,2,1,2,2,2,1]);
     createPlatforms(1000, [1,2,1,1,2,2,1,2,1,1]);
-   
+   */
     //Aquí iría en teoría la variable del nombre que le pasemos:
     //const cuadroTexto = new type(input);
 }
@@ -135,7 +143,8 @@ function createInfoLevel()
 }
 
 function loadJSON(level){
-    let levelJSON = game.cache.getJSON('levelOneJSON');
+    
+    let levelJSON = JSON.parse(game.cache.getText('level'));
 
     let i;
     numberOfPlatforms = levelJSON.ObjectsInMap.platforms.length;
@@ -161,4 +170,23 @@ function createPlatformJSON(x, y, platformTypes){
         platforms.push(platform);
     }
 
+}
+
+function createEnemy() {
+    enemy = game.add.sprite(200, 500, 'enemy');
+    enemy.scale.setTo(0.1, 0.1);
+    enemy.enableBody = true;
+    game.physics.arcade.enable(enemy);
+    enemy.body.collideWorldBounds = true;
+}
+
+function collisionEnemy(){
+    //sonido de daño del jugador
+    //enemy.kill(); 
+    //characterHurt(0.5);
+}
+
+function collisionPlatform(){
+    //rebound = game.add.audio('rebound');
+    //rebound.play();
 }
