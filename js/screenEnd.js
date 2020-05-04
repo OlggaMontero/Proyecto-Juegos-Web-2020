@@ -24,7 +24,9 @@ function preloadEnd()
     game.load.audio('musicDefeat', 'assets/snds/LevelDefeat.wav');
 }
 
-function createEnd() {
+function createEnd() 
+{
+    game.scale.setGameSize(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT);
 
     musicEndScreen = game.add.audio('musicEndScreen');
     musicEndScreen.loop = true;
@@ -33,7 +35,7 @@ function createEnd() {
     SKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
 
     background = game.add.sprite(0, 0, 'background_end');
-    fondo.scale.setTo(0.1,0.5);
+    background.scale.setTo(1,1);
     
     let textI = 'Número de plataformas derribadas: \n';
     textI += 'Has ganado o perdido: ';
