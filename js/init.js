@@ -5,15 +5,15 @@ let selected;
 let musicOn = false;
 let pointer;
 
-let initState = {
-
+let initState = 
+{
     preload: preloadInit,
     create: createInit,
     update: updateInit
 };
 
-
-function preloadInit() {
+function preloadInit() 
+{
     //cargamos las imagenes
     game.load.image('bg', 'assets/imgs/bg.jpg');
     game.load.image('buttonAbout', 'assets/imgs/button_about.png');
@@ -30,19 +30,23 @@ function preloadInit() {
     game.load.audio('OptionChosen', 'assets/snds/MenuOptionChosen.mp3');
 }
 
-function createInit() {
+function createInit() 
+{
+    game.scale.setGameSize(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT);
 
     let w = game.world.width;
     let h = game.world.height;
 
     game.world.setBounds(0, 0, w, h);  
-    fondo = game.add.tileSprite(0, 0, w, h, 'bg');
+    background = game.add.sprite(0, 0,'bg');
+    background.scale.setTo(1, 1.2);
 
     selected = null;
 
     musicMenu = game.add.audio('MusicMenu');
 
-    if (musicOn == false){
+    if (musicOn == false)
+    {
         musicMenu.loop = true;
         musicMenu.play();
         musicOn = true;
@@ -75,28 +79,33 @@ function createInit() {
     btnLevel2.scale.setTo(0.1);
 
 
-    function startAbout() {
+    function startAbout() 
+    {
         optionChosen.play();
         game.state.start('screenAbout');
     }
 
-    function startInstructions() {
+    function startInstructions() 
+    {
         optionChosen.play();
         game.state.start('screenInstructions');
     }
 
-    function startPlayer(){
+    function startPlayer()
+    {
         optionChosen.play();
         game.state.start('screenPlayer')
     }
 
-    function startLevel1(){
+    function startLevel1()
+    {
         musicMenu.destroy();
         optionChosen.play();
         game.state.start('level1');
     }
 
-    function startLevel2(){
+    function startLevel2()
+    {
         musicMenu.destroy();
         optionChosen.play();
         game.state.start('level2');
@@ -105,27 +114,33 @@ function createInit() {
     createAnimation();
 }
 
-function updateInit(){
+function updateInit()
+{
     onHoverButton();
     game.physics.arcade.collide(character, platform);
 }
 
-function onHoverButton(){
+function onHoverButton()
+{
    
-    if (btnAbout.input.pointerOver()){
+    if (btnAbout.input.pointerOver())
+    {
         btnAbout.scale.setTo(0.25, 0.25);
         optionOnHover.play();
     }
-    else{
+    else
+    {
         btnAbout.scale.setTo(0.15, 0.15);
     }
     
 
-    if (btnInstructions.input.pointerOver()){
+    if (btnInstructions.input.pointerOver())
+    {
         btnInstructions.scale.setTo(0.9, 0.9);
         optionOnHover.play();
     }
-    else{
+    else
+    {
         btnInstructions.scale.setTo(0.6);
     }
     
@@ -139,24 +154,26 @@ function onHoverButton(){
     }
 
 
-    if (btnLevel1.input.pointerOver()){
+    if (btnLevel1.input.pointerOver())
+    {
         btnLevel1.scale.setTo(0.8, 0.8);
         optionOnHover.play();
     }
-    else{
+    else
+    {
         btnLevel1.scale.setTo(0.7);
     }
 
-    if (btnLevel2.input.pointerOver()){
+    if (btnLevel2.input.pointerOver())
+    {
         btnLevel2.scale.setTo(0.12, 0.12);
         optionOnHover.play();
     }
-    else{
+    else
+    {
         btnLevel2.scale.setTo(0.1);
     }
-
 }
-
 
 function createAnimation(){
     platform = game.add.sprite(50, 400, 'platform');

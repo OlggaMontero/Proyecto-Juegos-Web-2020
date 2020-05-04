@@ -5,7 +5,8 @@ let level2State = {
     update: updateLevel2,
 };
 
-function preloadLevel2() {
+function preloadLevel2() 
+{
     game.load.image('background', 'assets/imgs/background_level1.png');
     game.load.image('ground', 'assets/imgs/ground.png');
     game.load.image('platform', 'assets/imgs/platform_normal.png');
@@ -22,8 +23,8 @@ let CANVAS_HEIGHT_L2 = 800;
 let CANVAS_WIDTH_L2  = 400;
 let backgroundL2;
 
-function createLevel2() {
-
+function createLevel2() 
+{
     game.scale.setGameSize(STAGE_WIDTH_L2, CANVAS_HEIGHT_L2);
     
     level = 2;

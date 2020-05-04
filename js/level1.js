@@ -32,11 +32,11 @@ function preloadLevel1() {
     game.load.audio('musicFirstLevel', 'assets/snds/musicFirstLevel.wav');
     game.load.audio('rebound', 'assets/snds/Rebound.wav');
 
-    game.load.text('level', 'levels/levelOneJSON.json', true);
+    //game.load.text('level', 'levels/levelOneJSON.json', true);
 }
 
-function createLevel1() {
-
+function createLevel1() 
+{
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
     
     level = 1;
@@ -66,7 +66,6 @@ function moveRight()
     for(i = 0; i < platforms.length; i++)
     {
         movePlatformRight(platforms[i]);
-        //platforms.children[i].x += 1;
     }
 }
 
@@ -74,8 +73,7 @@ function moveLeft()
 {
     for(i = 0; i < platforms.length; i++)
     {
-        movePlatformLeft(platforms[i]);
-        //platforms.children[i].x -= 1;   
+        movePlatformLeft(platforms[i]);  
     }
 }
 
@@ -87,15 +85,14 @@ function createStage()
     
     createCharacter();
     createHUD();
-    loadJSON('level');
-    //createEnemy();
-
-    /*
-    createPlatforms(400, [1,1,2,1,2,1,1,2,2,1]);
-    createPlatforms(600, [1,2,1,1,2,2,1,2,1,1]);
-    createPlatforms(800, [2,2,2,1,2,1,2,2,2,1]);
-    createPlatforms(1000, [1,2,1,1,2,2,1,2,1,1]);
-   */
+    //loadJSON('level');
+    //createObstacle();
+    
+    createPlatforms(400, [1,1,2,1,0,1,0,2,2,0]);
+    createPlatforms(600, [0,2,1,0,2,2,1,2,1,1]);
+    createPlatforms(800, [2,2,0,1,2,0,0,2,2,1]);
+    createPlatforms(1000, [1,2,1,0,2,2,1,0,0,1]);
+   
     //Aquí iría en teoría la variable del nombre que le pasemos:
     //const cuadroTexto = new type(input);
 }
@@ -103,13 +100,21 @@ function createStage()
 function createPlatforms(positionY, platformTypes)
 {
     let platformOffset = 0;
-
+    
     for(i = 0; i < platformTypes.length; i++)
     {
-        let platform = createPlatform(platformOffset, positionY, platformTypes[i]);
-        platformOffset += 40;
-        platforms.push(platform);
+        if (platformTypes[i] == 0)
+        {
+            platformOffset += 40
+        }
+        else
+        {
+            let platform = createPlatform(platformOffset, positionY, platformTypes[i]);
+            platformOffset += 40
+            platforms.push(platform);
+        }
     }
+    
 }
 
 function createHUD()
@@ -142,8 +147,8 @@ function createInfoLevel()
     nameText.fixedToCamera = true;
 }
 
-function loadJSON(level){
-    
+/*function loadJSON(level)
+{
     let levelJSON = JSON.parse(game.cache.getText('level'));
 
     let i;
@@ -158,21 +163,19 @@ function loadJSON(level){
     }
 }
 
-function createPlatformJSON(x, y, platformTypes){
-
+function createPlatformJSON(x, y, platformTypes)
+{
     x = 0
-    let i;
-
     for(i = 0; i < 10; i++)
     {
         let platform = createPlatform(x, y, platformTypes[i]);
         x += 40;
         platforms.push(platform);
     }
+}*/
 
-}
-
-function createEnemy() {
+function createObstacle() 
+{
     enemy = game.add.sprite(200, 500, 'enemy');
     enemy.scale.setTo(0.1, 0.1);
     enemy.enableBody = true;
@@ -180,13 +183,15 @@ function createEnemy() {
     enemy.body.collideWorldBounds = true;
 }
 
-function collisionEnemy(){
+function collisionEnemy()
+{
     //sonido de daño del jugador
     //enemy.kill(); 
     //characterHurt(0.5);
 }
 
-function collisionPlatform(){
+function collisionPlatform()
+{
     //rebound = game.add.audio('rebound');
     //rebound.play();
 }

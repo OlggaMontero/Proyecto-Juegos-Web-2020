@@ -15,8 +15,9 @@ let counter;
 let clockText = 0;
 
 
-function preloadEnd() {
-    game.load.image('bg', 'assets/imgs/bg.jpg');
+function preloadEnd() 
+{
+    game.load.image('background_end', 'assets/imgs/background_end.png');
 
     game.load.audio('musicEndScreen', 'assets/snds/musicEndScreen.wav');
     game.load.audio('musicWin', 'assets/snds/LevelWin.wav');
@@ -31,7 +32,8 @@ function createEnd() {
 
     SKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
 
-    fondo = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'bg');
+    background = game.add.sprite(0, 0, 'background_end');
+    fondo.scale.setTo(0.1,0.5);
     
     let textI = 'Número de plataformas derribadas: \n';
     textI += 'Has ganado o perdido: ';
@@ -54,14 +56,16 @@ function createEnd() {
 
 }
 
-function updateEnd(){
+function updateEnd()
+{
     if (SKey.isDown) {
         musicEndScreen.stop();
         game.state.start('level1');
     }
 }
 
-function createTimer(){
+function createTimer()
+{
     clockText = game.add.text(TEXT_OFFSET_HOR_E+150, TEXT_OFFSET_VER_E+250, 'Counter: ' + counter + '  ');
     clockText.anchor.setTo(0.5, 0.5);
     clockText.font = '20px Revalia';
@@ -76,10 +80,12 @@ function createTimer(){
     clockText.fixedToCamera = true;
 }
 
-function updateCounter() {
+function updateCounter() 
+{
     counter--;
     clockText.setText('Counter: ' + counter + '  ');
-    if (counter == 0){
+    if (counter == 0)
+    {
         musicEndScreen.destroy();
         game.state.start('init');
     }
