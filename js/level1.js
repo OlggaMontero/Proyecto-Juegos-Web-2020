@@ -31,7 +31,7 @@ function preloadLevel1()
     game.load.image('healthBar', 'assets/imgs/healthBar.jpg');
     game.load.image('enemy', 'assets/imgs/enemy.png');
 
-    game.load.audio('musicFirstLevel', 'assets/snds/musicFirstLevel.wav');
+    game.load.audio('musicFirstLevel', 'assets/snds/MusicFirstLevel.wav');
     game.load.audio('rebound', 'assets/snds/Rebound.wav');
 
     game.load.text('level', 'levels/levelOneJSON.json', true);

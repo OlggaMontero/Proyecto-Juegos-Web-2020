@@ -17,7 +17,7 @@ function preloadInit()
     //cargamos las imagenes
     game.load.image('bg', 'assets/imgs/bg.jpg');
     game.load.image('buttonAbout', 'assets/imgs/button_about.png');
-    game.load.image('buttonPlayer', 'assets/imgs/button_PlayerSelection.png');
+    game.load.image('buttonPlayer', 'assets/imgs/button_playerSelection.png');
     game.load.image('buttonInstructions', 'assets/imgs/button_instructions.png');
     game.load.image('buttonLevel1', 'assets/imgs/level1.png');
     game.load.image('buttonLevel2', 'assets/imgs/level2.png');
@@ -39,7 +39,7 @@ function createInit()
 
     game.world.setBounds(0, 0, w, h);  
     background = game.add.sprite(0, 0,'bg');
-    background.scale.setTo(1, 1.2);
+    background.scale.setTo(0.8, 1.2);
 
     selected = null;
 
