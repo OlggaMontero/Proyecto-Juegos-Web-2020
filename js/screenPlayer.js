@@ -11,7 +11,6 @@ let playerState = {
 function preloadPlayer() {
     game.load.image('bg', 'assets/imgs/playerScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
-    game.load.image('button', 'assets/imgs/button.png');
 
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
 
@@ -40,31 +39,39 @@ function createPlayer() {
     function back(){
         game.state.start('init');
     }
-    
-    buttonSelectionPlayer = game.add.button(400, 500, 'button', ChangeName);
-    buttonSelectionPlayer.scale.setTo(0.11);
+/*
+    function nombreJugador(){
+        document.getElementById("player").style.display = "block"; //Esto sacaría a la luz los botones
 
-    function ChangeName(){
-        //Pasarle un parámetro al cartel que habrá en level1
-        game.state.start('init'); //De momento lo devuelve al inicio al clickar
-    }
 
-    //squareTextoPlayer = game.add.input(10, 10, 'input', CuadroTexto);
-    //squareTextoPlayer.scale.setTo(0.11);
-//Aquí es donde en teoría se escribe el cuadro de texto, pero no sé cómo darle formato
-//Input es la variable que metería en la siguiente pantalla para seguir con su nombre
-    function CuadroTexto(){
-        var input = document.createElement("input");
-        input.type = "text";
-        input.className = "css-class-name";
-        CredentialsContainer.appendChild(input);
-    }
-/* He probado estas dos opciones y no me funcionan, supongo que les faltará algo...
-    var input = document.createElement("input");
-    input.setAttribute('type', 'text');
-    var parent = document.getElementById("parentDiv");
-    parent.appendChild(input);
-*/
+        document.getElementById("player");
+        Meter aquí toda la movida del formato del cartel
+        https://www.geeksforgeeks.org/hide-or-show-elements-in-html-using-display-property/
+        Esto me lo dejo aquí para luego
+
+
+Una forma que creo que funcionaría mejor que la de arriba
+https://www.javascripttutorial.net/javascript-dom/javascript-radio-button/
+<body>
+	<form>
+		<input type = ''radio'' name= ''nombre'' value ''yes''> Yes
+	</form>
+	<script>
+	const aceptar_nombre = document.querySelector('#aceptar_nombre' );
+	//handle click button
+	aceptar_nombre.onclick = nombreJugador(){
+		const rbs = document.querySelectorAll('input[name = "nombre"]' );
+		let selectedValue;
+		for (const rb of rbs){
+			if (rb.checked){
+				selectedValue = rb.value;
+				break;
+					}
+		}
+		alert(selectedValue);
+};
+    }*/
+//Haría falta varias funciones de callback para detectar pulsación en el boton de radio para cambiar el nombre de jugador Practica 1 slider para controlar la opacidad del canvas misma funcion de callback
 }
 
 function updatePlayer(){
