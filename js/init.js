@@ -32,6 +32,8 @@ function preloadInit()
 
 function createInit() 
 {
+    document.getElementById("player").style.display = "none"; //Esto va en otra parte. Esto oculta la elección de nombre
+
     game.scale.setGameSize(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT);
 
     let w = game.world.width;
@@ -176,10 +178,11 @@ function onHoverButton()
 }
 
 function createAnimation(){
-    platform = game.add.sprite(50, 400, 'platform');
-    platform.scale.setTo(0.5, 0.3);
+    platform = game.add.sprite(180, 550, 'platform');
+    platform.scale.setTo(0.1, 0.2);
     game.physics.arcade.enable(platform);
     platform.body.collideWorldBounds = true;
     platform.body.immovable = true;
     createCharacter();
+    //Detectar si la velocidad disminuye y arrancar de nuevo 
 }
