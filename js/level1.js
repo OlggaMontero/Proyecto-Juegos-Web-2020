@@ -15,8 +15,7 @@ let level;
 let life;
 let lifeText;
 let nameText;
-let platforms = [];
-let obstacles = [];
+let assets = [];
 let remainingPlatforms = 20;
 let condicion;
 
@@ -59,31 +58,22 @@ function createLevel1()
 
 function updateLevel1()
 {
-    game.physics.arcade.collide(character, platforms, collisionPlatform());
-    //game.physics.arcade.collide(enemy, character, collisionEnemy());
+    game.physics.arcade.collide(character, assets);
 }
 
 function moveRight()
 {
-    for(i = 0; i < platforms.length; i++)
+    for(i = 0; i < assets.length; i++)
     {
-        movePlatformRight(platforms[i]);
-    }
-    for(i = 0; i < obstacles.length; i++)
-    {
-        moveObstaclesLeft(obstacles[i]);  
+        moveAssetRight(assets[i]);
     }
 }
 
 function moveLeft()
 {
-    for(i = 0; i < platforms.length; i++)
+    for(i = 0; i < assets.length; i++)
     {
-        movePlatformLeft(platforms[i]);  
-    }
-    for(i = 0; i < obstacles.length; i++)
-    {
-        moveObstaclesRight(obstacles[i]);  
+        moveAssetLeft(assets[i]);  
     }
 }
 
@@ -96,37 +86,11 @@ function createStage()
     createCharacter();
     createHUD();
     loadJSON('level');
-    createObstacle(350);
-    createObstacle(550);
-    createObstacle(750);
-    
-    //createPlatforms(400, [1,1,2,1,0,1,0,2,2,0]);
-    //createPlatforms(600, [0,2,1,0,2,2,1,2,1,1]);
-    //createPlatforms(800, [2,2,0,1,2,0,0,2,2,1]);
-    //createPlatforms(1000, [1,2,1,0,2,2,1,0,0,1]);
    
     //Aquí iría en teoría la variable del nombre que le pasemos:
     //const cuadroTexto = new type(input);
 }
 
-function createPlatforms(positionY, platformTypes)
-{
-    let platformOffset = 0;
-    
-    for(i = 0; i < platformTypes.length; i++)
-    {
-        if (platformTypes[i] == 0)
-        {
-            platformOffset += 40;
-        }
-        else
-        {
-            let platform = createPlatform(platformOffset, positionY, platformTypes[i]);
-            platformOffset += 40;
-            platforms.push(platform);
-        }
-    }
-}
 
 function createHUD()
 {
@@ -162,41 +126,39 @@ function loadJSON(level)
 {
     let levelJSON = JSON.parse(game.cache.getText('level'));
 
-    let i;
     numberOfPlatforms = levelJSON.ObjectsInMap.platforms.length;
-
+    numberOfObstacles = levelJSON.ObjectsInMap.obstacles.length;
+    
     //metemos las plataformas
+    let i;
     for (i = 0; i < numberOfPlatforms; i++)
     {
         let x = levelJSON.ObjectsInMap.platforms[i].position.x;
         let y = levelJSON.ObjectsInMap.platforms[i].position.y;
         let type = levelJSON.ObjectsInMap.platforms[i].type;
-        createPlatformJSON(x, y, type);
+        createAssetsJSON(x, y, type);
+    }
+    for (i = 0; i < numberOfObstacles; i++)
+    {
+        let x = levelJSON.ObjectsInMap.obstacles[i].position.x;
+        let y = levelJSON.ObjectsInMap.obstacles[i].position.y;
+        let type = levelJSON.ObjectsInMap.obstacles[i].type;
+        createAssetsJSON(x, y, type);
     }
 }
 
-function createPlatformJSON(x, y, platformTypes)
+function createAssetsJSON(x, y, platformTypes)
 {
     x = 0
     for(i = 0; i < 10; i++)
     {
-        let platform = createPlatform(x, y, platformTypes[i]);
+        
+        if (platformTypes[i] != 0)
+        {
+            let asset = createAsset(x, y, platformTypes[i]);
+            assets.push(asset);
+        }
         x += 40;
-        platforms.push(platform);
     }
 }
 
-
-
-function collisionEnemy()
-{
-    //sonido de daño del jugador
-    //enemy.kill(); 
-    //characterHurt(0.5);
-}
-
-function collisionPlatform()
-{
-    //rebound = game.add.audio('rebound');
-    //rebound.play();
-}
