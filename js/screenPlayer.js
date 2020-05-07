@@ -17,6 +17,7 @@ function preloadPlayer() {
 }
 
 function createPlayer() {
+    nombreJugador();
 
     optionOnHover = game.add.audio('OptionOnHover');
 
@@ -39,41 +40,16 @@ function createPlayer() {
     function back(){
         game.state.start('init');
     }
-/*
+
     function nombreJugador(){
         document.getElementById("player").style.display = "block"; //Esto sacaría a la luz los botones
+        var nombre = document.getElementById("player").value;
+        return nombre;
+        //https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_text_value2
+    }
+//para detectar pulsación en el boton de radio para cambiar el nombre de jugador Practica 1 slider para controlar la opacidad del canvas misma funcion de callback
 
-
-        document.getElementById("player");
-        Meter aquí toda la movida del formato del cartel
-        https://www.geeksforgeeks.org/hide-or-show-elements-in-html-using-display-property/
-        Esto me lo dejo aquí para luego
-
-
-Una forma que creo que funcionaría mejor que la de arriba
-https://www.javascripttutorial.net/javascript-dom/javascript-radio-button/
-<body>
-	<form>
-		<input type = ''radio'' name= ''nombre'' value ''yes''> Yes
-	</form>
-	<script>
-	const aceptar_nombre = document.querySelector('#aceptar_nombre' );
-	//handle click button
-	aceptar_nombre.onclick = nombreJugador(){
-		const rbs = document.querySelectorAll('input[name = "nombre"]' );
-		let selectedValue;
-		for (const rb of rbs){
-			if (rb.checked){
-				selectedValue = rb.value;
-				break;
-					}
-		}
-		alert(selectedValue);
-};
-    }*/
-//Haría falta varias funciones de callback para detectar pulsación en el boton de radio para cambiar el nombre de jugador Practica 1 slider para controlar la opacidad del canvas misma funcion de callback
 }
-
 function updatePlayer(){
 
     if (buttonBack.input.pointerOver()){

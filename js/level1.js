@@ -116,7 +116,7 @@ function createInfoLevel()
     remainingPlatformsText.fixedToCamera = true;
 
     //nombre elegido (cambiar cuando lo tengamos)
-    nameText = game.add.text(x-230, y-660, 'Fulanito');
+    nameText = game.add.text(x-230, y-660, nombre);
     nameText.anchor.setTo(0.5, 0.5);
     nameText.font = '20px Revalia';
     nameText.fontSize = 20;
