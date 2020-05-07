@@ -27,6 +27,14 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsObstacle, this);
         
+    }
+    else if (type == 4){
+        asset = game.add.sprite(x, y, 'powerup');
+        game.physics.arcade.enable(asset);
+        asset.body.immovable = true;
+        asset.scale.setTo(0.15);
+        asset.body.onCollide = new Phaser.Signal();
+        asset.body.onCollide.add(playerHitsObstacle, this);
     }            
     asset.width = 40;
     asset.height = 40;
@@ -71,6 +79,7 @@ function playerHitsObstacle(obstacle)
 {
     if (character.y < obstacle.y)
     {
+        //meter sonido de personaje herido 
         characterHurt(8);
         obstacle.destroy();
     }
