@@ -85,9 +85,9 @@ function createStage()
     ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
     
     createCharacter();
-    createHUD();
+    
     loadJSON('level');
-   
+    createHUD();
     //Aquí iría en teoría la variable del nombre que le pasemos:
     //const cuadroTexto = new type(input);
 }

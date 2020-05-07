@@ -28,12 +28,13 @@ function preloadInit()
     game.load.audio('MusicMenu', 'assets/snds/MusicMenu.wav');
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
     game.load.audio('OptionChosen', 'assets/snds/MenuOptionChosen.mp3');
+
+    document.getElementById("player").style.display = "none"; //Esto va en otra parte. Esto oculta la elección de nombre
+
 }
 
 function createInit() 
 {
-    document.getElementById("player").style.display = "none"; //Esto va en otra parte. Esto oculta la elección de nombre
-
     game.scale.setGameSize(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT);
 
     let w = game.world.width;
