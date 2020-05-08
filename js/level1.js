@@ -17,7 +17,7 @@ let lifeText;
 let nameText;
 let assets = [];
 let remainingPlatforms = 20;
-let condicion;
+let condition;
 
 
 function preloadLevel1() 
@@ -60,6 +60,7 @@ function createLevel1()
 function updateLevel1()
 {
     game.physics.arcade.collide(character, assets);
+    game.physics.arcade.collide(character, ground, nextLevel);
 }
 
 function moveRight()
@@ -83,6 +84,7 @@ function createStage()
     game.world.setBounds(1, 0, STAGE_WIDTH-2, STAGE_HEIGHT, true, true, true, true);   
     background = game.add.tileSprite(0, 0, STAGE_WIDTH, STAGE_HEIGHT, 'background');
     ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
+    game.physics.arcade.enable(ground);
     
     createCharacter();
     
@@ -163,3 +165,6 @@ function createAssetsJSON(x, y, platformTypes)
     }
 }
 
+function nextLevel(){
+    game.state.start('level2');
+}

@@ -39,7 +39,7 @@ function characterHurt(damage)
     if (life <= 0)
     {
         musicFirstLevel.destroy();
-        condicion = 'derrota';
+        condition = 'derrota';
         game.state.start('screenEnd');
     }
 }
