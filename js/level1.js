@@ -19,8 +19,8 @@ let assets = [];
 let remainingPlatforms;
 let condition;
 let counterPowerup;
+let mouse = true;
 //let powerupHUD;
-
 
 
 function preloadLevel1() 
@@ -68,6 +68,7 @@ function updateLevel1()
 {
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.collide(character, ground, nextLevel);
+    //manageAppleMovement();
 }
 
 function moveRight()

@@ -110,3 +110,12 @@ function updateCounterPowerUp(){
         powerupHUD.destroy();
     }
 }
+
+function manageAppleMovement(){
+    if (game.input.mousePointer.x <= STAGE_WIDTH/2){
+        moveLeft();
+    }
+    else if (game.input.mousePointer.x > STAGE_WIDTH/2){
+        moveRight();
+    }
+}
