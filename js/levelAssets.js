@@ -29,12 +29,12 @@ function createAsset(x, y, type)
         
     }
     else if (type == 4){
-        asset = game.add.sprite(x, y, 'powerup');
+        asset = game.add.sprite(x, y, 'powerupSpeed');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
-        asset.body.onCollide.add(playerHitsObstacle, this);
+        asset.body.onCollide.add(playerHitsPowerup, this);
     }            
     asset.width = 40;
     asset.height = 40;
@@ -89,4 +89,24 @@ function playerHitsPlatform(platform)
 {
     rebound = game.add.audio('rebound');
     rebound.play();
+}
+
+function playerHitsPowerup(powerup)
+{
+    //incrementar velocidad
+    pickPowerup = game.add.audio('pickPowerup');
+    pickPowerup.play();
+    powerup.destroy();
+    powerupHUD = game.add.sprite(310, 760, 'powerupSpeed');
+    powerupHUD.scale.setTo(0.5);
+    powerupHUD.fixedToCamera = true;
+    //game.time.events.loop(Phaser.Timer.SECOND, updateCounterPowerUp, this);
+}
+
+function updateCounterPowerUp(){
+    counterPowerup--;
+    if (counterPowerup == 0){
+        //volvemos a poner la velocidad a la normal
+        powerupHUD.destroy();
+    }
 }

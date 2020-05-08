@@ -16,8 +16,11 @@ let life;
 let lifeText;
 let nameText;
 let assets = [];
-let remainingPlatforms = 20;
+let remainingPlatforms;
 let condition;
+let counterPowerup;
+//let powerupHUD;
+
 
 
 function preloadLevel1() 
@@ -29,12 +32,14 @@ function preloadLevel1()
     game.load.image('character', 'assets/imgs/character.png');
     game.load.image('healthBar', 'assets/imgs/healthBar.jpg');
     game.load.image('enemy', 'assets/imgs/enemy.png');
-    game.load.image('powerup', 'assets/imgs/powerup.png');
+    game.load.image('powerupSpeed', 'assets/imgs/powerup.png');
 
     game.load.audio('musicFirstLevel', 'assets/snds/MusicFirstLevel.wav');
     game.load.audio('rebound', 'assets/snds/Rebound.wav');
+    game.load.audio('pickPowerup', 'assets/snds/PowerUp.wav');
 
-    game.load.text('level', 'levels/levelOneJSON.json', true);
+    game.load.text('level1', 'levels/levelOneJSON.json', true);
+    game.load.text('level2', 'levels/levelTwoJSON.json', true);
 }
 
 function createLevel1() 
@@ -43,6 +48,8 @@ function createLevel1()
     
     level = 1;
     life = 100;
+    counterPowerup = 5;
+    remainingPlatforms = 20;
 
     musicFirstLevel = game.add.audio('musicFirstLevel');
     musicFirstLevel.loop = true;
@@ -82,13 +89,13 @@ function moveLeft()
 function createStage()
 {
     game.world.setBounds(1, 0, STAGE_WIDTH-2, STAGE_HEIGHT, true, true, true, true);   
-    background = game.add.tileSprite(0, 0, STAGE_WIDTH, STAGE_HEIGHT, 'background');
+    background = game.add.tileSprite(0, 0, STAGE_WIDTH+20, STAGE_HEIGHT+20, 'background');
     ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
     game.physics.arcade.enable(ground);
     
     createCharacter();
     
-    loadJSON('level');
+    loadJSON('level1');
     createHUD();
     //Aquí iría en teoría la variable del nombre que le pasemos:
     //const cuadroTexto = new type(input);
@@ -97,13 +104,12 @@ function createStage()
 
 function createHUD()
 {
-    createLife(); //hud de la barra de vida
-    createInfoLevel(); //hud de info del nivel
+    createLife();
+    createInfoLevel();
 }
 
 function createInfoLevel()
 {
-    //el nivel en el que estamos
     levelText = game.add.text(x+40, y-20, 'Level: ' + level + '  ');
     levelText.anchor.setTo(0.5, 0.5);
     levelText.font = '20px Revalia';
@@ -127,10 +133,11 @@ function createInfoLevel()
 
 function loadJSON(level)
 {
-    let levelJSON = JSON.parse(game.cache.getText('level'));
+    let levelJSON = JSON.parse(game.cache.getText('level1'));
 
     numberOfPlatforms = levelJSON.ObjectsInMap.platforms.length;
     numberOfObstacles = levelJSON.ObjectsInMap.obstacles.length;
+    numberOfPowerups = levelJSON.ObjectsInMap.powerup.length;
     
     //metemos las plataformas
     let i;
@@ -146,6 +153,13 @@ function loadJSON(level)
         let x = levelJSON.ObjectsInMap.obstacles[i].position.x;
         let y = levelJSON.ObjectsInMap.obstacles[i].position.y;
         let type = levelJSON.ObjectsInMap.obstacles[i].type;
+        createAssetsJSON(x, y, type);
+    }
+    for (i = 0; i < numberOfPowerups; i++)
+    {
+        let x = levelJSON.ObjectsInMap.powerup[i].position.x;
+        let y = levelJSON.ObjectsInMap.powerup[i].position.y;
+        let type = levelJSON.ObjectsInMap.powerup[i].type;
         createAssetsJSON(x, y, type);
     }
 }

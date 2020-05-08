@@ -43,42 +43,9 @@ function updateLevel2()
 
 }
 
-
 function createStageL2()
 {
     game.world.setBounds(STAGE_WIDTH_L2-2, STAGE_HEIGHT_L2, true, true, true, true);  
-    backgroundL2 = game.add.sprite(STAGE_WIDTH_L2, STAGE_HEIGHT_L2, 'background');
+    backgroundL2 = game.add.sprite(STAGE_WIDTH_L2-20, STAGE_HEIGHT_L2, 'background');
     createHUD();
 }
-
-/*
-function createHUD()
-{
-    createLife(); 
-    createInfoLevel();
-}
-
-function createInfoLevel()
-{
-    levelText = game.add.text(x+40, y-20, 'Level: ' + level + '  ');
-    levelText.anchor.setTo(0.5, 0.5);
-    levelText.font = '20px Revalia';
-    levelText.fontSize = 20;
-    levelText.fixedToCamera = true;
-    
-    //plataformas que quedan para llegar al fin del nivel (cambiar cuando lo tengamos)
-    remainingPlatformsText = game.add.text(x-30, y+10, 'Remaining Platforms: ' + remainingPlatforms);
-    remainingPlatformsText.anchor.setTo(0.5, 0.5);
-    remainingPlatformsText.font = '20px Revalia';
-    remainingPlatformsText.fontSize = 20;
-    remainingPlatformsText.fixedToCamera = true;
-
-    //nombre elegido (cambiar cuando lo tengamos)
-    nameText = game.add.text(x-230, y-660, 'Fulanito');
-    nameText.anchor.setTo(0.5, 0.5);
-    nameText.font = '20px Revalia';
-    nameText.fontSize = 20;
-    nameText.fixedToCamera = true;
-}
-
-*/
