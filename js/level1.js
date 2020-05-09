@@ -20,7 +20,7 @@ let remainingPlatforms;
 let condition;
 let counterPowerup;
 let mouse = true;
-//let powerupHUD;
+let hasPowerup = false;
 
 
 function preloadLevel1() 
@@ -33,10 +33,14 @@ function preloadLevel1()
     game.load.image('healthBar', 'assets/imgs/healthBar.jpg');
     game.load.image('enemy', 'assets/imgs/enemy.png');
     game.load.image('powerupSpeed', 'assets/imgs/powerup.png');
+    game.load.image('powerupHUD', 'assets/imgs/powerupHUD.png');
 
     game.load.audio('musicFirstLevel', 'assets/snds/MusicFirstLevel.wav');
     game.load.audio('rebound', 'assets/snds/Rebound.wav');
     game.load.audio('pickPowerup', 'assets/snds/PowerUp.wav');
+    game.load.audio('hurtSound', 'assets/snds/Hurt.wav');
+    game.load.audio('timerSound', 'assets/snds/Timer.wav');
+    game.load.audio('timerEnds', 'assets/snds/Ding.wav');
 
     game.load.text('level1', 'levels/levelOneJSON.json', true);
     game.load.text('level2', 'levels/levelTwoJSON.json', true);
@@ -45,10 +49,10 @@ function preloadLevel1()
 function createLevel1() 
 {
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
-    
+    test = 0;
     level = 1;
     life = 100;
-    counterPowerup = 5;
+    counterPowerup = 7;
     remainingPlatforms = 20;
 
     musicFirstLevel = game.add.audio('musicFirstLevel');
@@ -71,7 +75,7 @@ function updateLevel1()
     //manageAppleMovement();
 }
 
-function moveRight()
+function moveRight(test)
 {
     for(i = 0; i < assets.length; i++)
     {
@@ -181,5 +185,6 @@ function createAssetsJSON(x, y, platformTypes)
 }
 
 function nextLevel(){
+    musicFirstLevel.destroy();
     game.state.start('level2');
 }

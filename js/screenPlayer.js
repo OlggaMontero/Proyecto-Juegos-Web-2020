@@ -38,6 +38,7 @@ function createPlayer() {
     buttonBack.scale.setTo(0.7);
 
     function back(){
+        musicMenu.destroy();
         game.state.start('init');
     }
 

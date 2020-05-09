@@ -2,7 +2,6 @@ const SHIP_OFFSET_HOR = 550;
 const SHIP_OFFSET_VER = 150;
 
 let selected;
-let musicOn = false;
 let pointer;
 
 let initState = 
@@ -14,7 +13,7 @@ let initState =
 
 function preloadInit() 
 {
-    //cargamos las imagenes
+
     game.load.image('bg', 'assets/imgs/bg.jpg');
     game.load.image('buttonAbout', 'assets/imgs/button_about.png');
     game.load.image('buttonPlayer', 'assets/imgs/button_playerSelection.png');
@@ -25,7 +24,6 @@ function preloadInit()
     game.load.image('character', 'assets/imgs/character.png');
     game.load.image('platform', 'assets/imgs/platform.png');
 
-    //cargamos los audios
     game.load.audio('MusicMenu', 'assets/snds/MusicMenu.wav');
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
     game.load.audio('OptionChosen', 'assets/snds/MenuOptionChosen.mp3');
@@ -48,13 +46,7 @@ function createInit()
     selected = null;
 
     musicMenu = game.add.audio('MusicMenu');
-
-    if (musicOn == false)
-    {
-        musicMenu.loop = true;
-        musicMenu.play();
-        musicOn = true;
-    }
+    musicMenu.play();
     
     optionOnHover = game.add.audio('OptionOnHover');
     optionChosen = game.add.audio('OptionChosen');

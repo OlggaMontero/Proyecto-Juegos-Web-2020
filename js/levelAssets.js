@@ -70,6 +70,8 @@ function playerHitsTrap(platform)
 {
     if (character.y < platform.y)
     {
+        hurtSound = game.add.audio('hurtSound');
+        hurtSound.play();
         characterHurt(10);
         platform.destroy();
     }
@@ -79,7 +81,8 @@ function playerHitsObstacle(obstacle)
 {
     if (character.y < obstacle.y)
     {
-        //meter sonido de personaje herido 
+        hurtSound = game.add.audio('hurtSound');
+        hurtSound.play();
         characterHurt(8);
         obstacle.destroy();
     }
@@ -93,21 +96,31 @@ function playerHitsPlatform(platform)
 
 function playerHitsPowerup(powerup)
 {
-    //incrementar velocidad
-    pickPowerup = game.add.audio('pickPowerup');
-    pickPowerup.play();
-    powerup.destroy();
-    powerupHUD = game.add.sprite(310, 760, 'powerupSpeed');
-    powerupHUD.scale.setTo(0.5);
-    powerupHUD.fixedToCamera = true;
-    //game.time.events.loop(Phaser.Timer.SECOND, updateCounterPowerUp, this);
+    if (!hasPowerup){
+        //incrementar velocidad
+        counterPowerup = 7;
+        timerSound = game.add.audio('timerSound');
+        pickPowerup = game.add.audio('pickPowerup');
+        timerSound.play();
+        pickPowerup.play();
+        powerupHUD = game.add.sprite(330, 660, 'powerupHUD');
+        powerupHUD.scale.setTo(0.05);
+        powerupHUD.fixedToCamera = true;
+        game.time.events.loop(Phaser.Timer.SECOND, updateCounterPowerUp, this);
+        powerup.destroy();
+        hasPowerup = true;
+    }
 }
 
 function updateCounterPowerUp(){
     counterPowerup--;
     if (counterPowerup == 0){
-        //volvemos a poner la velocidad a la normal
+        //poner la velocidad normal
+        timerEnds = game.add.audio('timerEnds');
+        timerEnds.play();
+        timerSound.destroy();
         powerupHUD.destroy();
+        hasPowerup = false;
     }
 }
 
