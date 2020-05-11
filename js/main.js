@@ -34,5 +34,8 @@ function startGame() {
     game.state.add('level2', level2State);
     
     game.state.start('init');
+    
+    document.getElementById("game").onmouseover = function(){ setmouse(true); };
+    document.getElementById("game").onmouseout = function(){ setmouse(false); };
 }
 

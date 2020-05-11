@@ -4,11 +4,12 @@ let level1State = {
     create: createLevel1,
     update: updateLevel1,
 };
-//Establece todas las variables que se van a utilizar
+//Declara todas las variables que se van a utilizar
 let STAGE_HEIGHT = 3200;
 let STAGE_WIDTH = 400;
 let CANVAS_HEIGHT = 800;
 let CANVAS_WIDTH  = 400;
+let THRESHOLD = 25;
 let x = 300;
 let y = 750;
 let level;
@@ -19,8 +20,10 @@ let assets = [];
 let remainingPlatforms;
 let condition;
 let counterPowerup;
-let mouse = true;
+let mouse;
 let hasPowerup = false;
+let pointerX;
+let previousPointerX;
 
 //Precarga todas las imagenes, audios y textos a usar en el nivel 1
 function preloadLevel1() 
@@ -63,6 +66,9 @@ function createLevel1()
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
     leftKey.onDown.add(moveLeft, this);
     rightKey.onDown.add(moveRight, this);
+    //Guarda la posicion antigua del ratón y la nueva
+    pointerX = game.input.mousePointer.x;
+    previousPointerX = pointerX;
     //Carga el nivel
     createStage();
 
@@ -72,24 +78,51 @@ function updateLevel1()
 {
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.collide(character, ground, nextLevel);
-    //manageAppleMovement();
+    if (mouse){
+        manageAppleMovement();
+    }
 }
 //Funcion para moverse a la derecha
-function moveRight(test)
+function moveRight()
 {
-    for(i = 0; i < assets.length; i++)
-    {
-        moveAssetRight(assets[i]);
+    if (!mouse){
+        for(i = 0; i < assets.length; i++)
+        {
+            moveAssetRight(assets[i]);
+        }
     }
 }
 //Funcion para moverse a la izquierda
 function moveLeft()
 {
+    if (!mouse){
+        for(i = 0; i < assets.length; i++)
+        {
+            moveAssetLeft(assets[i]);  
+        }
+    }
+}
+
+function setmouse(estado) {
+    mouse = estado;
+ }
+
+ function moveRightMouse(){
+
+    for(i = 0; i < assets.length; i++)
+    {
+        moveAssetRight(assets[i]);
+    }
+ }
+
+ function moveLeftMouse(){
+
     for(i = 0; i < assets.length; i++)
     {
         moveAssetLeft(assets[i]);  
     }
-}
+ }
+
 //Funcion para cargar el nivel con todos los formatos puestos
 function createStage()
 {   //Da formato al fondo, el final del nivel, los límites de la pantalla 

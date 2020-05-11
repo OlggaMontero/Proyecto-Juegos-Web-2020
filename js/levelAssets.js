@@ -129,11 +129,15 @@ function updateCounterPowerUp(){
     }
 }
 //Funcion para el movimiento del personaje con el raton
-function manageAppleMovement(){
-    if (game.input.mousePointer.x <= STAGE_WIDTH/2){
-        moveLeft();
+function manageAppleMovement()
+{
+    pointerX = game.input.mousePointer.x;
+    if (pointerX >= previousPointerX + THRESHOLD){
+        moveRightMouse();
+        previousPointerX = pointerX;
     }
-    else if (game.input.mousePointer.x > STAGE_WIDTH/2){
-        moveRight();
+    else if (pointerX <= previousPointerX - THRESHOLD){
+        moveLeftMouse();
+        previousPointerX = pointerX;
     }
 }
