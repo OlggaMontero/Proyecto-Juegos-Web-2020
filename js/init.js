@@ -10,7 +10,7 @@ let initState =
     create: createInit,
     update: updateInit
 };
-//Carga de todas las imagenes y sonidos necesarios
+
 function preloadInit() 
 {
 
@@ -29,9 +29,9 @@ function preloadInit()
     game.load.audio('OptionChosen', 'assets/snds/MenuOptionChosen.mp3');
 
 }
-//Creación de la pantalla
+
 function createInit() 
-{   //Adapta el tamaño a la pantalla
+{   
     game.scale.setGameSize(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT);
 
     let w = game.world.width;
@@ -99,14 +99,16 @@ function createInit()
     {
         musicMenu.destroy();
         optionChosen.play();
-        game.state.start('level1');
+        levelToPlay = 0;
+        game.state.start('level');
     }
 
     function startLevel2()
     {
         musicMenu.destroy();
         optionChosen.play();
-        game.state.start('level2');
+        levelToPlay = 1;
+        game.state.start('level');
     }
     //Llama a una función para crear una animación del personaje rebotando
     createAnimation();

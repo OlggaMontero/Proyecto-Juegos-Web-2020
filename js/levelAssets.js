@@ -1,4 +1,3 @@
-//Funcion para crear varios tipos de assets (posiciones y tipo)
 function createAsset(x, y, type)
 {
     let asset;
@@ -48,7 +47,7 @@ function createAsset(x, y, type)
     //Devuelve el asset seleccionado
     return asset;
 }
-//Funciones para que dependiendo del asset se mueva
+
 function moveAssetLeft(asset)
 {
     asset.x -= asset.width;
@@ -70,7 +69,7 @@ function assetOut(asset)
         asset.x = 0;
     }
 }
-//Funcion para cuando el jugador choque contra una trampa
+
 function playerHitsTrap(platform)
 {
     if (character.y < platform.y)
@@ -81,7 +80,7 @@ function playerHitsTrap(platform)
         platform.destroy();
     }
 }
-//Funcion para cuando el jugador choque contra un obstáculo
+
 function playerHitsObstacle(obstacle)
 {
     if (character.y < obstacle.y)
@@ -92,16 +91,17 @@ function playerHitsObstacle(obstacle)
         obstacle.destroy();
     }
 }
-//Funcion para cuando el jugador choca contra plataforma (simplemente audio)
+
 function playerHitsPlatform(platform)
 {
     rebound = game.add.audio('rebound');
     rebound.play();
 }
-//Funcion para cuando el jugador coge un power uo
+
 function playerHitsPowerup(powerup)
 {
-    if (!hasPowerup){
+    if (!hasPowerup)
+    {
         //incrementar velocidad
         counterPowerup = 7;
         timerSound = game.add.audio('timerSound');
@@ -116,8 +116,9 @@ function playerHitsPowerup(powerup)
         hasPowerup = true;
     }
 }
-//Funcion que hace que tras un tiempo el power up finalice
-function updateCounterPowerUp(){
+
+function updateCounterPowerUp()
+{
     counterPowerup--;
     if (counterPowerup == 0){
         //poner la velocidad normal
@@ -128,15 +129,17 @@ function updateCounterPowerUp(){
         hasPowerup = false;
     }
 }
-//Funcion para el movimiento del personaje con el raton
+
 function manageAppleMovement()
 {
     pointerX = game.input.mousePointer.x;
-    if (pointerX >= previousPointerX + THRESHOLD){
+    if (pointerX >= previousPointerX + THRESHOLD)
+    {
         moveRightMouse();
         previousPointerX = pointerX;
     }
-    else if (pointerX <= previousPointerX - THRESHOLD){
+    else if (pointerX <= previousPointerX - THRESHOLD)
+    {
         moveLeftMouse();
         previousPointerX = pointerX;
     }

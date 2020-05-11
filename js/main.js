@@ -30,8 +30,7 @@ function startGame() {
     game.state.add('screenInstructions', instructionsState);
     game.state.add('screenPlayer', playerState);
     game.state.add('screenEnd', endState);
-    game.state.add('level1', level1State);
-    game.state.add('level2', level2State);
+    game.state.add('level', level1State);
     
     game.state.start('init');
     

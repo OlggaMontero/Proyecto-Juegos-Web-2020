@@ -4,12 +4,15 @@ let level1State = {
     create: createLevel1,
     update: updateLevel1,
 };
-//Declara todas las variables que se van a utilizar
-let STAGE_HEIGHT = 3200;
-let STAGE_WIDTH = 400;
-let CANVAS_HEIGHT = 800;
-let CANVAS_WIDTH  = 400;
-let THRESHOLD = 25;
+
+const STAGE_HEIGHT = 3200;
+const STAGE_WIDTH = 400;
+const CANVAS_HEIGHT = 800;
+const CANVAS_WIDTH  = 400;
+const THRESHOLD = 25;
+const LEVEL_ONE = 'level1';
+const LEVEL_TWO = 'level2';
+
 let x = 300;
 let y = 750;
 let level;
@@ -24,8 +27,9 @@ let mouse;
 let hasPowerup = false;
 let pointerX;
 let previousPointerX;
+let levelToPlay = 0;
+let levels = [LEVEL_ONE, LEVEL_TWO];
 
-//Precarga todas las imagenes, audios y textos a usar en el nivel 1
 function preloadLevel1() 
 {
     game.load.image('background', 'assets/imgs/background_level1.png');
@@ -45,10 +49,10 @@ function preloadLevel1()
     game.load.audio('timerSound', 'assets/snds/Timer.wav');
     game.load.audio('timerEnds', 'assets/snds/Ding.wav');
 
-    game.load.text('level1', 'levels/levelOneJSON.json', true);
-    game.load.text('level2', 'levels/levelTwoJSON.json', true);
+    game.load.text(LEVEL_ONE, 'levels/levelOneJSON.json', true);
+    game.load.text(LEVEL_TWO, 'levels/levelTwoJSON.json', true);
 }
-//Coloca todo lo necesario en la pantalla y hace uso de algunas variables
+
 function createLevel1() 
 {   
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -57,23 +61,23 @@ function createLevel1()
     life = 100;
     counterPowerup = 7;
     remainingPlatforms = 20;
-    //Reproduce la música
+
     musicFirstLevel = game.add.audio('musicFirstLevel');
     musicFirstLevel.loop = true;
     musicFirstLevel.play();
-    //Permite usar las flechas del teclado
+
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
     leftKey.onDown.add(moveLeft, this);
     rightKey.onDown.add(moveRight, this);
-    //Guarda la posicion antigua del ratón y la nueva
+
     pointerX = game.input.mousePointer.x;
     previousPointerX = pointerX;
-    //Carga el nivel
+
     createStage();
 
 }
-//Usa las físicas en el update
+
 function updateLevel1()
 {
     game.physics.arcade.collide(character, assets);
@@ -81,8 +85,15 @@ function updateLevel1()
     if (mouse){
         manageAppleMovement();
     }
+    /////////////
+    //Para probar a pasar a nivel 2 más rapido. Borrar cuando esté todo hecho @Olga
+    if (life <= 0) 
+    {
+        nextLevel();
+    }
+    ////////////
 }
-//Funcion para moverse a la derecha
+
 function moveRight()
 {
     if (!mouse){
@@ -92,7 +103,7 @@ function moveRight()
         }
     }
 }
-//Funcion para moverse a la izquierda
+
 function moveLeft()
 {
     if (!mouse){
@@ -123,19 +134,14 @@ function setmouse(estado) {
     }
  }
 
-//Funcion para cargar el nivel con todos los formatos puestos
 function createStage()
-{   //Da formato al fondo, el final del nivel, los límites de la pantalla 
+{
     game.world.setBounds(1, 0, STAGE_WIDTH-2, STAGE_HEIGHT, true, true, true, true);   
     background = game.add.tileSprite(0, 0, STAGE_WIDTH+20, STAGE_HEIGHT+20, 'background');
     ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
-    //Establece el final del nivel (ground) como objeto para colisionar con el personaje
     game.physics.arcade.enable(ground);
-    //Crea al personaje
     createCharacter();
-    //Carga el JSON del nivel 1
-    loadJSON('level1');
-    //Carga el HUD
+    loadJSON(levels[levelToPlay]);
     createHUD();
 
 
@@ -143,14 +149,12 @@ function createStage()
     //const cuadroTexto = new type(input);
 }
 
-//Para crear el HUD coge la función de la creación de vida y la función de crear la información del nivel
 function createHUD()
 {
     createLife();
     createInfoLevel();
 }
 
-//Esta función crea un texto con información sobre el nivel y el formato de la misma
 function createInfoLevel()
 {
     levelText = game.add.text(x+40, y-20, 'Level: ' + level + '  ');
@@ -174,58 +178,9 @@ function createInfoLevel()
     nameText.fixedToCamera = true;
 }
 
-//Funcion para cargar el JSON
-function loadJSON(level)
+function nextLevel()
 {
-    let levelJSON = JSON.parse(game.cache.getText('level1'));
-
-    numberOfPlatforms = levelJSON.ObjectsInMap.platforms.length;
-    numberOfObstacles = levelJSON.ObjectsInMap.obstacles.length;
-    numberOfPowerups = levelJSON.ObjectsInMap.powerup.length;
-    
-    //metemos las plataformas
-    let i;
-    for (i = 0; i < numberOfPlatforms; i++)
-    {
-        let x = levelJSON.ObjectsInMap.platforms[i].position.x;
-        let y = levelJSON.ObjectsInMap.platforms[i].position.y;
-        let type = levelJSON.ObjectsInMap.platforms[i].type;
-        createAssetsJSON(x, y, type);
-    }
-    for (i = 0; i < numberOfObstacles; i++)
-    {
-        let x = levelJSON.ObjectsInMap.obstacles[i].position.x;
-        let y = levelJSON.ObjectsInMap.obstacles[i].position.y;
-        let type = levelJSON.ObjectsInMap.obstacles[i].type;
-        createAssetsJSON(x, y, type);
-    }
-    for (i = 0; i < numberOfPowerups; i++)
-    {
-        let x = levelJSON.ObjectsInMap.powerup[i].position.x;
-        let y = levelJSON.ObjectsInMap.powerup[i].position.y;
-        let type = levelJSON.ObjectsInMap.powerup[i].type;
-        createAssetsJSON(x, y, type);
-    }
-}
-
-//Funcion para crear los assets del JSON
-function createAssetsJSON(x, y, platformTypes)
-{
-    x = 0
-    for(i = 0; i < 10; i++)
-    {
-        
-        if (platformTypes[i] != 0)
-        {
-            let asset = createAsset(x, y, platformTypes[i]);
-            assets.push(asset);
-        }
-        x += 40;
-    }
-}
-
-//Funcion para pasar al siguiente nivel
-function nextLevel(){
+    levelToPlay += 1;
     musicFirstLevel.destroy();
-    game.state.start('level2');
+    game.state.start('level');
 }
