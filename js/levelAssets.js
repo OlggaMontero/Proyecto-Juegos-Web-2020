@@ -1,6 +1,8 @@
+//Funcion para crear varios tipos de assets (posiciones y tipo)
 function createAsset(x, y, type)
 {
     let asset;
+    //Para las plataformas
     if (type == 1)
     {
         asset = game.add.sprite(x, y, 'platform');
@@ -9,6 +11,7 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
     }
+    //Para las plataformas trampa
     else if (type == 2)
     {
         asset = game.add.sprite(x, y, 'platform_trap');
@@ -19,6 +22,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsTrap, this);
 
     }
+    //Para los enemigos
     else if (type == 3)
     {
         asset = game.add.sprite(x, y, 'enemy');
@@ -28,6 +32,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsObstacle, this);
         
     }
+    //Para el power up de la velocidad
     else if (type == 4){
         asset = game.add.sprite(x, y, 'powerupSpeed');
         game.physics.arcade.enable(asset);
@@ -40,10 +45,10 @@ function createAsset(x, y, type)
     asset.height = 40;
     asset.checkWorldBounds = true;
     asset.events.onOutOfBounds.add(assetOut, this);
-    
+    //Devuelve el asset seleccionado
     return asset;
 }
-
+//Funciones para que dependiendo del asset se mueva
 function moveAssetLeft(asset)
 {
     asset.x -= asset.width;
@@ -65,7 +70,7 @@ function assetOut(asset)
         asset.x = 0;
     }
 }
-
+//Funcion para cuando el jugador choque contra una trampa
 function playerHitsTrap(platform)
 {
     if (character.y < platform.y)
@@ -76,7 +81,7 @@ function playerHitsTrap(platform)
         platform.destroy();
     }
 }
-
+//Funcion para cuando el jugador choque contra un obstáculo
 function playerHitsObstacle(obstacle)
 {
     if (character.y < obstacle.y)
@@ -87,13 +92,13 @@ function playerHitsObstacle(obstacle)
         obstacle.destroy();
     }
 }
-
+//Funcion para cuando el jugador choca contra plataforma (simplemente audio)
 function playerHitsPlatform(platform)
 {
     rebound = game.add.audio('rebound');
     rebound.play();
 }
-
+//Funcion para cuando el jugador coge un power uo
 function playerHitsPowerup(powerup)
 {
     if (!hasPowerup){
@@ -111,7 +116,7 @@ function playerHitsPowerup(powerup)
         hasPowerup = true;
     }
 }
-
+//Funcion que hace que tras un tiempo el power up finalice
 function updateCounterPowerUp(){
     counterPowerup--;
     if (counterPowerup == 0){
@@ -123,7 +128,7 @@ function updateCounterPowerUp(){
         hasPowerup = false;
     }
 }
-
+//Funcion para el movimiento del personaje con el raton
 function manageAppleMovement(){
     if (game.input.mousePointer.x <= STAGE_WIDTH/2){
         moveLeft();

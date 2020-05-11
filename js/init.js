@@ -10,7 +10,7 @@ let initState =
     create: createInit,
     update: updateInit
 };
-
+//Carga de todas las imagenes y sonidos necesarios
 function preloadInit() 
 {
 
@@ -28,23 +28,21 @@ function preloadInit()
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
     game.load.audio('OptionChosen', 'assets/snds/MenuOptionChosen.mp3');
 
-    document.getElementById("player").style.display = "none"; //Esto va en otra parte. Esto oculta la elección de nombre
-
 }
-
+//Creación de la pantalla
 function createInit() 
-{
+{   //Adapta el tamaño a la pantalla
     game.scale.setGameSize(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT);
 
     let w = game.world.width;
     let h = game.world.height;
 
     game.world.setBounds(0, 0, w, h);  
-    background = game.add.sprite(0, 0,'bg');
-    background.scale.setTo(0.8, 1.2);
+    background = game.add.sprite(0, 0,'bg'); //Coloca el fondo
+    background.scale.setTo(0.8, 1.2); //El tamaño del fondo
 
     selected = null;
-
+    //Reproduce la música del menu
     musicMenu = game.add.audio('MusicMenu');
     musicMenu.play();
     
@@ -53,7 +51,7 @@ function createInit()
 
     let posX = game.world.width - SHIP_OFFSET_HOR;
     let posY = game.world.height - SHIP_OFFSET_VER;
-
+    //Coloca todos los botones clickables en la pantalla
     btnAbout = game.add.button(posX-250, posY+50, 'buttonAbout', startAbout);
     btnAbout.anchor.setTo(0.5, 0.5)
     btnAbout.scale.setTo(0.15);
@@ -78,6 +76,7 @@ function createInit()
     btnLevel3.anchor.setTo(0.5, 0.5);
     btnLevel3.scale.setTo(0.1);
 
+    //Todas las funciones para cambiar de pantalla mediante los botones
     function startAbout() 
     {
         optionChosen.play();
@@ -109,7 +108,7 @@ function createInit()
         optionChosen.play();
         game.state.start('level2');
     }
-
+    //Llama a una función para crear una animación del personaje rebotando
     createAnimation();
 }
 
@@ -119,6 +118,7 @@ function updateInit()
     game.physics.arcade.collide(character, platform);
 }
 
+//Funcion que permite que los botones sean seleccionables
 function onHoverButton()
 {
    
@@ -183,7 +183,7 @@ function onHoverButton()
         btnLevel3.scale.setTo(0.1);
     }
 }
-
+//Animacion del personaje rebotando
 function createAnimation(){
     platform = game.add.sprite(180, 550, 'platform');
     platform.scale.setTo(0.1, 0.2);
@@ -191,5 +191,4 @@ function createAnimation(){
     platform.body.collideWorldBounds = true;
     platform.body.immovable = true;
     createCharacter();
-    //Detectar si la velocidad disminuye y arrancar de nuevo 
 }

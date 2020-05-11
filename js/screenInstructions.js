@@ -7,7 +7,7 @@ let instructionsState = {
     create: createInstructions,
     update: updateInstructions
 };
-
+//Precarga las imagenes y el audio
 function preloadInstructions() {
     game.load.image('bg', 'assets/imgs/instructionsScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
@@ -15,15 +15,15 @@ function preloadInstructions() {
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
 
 }
-
+//Coloca el fondo y el texto
 function createInstructions() {
-
+    //Carga el audio
     optionOnHover = game.add.audio('OptionOnHover');
-
+    //Formato tamaño e imagen fondo
     let w = game.world.width;
     let h = game.world.height;
     fondo = game.add.tileSprite(0, 0, w, h, 'bg');
-
+    
     let textI = 'Playing Apple Jump is very simple. You can rotate the platforms using\n';
     textI += 'left and right keys or you can also use the mouse. You dont move the ball\n';
     textI += 'in the screen, just the platforms.\n';
@@ -34,22 +34,22 @@ function createInstructions() {
     textI += 'facilities to finish the level.\n';
     textI += 'If you complete all levels, you will win.';
 
-
+    
     let styleI = {font: '25px Sniglet', fill: '#000000', fontWeight: 'bold', align: 'center'};
     let instructions = game.add.text(TEXT_OFFSET_HOR_I+25, TEXT_OFFSET_VER_I+300, textI, styleI);
-
+    //Formato y posicion del boton para volver al inicio
     let extPosX = 200;
     let extPosY = 350;
     buttonBack = game.add.button(extPosX-50, extPosY+350, 'buttonBack', back);
     buttonBack.anchor.setTo(0.5, 0.5);
     buttonBack.scale.setTo(0.7);
-
+    //Funcion para volver atrás con el boton
     function back(){
         musicMenu.destroy();
         game.state.start('init');
     }
 }
-
+//Controla si se tiene el raton sobre el boton o no
 function updateInstructions(){
 
     if (buttonBack.input.pointerOver()){

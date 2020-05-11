@@ -7,7 +7,7 @@ let playerState = {
     create: createPlayer,
     update: updatePlayer
 };
-
+//Precarga las imagenes y el audio
 function preloadPlayer() {
     game.load.image('bg', 'assets/imgs/playerScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
@@ -15,12 +15,12 @@ function preloadPlayer() {
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
 
 }
-
+//Carga la imagen y coloca todo en su sitio
 function createPlayer() {
     nombreJugador();
 
     optionOnHover = game.add.audio('OptionOnHover');
-
+    //Formato del fondo
     let w = game.world.width;
     let h = game.world.height;
     fondo = game.add.tileSprite(0, 0, w, h, 'bg');
@@ -30,18 +30,18 @@ function createPlayer() {
     textI += 'o escribir el suyo\n';
     let styleI = {font: '25px Sniglet', fill: '#000000', fontWeight: 'bold', align: 'center'};
     let instructions = game.add.text(TEXT_OFFSET_HOR_P+300, TEXT_OFFSET_VER_P+300, textI, styleI);
-
+    //Formato del boton para volver hacia atrás
     let extPosX = 200;
     let extPosY = 350;
     buttonBack = game.add.button(extPosX-50, extPosY+350, 'buttonBack', back);
     buttonBack.anchor.setTo(0.5, 0.5);
     buttonBack.scale.setTo(0.7);
-
+    //Funcion para volver hacia atrás
     function back(){
         musicMenu.destroy();
         game.state.start('init');
     }
-
+    //Funcion que muestra el selector de nombres del jugador y permite interactuar
     function nombreJugador(){
         document.getElementById("player").style.display = "block"; //Esto sacaría a la luz los botones
         var nombre = document.getElementById("player").value;
@@ -51,6 +51,7 @@ function createPlayer() {
 //para detectar pulsación en el boton de radio para cambiar el nombre de jugador Practica 1 slider para controlar la opacidad del canvas misma funcion de callback
 
 }
+//Controla si el raton está sobre el boton o no
 function updatePlayer(){
 
     if (buttonBack.input.pointerOver()){

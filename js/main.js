@@ -20,6 +20,7 @@ let wfConfig = {
 
 WebFont.load(wfConfig);
 
+//Inicia el juego
 function startGame() {
 
     game = new Phaser.Game(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT, Phaser.CANVAS, 'game');
