@@ -92,7 +92,7 @@ function playerHitsTrap(platform)
     {
         hurtSound = game.add.audio('hurtSound');
         hurtSound.play();
-        characterHurt(10);
+        characterHurt(100);
         platform.destroy();
     }
 }

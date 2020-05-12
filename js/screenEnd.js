@@ -8,7 +8,7 @@ let endState = {
 TEXT_OFFSET_HOR_E = 40;
 TEXT_OFFSET_VER_E = 40;
 
-let SKey;
+let keyS;
 let counter;
 let clockText = 0;
 
@@ -31,7 +31,8 @@ function createEnd()
     musicEndScreen = game.add.audio('musicEndScreen');
     musicEndScreen.loop = true;
     musicEndScreen.play();
-    SKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
+
+    keyS = game.input.keyboard.addKey(Phaser.Keyboard.S);
 
     let styleI = {font: '30px Sniglet', fill: '#000000', strokeThickness: '1'};
     
@@ -58,10 +59,10 @@ function createEnd()
 
 function updateEnd()
 {
-    if (SKey.isDown) 
+    if (keyS.isDown) 
     {
         musicEndScreen.stop();
-        game.state.start('level1');
+        startCurrentLevel();
     }
 }
 

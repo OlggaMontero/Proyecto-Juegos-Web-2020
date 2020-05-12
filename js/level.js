@@ -28,6 +28,7 @@ let mouse;
 let pointerX;
 let previousPointerX;
 
+
 let levelToPlay = 0;
 let levels = [LEVEL_ONE, LEVEL_TWO];
 
@@ -113,6 +114,7 @@ function createKeysInput()
 {
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+
     leftKey.onDown.add(function() { 
         if (!mouse) 
         {
@@ -125,6 +127,7 @@ function createKeysInput()
             moveRight()
         }
     }, this);
+
     pointerX = game.input.mousePointer.x;
     previousPointerX = pointerX;
 }
