@@ -8,7 +8,6 @@ let endState = {
 TEXT_OFFSET_HOR_E = 40;
 TEXT_OFFSET_VER_E = 40;
 
-
 let SKey;
 let counter;
 let clockText = 0;

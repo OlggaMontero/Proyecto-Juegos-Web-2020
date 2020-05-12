@@ -95,7 +95,8 @@ function updateLevel()
 {
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.collide(character, ground, nextLevel);
-    if (mouse){
+    if (mouse)
+    {
         manageAppleMovement();
     }
     /////////////
@@ -105,6 +106,20 @@ function updateLevel()
         nextLevel();
     }
     ////////////
+}
+
+function createStage()
+{
+    game.world.setBounds(1, 0, STAGE_WIDTH-2, STAGE_HEIGHT, true, true, true, true);   
+    background = game.add.tileSprite(0, 0, STAGE_WIDTH+20, STAGE_HEIGHT+20, 'background');
+    ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
+    game.physics.arcade.enable(ground);
+    createCharacter();
+    loadJSON(levels[levelToPlay]);
+    createHUD();
+
+    //Aquí iría en teoría la variable del nombre que le pasemos:
+    //const cuadroTexto = new type(input);
 }
 
 function moveRight()
@@ -150,21 +165,6 @@ function moveLeftMouse()
     {
         moveAssetLeft(assets[i]);  
     }
-}
-
-function createStage()
-{
-    game.world.setBounds(1, 0, STAGE_WIDTH-2, STAGE_HEIGHT, true, true, true, true);   
-    background = game.add.tileSprite(0, 0, STAGE_WIDTH+20, STAGE_HEIGHT+20, 'background');
-    ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
-    game.physics.arcade.enable(ground);
-    createCharacter();
-    loadJSON(levels[levelToPlay]);
-    createHUD();
-
-
-    //Aquí iría en teoría la variable del nombre que le pasemos:
-    //const cuadroTexto = new type(input);
 }
 
 function createHUD()
