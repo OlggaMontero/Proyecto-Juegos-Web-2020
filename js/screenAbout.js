@@ -8,16 +8,18 @@ let aboutState = {
     update: updateAbout
 };
 
-//Precarga las imagenes y el audio
-function preloadAbout() {
+
+function preloadAbout() 
+{
     game.load.image('bg', 'assets/imgs/aboutScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
 
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
 }
 
-//Funcion para colocar la imagen de fondo, el texto y el boton para volver al menu de inicio
-function createAbout() {
+
+function createAbout() 
+{
 
     optionOnHover = game.add.audio('OptionOnHover');
 
@@ -52,15 +54,16 @@ function createAbout() {
     }
 
 }
-//Esta funcion controla si se le da al boton de volver atrás o no
-function updateAbout(){
 
-    if (buttonBack.input.pointerOver()){
+function updateAbout()
+{
+    if (buttonBack.input.pointerOver())
+    {
         buttonBack.scale.setTo(0.9, 0.9);
         optionOnHover.play();
     }
-    else{
+    else
+    {
         buttonBack.scale.setTo(0.6, 0.6);
     }
-
 }

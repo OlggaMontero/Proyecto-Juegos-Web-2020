@@ -1,8 +1,8 @@
 let level1State = {
 
-    preload: preloadLevel1,
-    create: createLevel1,
-    update: updateLevel1,
+    preload: loadLevelAssets,
+    create: createLevel,
+    update: updateLevel,
 };
 
 const STAGE_HEIGHT = 3200;
@@ -30,7 +30,14 @@ let previousPointerX;
 let levelToPlay = 0;
 let levels = [LEVEL_ONE, LEVEL_TWO];
 
-function preloadLevel1() 
+function loadLevelAssets()
+{
+    loadImages();
+    loadSounds();
+    loadLevels(); 
+}
+
+function loadImages()
 {
     game.load.image('background', 'assets/imgs/background_level1.png');
     game.load.image('ground', 'assets/imgs/ground.png');
@@ -41,7 +48,10 @@ function preloadLevel1()
     game.load.image('enemy', 'assets/imgs/enemy.png');
     game.load.image('powerupSpeed', 'assets/imgs/powerup.png');
     game.load.image('powerupHUD', 'assets/imgs/powerupHUD.png');
+}
 
+function loadSounds()
+{
     game.load.audio('musicFirstLevel', 'assets/snds/MusicFirstLevel.wav');
     game.load.audio('rebound', 'assets/snds/Rebound.wav');
     game.load.audio('pickPowerup', 'assets/snds/PowerUp.wav');
@@ -49,11 +59,15 @@ function preloadLevel1()
     game.load.audio('timerSound', 'assets/snds/Timer.wav');
     game.load.audio('timerEnds', 'assets/snds/Ding.wav');
 
+}
+
+function loadLevels()
+{
     game.load.text(LEVEL_ONE, 'levels/levelOneJSON.json', true);
     game.load.text(LEVEL_TWO, 'levels/levelTwoJSON.json', true);
 }
 
-function createLevel1() 
+function createLevel() 
 {   
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
     test = 0;
@@ -75,10 +89,9 @@ function createLevel1()
     previousPointerX = pointerX;
 
     createStage();
-
 }
 
-function updateLevel1()
+function updateLevel()
 {
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.collide(character, ground, nextLevel);
@@ -96,7 +109,8 @@ function updateLevel1()
 
 function moveRight()
 {
-    if (!mouse){
+    if (!mouse)
+    {
         for(i = 0; i < assets.length; i++)
         {
             moveAssetRight(assets[i]);
@@ -106,7 +120,8 @@ function moveRight()
 
 function moveLeft()
 {
-    if (!mouse){
+    if (!mouse)
+    {
         for(i = 0; i < assets.length; i++)
         {
             moveAssetLeft(assets[i]);  
@@ -114,25 +129,28 @@ function moveLeft()
     }
 }
 
-function setmouse(estado) {
+function setmouse(estado) 
+{
     mouse = estado;
- }
+}
 
- function moveRightMouse(){
+function moveRightMouse()
+{
 
     for(i = 0; i < assets.length; i++)
     {
         moveAssetRight(assets[i]);
     }
- }
+}
 
- function moveLeftMouse(){
+function moveLeftMouse()
+{
 
     for(i = 0; i < assets.length; i++)
     {
         moveAssetLeft(assets[i]);  
     }
- }
+}
 
 function createStage()
 {

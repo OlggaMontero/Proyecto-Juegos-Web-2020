@@ -13,7 +13,6 @@ let initState =
 
 function preloadInit() 
 {
-
     game.load.image('bg', 'assets/imgs/bg.jpg');
     game.load.image('buttonAbout', 'assets/imgs/button_about.png');
     game.load.image('buttonPlayer', 'assets/imgs/button_playerSelection.png');
@@ -27,7 +26,6 @@ function preloadInit()
     game.load.audio('MusicMenu', 'assets/snds/MusicMenu.wav');
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
     game.load.audio('OptionChosen', 'assets/snds/MenuOptionChosen.mp3');
-
 }
 
 function createInit() 
@@ -38,11 +36,11 @@ function createInit()
     let h = game.world.height;
 
     game.world.setBounds(0, 0, w, h);  
-    background = game.add.sprite(0, 0,'bg'); //Coloca el fondo
-    background.scale.setTo(0.8, 1.2); //El tamaño del fondo
+    background = game.add.sprite(0, 0,'bg'); 
+    background.scale.setTo(0.8, 1.2); 
 
     selected = null;
-    //Reproduce la música del menu
+
     musicMenu = game.add.audio('MusicMenu');
     musicMenu.play();
     
@@ -51,7 +49,7 @@ function createInit()
 
     let posX = game.world.width - SHIP_OFFSET_HOR;
     let posY = game.world.height - SHIP_OFFSET_VER;
-    //Coloca todos los botones clickables en la pantalla
+
     btnAbout = game.add.button(posX-250, posY+50, 'buttonAbout', startAbout);
     btnAbout.anchor.setTo(0.5, 0.5)
     btnAbout.scale.setTo(0.15);
@@ -76,7 +74,6 @@ function createInit()
     btnLevel3.anchor.setTo(0.5, 0.5);
     btnLevel3.scale.setTo(0.1);
 
-    //Todas las funciones para cambiar de pantalla mediante los botones
     function startAbout() 
     {
         optionChosen.play();
@@ -110,7 +107,7 @@ function createInit()
         levelToPlay = 1;
         game.state.start('level');
     }
-    //Llama a una función para crear una animación del personaje rebotando
+
     createAnimation();
 }
 
@@ -120,10 +117,8 @@ function updateInit()
     game.physics.arcade.collide(character, platform);
 }
 
-//Funcion que permite que los botones sean seleccionables
 function onHoverButton()
 {
-   
     if (btnAbout.input.pointerOver())
     {
         btnAbout.scale.setTo(0.25, 0.25);
@@ -134,7 +129,6 @@ function onHoverButton()
         btnAbout.scale.setTo(0.15, 0.15);
     }
     
-
     if (btnInstructions.input.pointerOver())
     {
         btnInstructions.scale.setTo(0.9, 0.9);
@@ -145,7 +139,6 @@ function onHoverButton()
         btnInstructions.scale.setTo(0.6);
     }
     
-
     if (btnPlayer.input.pointerOver()){
         btnPlayer.scale.setTo(0.9);
         optionOnHover.play();
@@ -153,7 +146,6 @@ function onHoverButton()
     else{
         btnPlayer.scale.setTo(0.6);
     }
-
 
     if (btnLevel1.input.pointerOver())
     {
@@ -185,8 +177,9 @@ function onHoverButton()
         btnLevel3.scale.setTo(0.1);
     }
 }
-//Animacion del personaje rebotando
-function createAnimation(){
+
+function createAnimation()
+{
     platform = game.add.sprite(180, 550, 'platform');
     platform.scale.setTo(0.1, 0.2);
     game.physics.arcade.enable(platform);

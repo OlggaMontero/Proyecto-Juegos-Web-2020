@@ -8,8 +8,7 @@ function createCharacter()
     character.body.gravity.y = 500; 
     game.camera.follow(character, Phaser.Camera.FOLLOW_PLATFORMER); 
 
-    
-    if (game.physics.arcade.collide (character, "platform" )) 
+    if (game.physics.arcade.collide(character, "platform" )) 
     { 
         //Habría que hacer una distinción luego para cada plataforma/obstáculo/enemigo
         character.body.bounce.y = 0.7;

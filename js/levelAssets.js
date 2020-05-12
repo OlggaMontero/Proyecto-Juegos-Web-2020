@@ -44,7 +44,7 @@ function createAsset(x, y, type)
     asset.height = 40;
     asset.checkWorldBounds = true;
     asset.events.onOutOfBounds.add(assetOut, this);
-    //Devuelve el asset seleccionado
+
     return asset;
 }
 

@@ -7,19 +7,19 @@ let instructionsState = {
     create: createInstructions,
     update: updateInstructions
 };
-//Precarga las imagenes y el audio
-function preloadInstructions() {
+
+function preloadInstructions() 
+{
     game.load.image('bg', 'assets/imgs/instructionsScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
 
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
-
 }
-//Coloca el fondo y el texto
-function createInstructions() {
-    //Carga el audio
+
+function createInstructions() 
+{
     optionOnHover = game.add.audio('OptionOnHover');
-    //Formato tamaño e imagen fondo
+
     let w = game.world.width;
     let h = game.world.height;
     fondo = game.add.tileSprite(0, 0, w, h, 'bg');
@@ -37,26 +37,30 @@ function createInstructions() {
     
     let styleI = {font: '25px Sniglet', fill: '#000000', fontWeight: 'bold', align: 'center'};
     let instructions = game.add.text(TEXT_OFFSET_HOR_I+25, TEXT_OFFSET_VER_I+300, textI, styleI);
-    //Formato y posicion del boton para volver al inicio
+
     let extPosX = 200;
     let extPosY = 350;
     buttonBack = game.add.button(extPosX-50, extPosY+350, 'buttonBack', back);
     buttonBack.anchor.setTo(0.5, 0.5);
     buttonBack.scale.setTo(0.7);
-    //Funcion para volver atrás con el boton
-    function back(){
+
+    function back()
+    {
         musicMenu.destroy();
         game.state.start('init');
     }
 }
-//Controla si se tiene el raton sobre el boton o no
-function updateInstructions(){
 
-    if (buttonBack.input.pointerOver()){
+function updateInstructions()
+{
+
+    if (buttonBack.input.pointerOver())
+    {
         buttonBack.scale.setTo(0.9, 0.9);
         optionOnHover.play();
     }
-    else{
+    else
+    {
         buttonBack.scale.setTo(0.6, 0.6);
     }
 }

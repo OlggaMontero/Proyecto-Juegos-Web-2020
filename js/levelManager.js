@@ -50,8 +50,3 @@ function createAssetsJSON(x, y, platformTypes)
         x += 40;
     }
 }
-
-function preloadLevels()
-{
-
-}
