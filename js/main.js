@@ -20,10 +20,10 @@ let wfConfig = {
 
 WebFont.load(wfConfig);
 
-//Inicia el juego
+game = new Phaser.Game(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT, Phaser.CANVAS, 'game');
+
 function startGame() {
 
-    game = new Phaser.Game(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT, Phaser.CANVAS, 'game');
 
     game.state.add('init', initState);
     game.state.add('screenAbout', aboutState);
@@ -34,7 +34,7 @@ function startGame() {
     
     game.state.start('init');
     
-    document.getElementById("game").onmouseover = function(){ setmouse(true); };
-    document.getElementById("game").onmouseout = function(){ setmouse(false); };
+    document.getElementById("game").children[0].onmouseover = function(){mouse = true; };
+    document.getElementById("game").children[0].onmouseout = function(){mouse = false; };
 }
 

@@ -23,10 +23,11 @@ let assets = [];
 let remainingPlatforms;
 let condition;
 let counterPowerup;
-let mouse;
 let hasPowerup = false;
+let mouse;
 let pointerX;
 let previousPointerX;
+
 let levelToPlay = 0;
 let levels = [LEVEL_ONE, LEVEL_TWO];
 
@@ -58,7 +59,6 @@ function loadSounds()
     game.load.audio('hurtSound', 'assets/snds/Hurt.wav');
     game.load.audio('timerSound', 'assets/snds/Timer.wav');
     game.load.audio('timerEnds', 'assets/snds/Ding.wav');
-
 }
 
 function loadLevels()
@@ -80,16 +80,10 @@ function createLevel()
     musicFirstLevel.loop = true;
     musicFirstLevel.play();
 
-    leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-    leftKey.onDown.add(moveLeft, this);
-    rightKey.onDown.add(moveRight, this);
-
-    pointerX = game.input.mousePointer.x;
-    previousPointerX = pointerX;
-
+    createKeysInput();
     createStage();
 }
+
 
 function updateLevel()
 {
@@ -99,13 +93,6 @@ function updateLevel()
     {
         manageAppleMovement();
     }
-    /////////////
-    //Para probar a pasar a nivel 2 más rapido. Borrar cuando esté todo hecho @Olga
-    if (life <= 0) 
-    {
-        nextLevel();
-    }
-    ////////////
 }
 
 function createStage()
@@ -122,49 +109,36 @@ function createStage()
     //const cuadroTexto = new type(input);
 }
 
-function moveRight()
+function createKeysInput()
 {
-    if (!mouse)
-    {
-        for(i = 0; i < assets.length; i++)
+    leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    leftKey.onDown.add(function() { 
+        if (!mouse) 
         {
-            moveAssetRight(assets[i]);
+            moveLeft();
         }
-    }
-}
-
-function moveLeft()
-{
-    if (!mouse)
-    {
-        for(i = 0; i < assets.length; i++)
+    }, this);
+    rightKey.onDown.add(function() {
+        if (!mouse)
         {
-            moveAssetLeft(assets[i]);  
+            moveRight()
         }
-    }
+    }, this);
+    pointerX = game.input.mousePointer.x;
+    previousPointerX = pointerX;
 }
 
-function setmouse(estado) 
+function nextLevel()
 {
-    mouse = estado;
+    levelToPlay += 1;
+    startCurrentLevel();
 }
 
-function moveRightMouse()
+function startCurrentLevel()
 {
-
-    for(i = 0; i < assets.length; i++)
-    {
-        moveAssetRight(assets[i]);
-    }
-}
-
-function moveLeftMouse()
-{
-
-    for(i = 0; i < assets.length; i++)
-    {
-        moveAssetLeft(assets[i]);  
-    }
+    musicFirstLevel.destroy();
+    game.state.start('level');
 }
 
 function createHUD()
@@ -194,11 +168,4 @@ function createInfoLevel()
     nameText.font = '20px Revalia';
     nameText.fontSize = 20;
     nameText.fixedToCamera = true;
-}
-
-function nextLevel()
-{
-    levelToPlay += 1;
-    musicFirstLevel.destroy();
-    game.state.start('level');
 }

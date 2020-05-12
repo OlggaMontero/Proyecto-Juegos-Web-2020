@@ -58,6 +58,22 @@ function moveAssetRight(asset)
     asset.x += asset.width;
 }
 
+function moveRight()
+{
+    for(i = 0; i < assets.length; i++)
+    {
+        moveAssetRight(assets[i]);
+    }
+}
+
+function moveLeft()
+{
+    for(i = 0; i < assets.length; i++)
+    {
+        moveAssetLeft(assets[i]);  
+    }
+}
+
 function assetOut(asset)
 {
     if (asset.x <= 0)
@@ -89,6 +105,17 @@ function playerHitsObstacle(obstacle)
         hurtSound.play();
         characterHurt(8);
         obstacle.destroy();
+    }
+}
+
+function playerHitsTemp(n, platform, sound)
+{
+    if (character.y < platform.y)
+    {
+        hurtSound = game.add.audio(sound);
+        hurtSound.play();
+        characterHurt(n);
+        platform.destroy();
     }
 }
 
@@ -132,15 +159,18 @@ function updateCounterPowerUp()
 
 function manageAppleMovement()
 {
-    pointerX = game.input.mousePointer.x;
-    if (pointerX >= previousPointerX + THRESHOLD)
+    if (mouse)
     {
-        moveRightMouse();
-        previousPointerX = pointerX;
-    }
-    else if (pointerX <= previousPointerX - THRESHOLD)
-    {
-        moveLeftMouse();
-        previousPointerX = pointerX;
+        pointerX = game.input.mousePointer.x;
+        if (pointerX >= previousPointerX + THRESHOLD)
+        {
+            moveRight();
+            previousPointerX = pointerX;
+        }
+        else if (pointerX <= previousPointerX - THRESHOLD)
+        {
+            moveLeft();
+            previousPointerX = pointerX;
+        }
     }
 }
