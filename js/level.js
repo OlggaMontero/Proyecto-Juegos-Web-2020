@@ -50,6 +50,7 @@ function loadImages()
     game.load.image('enemy', 'assets/imgs/enemy.png');
     game.load.image('powerupSpeed', 'assets/imgs/powerup.png');
     game.load.image('powerupHUD', 'assets/imgs/powerupHUD.png');
+    game.load.image('superSoldier', 'assets/imgs/superSoldier.png');
 }
 
 function loadSounds()

@@ -12,6 +12,7 @@ function loadJSON(level)
     numberOfPlatforms = levelJSON.ObjectsInMap.platforms.length;
     numberOfObstacles = levelJSON.ObjectsInMap.obstacles.length;
     numberOfPowerups = levelJSON.ObjectsInMap.powerup.length;
+    numberOfSupersoldier = levelJSON.ObjectsInMap.supersoldier.length;
     
     for (i = 0; i < numberOfPlatforms; i++)
     {
@@ -32,6 +33,13 @@ function loadJSON(level)
         let x = levelJSON.ObjectsInMap.powerup[i].position.x;
         let y = levelJSON.ObjectsInMap.powerup[i].position.y;
         let type = levelJSON.ObjectsInMap.powerup[i].type;
+        createAssetsJSON(x, y, type);
+    }
+    for (i = 0; i < numberOfSupersoldier; i++)
+    {
+        let x = levelJSON.ObjectsInMap.supersoldier[i].position.x;
+        let y = levelJSON.ObjectsInMap.supersoldier[i].position.y;
+        let type = levelJSON.ObjectsInMap.supersoldier[i].type;
         createAssetsJSON(x, y, type);
     }
 }

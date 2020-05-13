@@ -39,6 +39,15 @@ function createAsset(x, y, type)
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPowerup, this);
+    }
+    //Para el power up superSoldier
+    else if (type == 5){
+        asset = game.add.sprite(x, y, 'superSoldier');
+        game.physics.arcade.enable(asset);
+        asset.body.immovable = true;
+        asset.scale.setTo(0.15);
+        asset.body.onCollide = new Phaser.Signal();
+        asset.body.onCollide.add(playerHitsPowerup, this);
     }            
     asset.width = 40;
     asset.height = 40;
@@ -135,7 +144,7 @@ function playerHitsPowerup(powerup)
         pickPowerup = game.add.audio('pickPowerup');
         timerSound.play();
         pickPowerup.play();
-        powerupHUD = game.add.sprite(330, 660, 'powerupHUD');
+        powerupHUD = game.add.sprite(330, 660, 'powerupHUD'); //hay que detectar cual de los dos poner
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         game.time.events.loop(Phaser.Timer.SECOND, updateCounterPowerUp, this);
