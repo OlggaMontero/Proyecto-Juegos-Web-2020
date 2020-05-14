@@ -103,12 +103,9 @@ function createStage()
     background = game.add.tileSprite(0, 0, STAGE_WIDTH+20, STAGE_HEIGHT+20, 'background');
     ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
     game.physics.arcade.enable(ground);
-    createCharacter();
+    createCharacter(200, 100);
     loadJSON(levels[levelToPlay]);
     createHUD();
-
-    //Aquí iría en teoría la variable del nombre que le pasemos:
-    //const cuadroTexto = new type(input);
 }
 
 function createKeysInput()
@@ -167,7 +164,7 @@ function createInfoLevel()
     remainingPlatformsText.fixedToCamera = true;
 
     //nombre elegido (cambiar cuando lo tengamos)
-    nameText = game.add.text(x-230, y-660, nombre);
+    nameText = game.add.text(x-230, y-660, CambiarNombre());
     nameText.anchor.setTo(0.5, 0.5);
     nameText.font = '20px Revalia';
     nameText.fontSize = 20;

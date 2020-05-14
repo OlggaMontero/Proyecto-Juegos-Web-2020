@@ -1,19 +1,13 @@
-function createCharacter()
+function createCharacter(x, y)
 {
-    character = game.add.sprite(200, 100, 'character'); 
+    character = game.add.sprite(x, y, 'character'); 
     character.scale.setTo(0.04, 0.04); 
     game.physics.arcade.enable(character); 
     character.body.collideWorldBounds = true; 
     character.body.bounce.y = 0.7; 
     character.body.gravity.y = 500; 
+    //character.body.velocity.y = -300
     game.camera.follow(character, Phaser.Camera.FOLLOW_PLATFORMER); 
-
-    if (game.physics.arcade.collide(character, "platform" )) 
-    { 
-        //Habría que hacer una distinción luego para cada plataforma/obstáculo/enemigo
-        character.body.bounce.y = 0.7;
-        
-    }
 }
 
 function createLife()

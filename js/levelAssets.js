@@ -104,6 +104,9 @@ function playerHitsTrap(platform)
         characterHurt(20);
         platform.destroy();
     }
+    character.body.bounce.y -= 0.1;  
+    console.log(character.body.bounce.y);
+
 }
 
 function playerHitsObstacle(obstacle)
@@ -130,8 +133,24 @@ function playerHitsTemp(n, platform, sound)
 
 function playerHitsPlatform(platform)
 {
-    rebound = game.add.audio('rebound');
-    rebound.play();
+    reboundSound = game.add.audio('rebound');
+    reboundSound.play();
+    character.body.bounce.y = 1; //Para hacerlo infinito
+    
+    if (character.body.velocity.y < -300){
+        character.body.velocity.y *= 0.6
+        if (character.body.velocity.y < -400){
+            character.body.velocity.y *= 0.4;
+        }
+    }
+    else if (character.body.velocity.y > -250){
+        character.body.velocity.y *= 1.15;
+    }
+    
+    /*if (character.body.velocity.y > -250){
+        character.body.velocity.y *= 1.1;
+    }*/
+    console.log(character.body.velocity.y);
 }
 
 function playerHitsPowerup(powerup)

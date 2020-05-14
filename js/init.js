@@ -115,6 +115,7 @@ function updateInit()
 {
     onHoverButton();
     game.physics.arcade.collide(character, platform);
+    character.body.bounce.y = 1;
 }
 
 function onHoverButton()
@@ -180,10 +181,10 @@ function onHoverButton()
 
 function createAnimation()
 {
-    platform = game.add.sprite(180, 550, 'platform');
+    platform = game.add.sprite(50, 550, 'platform');
     platform.scale.setTo(0.1, 0.2);
     game.physics.arcade.enable(platform);
     platform.body.collideWorldBounds = true;
     platform.body.immovable = true;
-    createCharacter();
+    createCharacter(60, 100);
 }

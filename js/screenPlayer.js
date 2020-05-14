@@ -17,8 +17,10 @@ function preloadPlayer() {
 }
 
 //Carga la imagen y coloca todo en su sitio
-function createPlayer() {
-    nombreJugador();
+function createPlayer() { //Cambiar nombre funcion da lugar a confusion
+    CambiarNombre();
+    
+    document.getElementById("player").style.display = "block"; //Esto sacaría a la luz los botones
 
     optionOnHover = game.add.audio('OptionOnHover');
 
@@ -42,16 +44,29 @@ function createPlayer() {
         musicMenu.destroy();
         game.state.start('init');
     }
-    //Funcion que muestra el selector de nombres del jugador y permite interactuar
-    function nombreJugador()
-    {
-        document.getElementById("player").style.display = "block"; //Esto sacaría a la luz los botones
-        var nombre = document.getElementById("player").value;
-        return nombre;
-        //https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_text_value2
-    }
-//para detectar pulsación en el boton de radio para cambiar el nombre de jugador Practica 1 slider para controlar la opacidad del canvas misma funcion de callback
+}
+//En el HTML: PRIMERA O SEGUNDA PRACTICA FUENTES DE GOOGLE EN ESTILOS
+/*
+<div id = "player" style="display: none; position: absolute; left: 60%; top: 60%; font: '25px Sniglet'; " > 
+            <input type= "button" id="aceptar_nombre" value="Acepto este nombre" onclick="CambioNombre"><br>
+            <input type="radio" name="nombre" value="Newton" onclick="setName(this)"> Newton<br>
+            <input type="radio" name="nombre" value="Olga" onclick="setName(this)"> Olga<br>
+            <input type="radio" name="nombre" value="Sara" onclick="setName(this)"> Sara<br>
+            */
 
+//Funcion que muestra el selector de nombres del jugador y permite interactuar
+function CambiarNombre(){
+    nombresRadio = ['Newton','Olga','Fer','Sara'];
+    nameAvailable=false;
+    for (let name in nombresRadio)
+        if (document.getElementById(name).checked)
+            nameAvailable=true;
+            nombre=document.getElementById(name).value;
+    if (!nameAvailable)
+    {
+        nombre=document.getElementById('textPlayer').value;
+    }
+    return nombre;
 }
 
 function updatePlayer()
