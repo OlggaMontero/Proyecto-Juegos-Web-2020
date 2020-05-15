@@ -12,10 +12,13 @@ function loadJSON(level)
     numberOfPlatforms = levelJSON.ObjectsInMap.platforms.length;
     numberOfObstacles = levelJSON.ObjectsInMap.obstacles.length;
     numberOfPowerups = levelJSON.ObjectsInMap.powerup.length;
-    if (levelToPlay!=0){
+
+    if (levelToPlay!=0)
+    {
         numberOfSupersoldier = levelJSON.ObjectsInMap.supersoldier.length;
     }
-    if (levelToPlay!=0 && levelToPlay!=1){
+    if (levelToPlay!=0 && levelToPlay!=1)
+    {
         numberOfBubles = levelJSON.ObjectsInMap.bubles.length;
     }
     
@@ -40,7 +43,8 @@ function loadJSON(level)
         let type = levelJSON.ObjectsInMap.powerup[i].type;
         createAssetsJSON(x, y, type);
     }
-    if (levelToPlay!=0){
+    if (levelToPlay!=0)
+    {
         for (i = 0; i < numberOfSupersoldier; i++)
         {
             let x = levelJSON.ObjectsInMap.supersoldier[i].position.x;
@@ -49,7 +53,8 @@ function loadJSON(level)
             createAssetsJSON(x, y, type);
         }
     }
-    if (levelToPlay!=0 && levelToPlay!=1){
+    if (levelToPlay!=0 && levelToPlay!=1)
+    {
         for (i = 0; i < numberOfBubles; i++)
         {
             let x = levelJSON.ObjectsInMap.bubles[i].position.x;
@@ -65,7 +70,6 @@ function createAssetsJSON(x, y, platformTypes)
     x = 0
     for(i = 0; i < 10; i++)
     {
-        
         if (platformTypes[i] != 0)
         {
             let asset = createAsset(x, y, platformTypes[i]);

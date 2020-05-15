@@ -32,7 +32,8 @@ function createAsset(x, y, type)
         
     }
     //Power up de la velocidad
-    else if (type == 4){
+    else if (type == 4)
+    {
         asset = game.add.sprite(x, y, 'powerupSpeed');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
@@ -41,7 +42,8 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
     }
     //Power up superSoldier
-    else if (type == 5){
+    else if (type == 5)
+    {
         asset = game.add.sprite(x, y, 'superSoldier');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
@@ -50,14 +52,25 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'superSoldier')}, this);
     }
     //Power up de la burbuja
-    else if (type == 6){
+    else if (type == 6)
+    {
         asset = game.add.sprite(x, y, 'buble');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'buble')}, this);
-    }         
+    }
+    //Plataforma prueba letra -- LETRA A
+    else if (type == 7)
+    {
+        asset = game.add.sprite(x, y, 'letter_A');
+        game.physics.arcade.enable(asset);
+        asset.body.immovable = true;
+        asset.scale.setTo(0.15);
+        asset.body.onCollide = new Phaser.Signal();
+        asset.body.onCollide.add(playerHitsPlatform, this);
+    }
     asset.width = 40;
     asset.height = 40;
     asset.checkWorldBounds = true;
@@ -202,7 +215,6 @@ function updateCounterPowerUp()
         }
     }
 }
-
 
 function manageAppleMovement()
 {

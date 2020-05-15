@@ -56,6 +56,7 @@ function loadImages()
     game.load.image('superSoldierHUD', 'assets/imgs/superSoldierHUD.png');
     game.load.image('buble', 'assets/imgs/buble.png');
     game.load.image('bubleHUD', 'assets/imgs/buble.png');
+    game.load.image('letter_A', 'assets/imgs/platform_A.png');
 }
 
 function loadSounds()
