@@ -70,7 +70,7 @@ function createInit()
     btnLevel2.anchor.setTo(0.5, 0.5);
     btnLevel2.scale.setTo(0.1);
 
-    btnLevel3 = game.add.button(posX+400, posY-200, 'buttonLevel3');
+    btnLevel3 = game.add.button(posX+400, posY-200, 'buttonLevel3', startLevel3);
     btnLevel3.anchor.setTo(0.5, 0.5);
     btnLevel3.scale.setTo(0.1);
 
@@ -105,6 +105,14 @@ function createInit()
         musicMenu.destroy();
         optionChosen.play();
         levelToPlay = 1;
+        game.state.start('level');
+    }
+
+    function startLevel3()
+    {
+        musicMenu.destroy();
+        optionChosen.play();
+        levelToPlay = 2;
         game.state.start('level');
     }
 

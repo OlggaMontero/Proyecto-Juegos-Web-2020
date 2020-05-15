@@ -26,14 +26,18 @@ function createLife()
 
 function characterHurt(damage)
 {
-    healthBar.width = healthBar.width - damage; 
-    life -= damage; 
-    lifeText.setText(life + '%');  
-    
+    if (!hasBuble){
+        hurtSound = game.add.audio('hurtSound');
+        hurtSound.play();
+        healthBar.width = healthBar.width - damage; 
+        life -= damage; 
+        lifeText.setText(life + '%');  
+    }
     if (life <= 0)
     {
         musicFirstLevel.destroy();
-        condition = 'derrota';
+        condition = 'lose';
         game.state.start('screenEnd');
+        hasPowerup = false;
     }
 }

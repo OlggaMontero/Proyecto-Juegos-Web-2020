@@ -1,7 +1,7 @@
 function createAsset(x, y, type)
 {
     let asset;
-    //Para las plataformas
+    //Plataformas
     if (type == 1)
     {
         asset = game.add.sprite(x, y, 'platform');
@@ -10,7 +10,7 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
     }
-    //Para las plataformas trampa
+    //Plataformas trampa
     else if (type == 2)
     {
         asset = game.add.sprite(x, y, 'platform_trap');
@@ -21,7 +21,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsTrap, this);
 
     }
-    //Para los enemigos
+    //Enemigos
     else if (type == 3)
     {
         asset = game.add.sprite(x, y, 'enemy');
@@ -31,24 +31,33 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsObstacle, this);
         
     }
-    //Para el power up de la velocidad
+    //Power up de la velocidad
     else if (type == 4){
         asset = game.add.sprite(x, y, 'powerupSpeed');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
-        asset.body.onCollide.add(playerHitsPowerup, this);
+        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
     }
-    //Para el power up superSoldier
+    //Power up superSoldier
     else if (type == 5){
         asset = game.add.sprite(x, y, 'superSoldier');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
-        asset.body.onCollide.add(playerHitsPowerup, this);
-    }            
+        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'superSoldier')}, this);
+    }
+    //Power up de la burbuja
+    else if (type == 6){
+        asset = game.add.sprite(x, y, 'buble');
+        game.physics.arcade.enable(asset);
+        asset.body.immovable = true;
+        asset.scale.setTo(0.15);
+        asset.body.onCollide = new Phaser.Signal();
+        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'buble')}, this);
+    }         
     asset.width = 40;
     asset.height = 40;
     asset.checkWorldBounds = true;
@@ -99,8 +108,6 @@ function playerHitsTrap(platform)
 {
     if (character.y < platform.y)
     {
-        hurtSound = game.add.audio('hurtSound');
-        hurtSound.play();
         characterHurt(20);
         platform.destroy();
     }
@@ -113,8 +120,6 @@ function playerHitsObstacle(obstacle)
 {
     if (character.y < obstacle.y)
     {
-        hurtSound = game.add.audio('hurtSound');
-        hurtSound.play();
         characterHurt(8);
         obstacle.destroy();
     }
@@ -124,8 +129,6 @@ function playerHitsTemp(n, platform, sound)
 {
     if (character.y < platform.y)
     {
-        hurtSound = game.add.audio(sound);
-        hurtSound.play();
         characterHurt(n);
         platform.destroy();
     }
@@ -153,19 +156,30 @@ function playerHitsPlatform(platform)
     console.log(character.body.velocity.y);
 }
 
-function playerHitsPowerup(powerup)
+function playerHitsPowerup(powerup, nombre)
 {
     if (!hasPowerup)
     {
-        //incrementar velocidad
-        counterPowerup = 7;
         timerSound = game.add.audio('timerSound');
         pickPowerup = game.add.audio('pickPowerup');
         timerSound.play();
         pickPowerup.play();
-        powerupHUD = game.add.sprite(330, 660, 'powerupHUD'); //hay que detectar cual de los dos poner
+        let nombreHUD = nombre + 'HUD';
+        powerupHUD = game.add.sprite(330, 660, nombreHUD);
+        if (nombre == 'powerupSpeed'){
+            //cambiar la velocidad como piden para el primer powerup
+        }
+        else if (nombre == 'superSoldier'){
+            //cambiar la velocidad como piden para el segundo powerup
+        }
+        else if (nombre == 'buble'){
+            bubleCharacter = game.add.sprite(character.x, character.y, 'buble');
+            bubleCharacter.scale.setTo(0.07);
+            hasBuble = true;
+        }
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
+        counterPowerup = 5;
         game.time.events.loop(Phaser.Timer.SECOND, updateCounterPowerUp, this);
         powerup.destroy();
         hasPowerup = true;
@@ -182,8 +196,13 @@ function updateCounterPowerUp()
         timerSound.destroy();
         powerupHUD.destroy();
         hasPowerup = false;
+        if (hasBuble){
+            bubleCharacter.destroy();
+            hasBuble = false;
+        }
     }
 }
+
 
 function manageAppleMovement()
 {

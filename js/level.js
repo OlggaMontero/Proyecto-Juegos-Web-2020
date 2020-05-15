@@ -12,6 +12,7 @@ const CANVAS_WIDTH  = 400;
 const THRESHOLD = 25;
 const LEVEL_ONE = 'level1';
 const LEVEL_TWO = 'level2';
+const LEVEL_THREE = 'level3';
 
 let x = 300;
 let y = 750;
@@ -27,10 +28,11 @@ let hasPowerup = false;
 let mouse;
 let pointerX;
 let previousPointerX;
+let hasBuble;
 
 
 let levelToPlay = 0;
-let levels = [LEVEL_ONE, LEVEL_TWO];
+let levels = [LEVEL_ONE, LEVEL_TWO, LEVEL_THREE];
 
 function loadLevelAssets()
 {
@@ -49,8 +51,11 @@ function loadImages()
     game.load.image('healthBar', 'assets/imgs/healthBar.jpg');
     game.load.image('enemy', 'assets/imgs/enemy.png');
     game.load.image('powerupSpeed', 'assets/imgs/powerup.png');
-    game.load.image('powerupHUD', 'assets/imgs/powerupHUD.png');
+    game.load.image('powerupSpeedHUD', 'assets/imgs/powerupHUD.png');
     game.load.image('superSoldier', 'assets/imgs/superSoldier.png');
+    game.load.image('superSoldierHUD', 'assets/imgs/superSoldierHUD.png');
+    game.load.image('buble', 'assets/imgs/buble.png');
+    game.load.image('bubleHUD', 'assets/imgs/buble.png');
 }
 
 function loadSounds()
@@ -67,6 +72,7 @@ function loadLevels()
 {
     game.load.text(LEVEL_ONE, 'levels/levelOneJSON.json', true);
     game.load.text(LEVEL_TWO, 'levels/levelTwoJSON.json', true);
+    game.load.text(LEVEL_THREE, 'levels/levelThreeJSON.json', true);
 }
 
 function createLevel() 
@@ -77,6 +83,8 @@ function createLevel()
     life = 100;
     counterPowerup = 7;
     remainingPlatforms = 20;
+    hasPowerup = false;
+    hasBuble = false;
 
     musicFirstLevel = game.add.audio('musicFirstLevel');
     musicFirstLevel.loop = true;
@@ -94,6 +102,10 @@ function updateLevel()
     if (mouse)
     {
         manageAppleMovement();
+    }
+    if (hasBuble){
+        bubleCharacter.x = character.x - bubleCharacter.width/8;
+        bubleCharacter.y = character.y - bubleCharacter.height/8;
     }
 }
 
@@ -133,12 +145,18 @@ function createKeysInput()
 function nextLevel()
 {
     levelToPlay += 1;
-    startCurrentLevel();
+    musicFirstLevel.destroy();
+    if (levelToPlay < 3){
+        startCurrentLevel();
+    }
+    else{
+        condition = 'win';
+        game.state.start('screenEnd');
+    }
 }
 
 function startCurrentLevel()
 {
-    musicFirstLevel.destroy();
     game.state.start('level');
 }
 
@@ -150,7 +168,7 @@ function createHUD()
 
 function createInfoLevel()
 {
-    levelText = game.add.text(x+40, y-20, 'Level: ' + level + '  ');
+    levelText = game.add.text(x+40, y-20, 'Level: ' + (levelToPlay+1) + '  ');
     levelText.anchor.setTo(0.5, 0.5);
     levelText.font = '20px Revalia';
     levelText.fontSize = 20;

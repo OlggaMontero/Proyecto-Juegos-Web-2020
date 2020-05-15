@@ -36,7 +36,7 @@ function createEnd()
 
     let styleI = {font: '30px Sniglet', fill: '#000000', strokeThickness: '1'};
     
-    if (condition == 'derrota')
+    if (condition == 'lose')
     {
         background = game.add.sprite(0, 0, 'background_lose');
         background.scale.setTo(1,1);
@@ -47,10 +47,10 @@ function createEnd()
         background.scale.setTo(1,1);
     }
     
-    let textI = 'Número de plataformas derribadas: ';
+    let textI = 'Número de plataformas derribadas: '; 
     let instructions = game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+250, textI, styleI);
 
-    let textJ = 'Pulsa S para volver a intentarlo';
+    let textJ = '¡Pulsa S para volver a jugar!';
     let instructionsJ = game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+350, textJ, styleI);
 
     counter = 15;
