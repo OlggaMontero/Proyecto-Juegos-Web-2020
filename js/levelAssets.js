@@ -124,9 +124,7 @@ function playerHitsTrap(platform)
         characterHurt(20);
         platform.destroy();
     }
-    character.body.bounce.y -= 0.1;  
-    console.log(character.body.bounce.y);
-
+    character.body.velocity.y *= 0.4;  
 }
 
 function playerHitsObstacle(obstacle)
@@ -136,6 +134,7 @@ function playerHitsObstacle(obstacle)
         characterHurt(8);
         obstacle.destroy();
     }
+    character.body.velocity.y *= 0.6;
 }
 
 function playerHitsTemp(n, platform, sound)
@@ -145,28 +144,35 @@ function playerHitsTemp(n, platform, sound)
         characterHurt(n);
         platform.destroy();
     }
+    character.body.velocity.y *= 0.8; 
 }
 
 function playerHitsPlatform(platform)
 {
     reboundSound = game.add.audio('rebound');
     reboundSound.play();
-    character.body.bounce.y = 1; //Para hacerlo infinito
-    
-    if (character.body.velocity.y < -300){
-        character.body.velocity.y *= 0.6
+
+    character.body.bounce.y = 1; //Infinite bounce
+    //If character goes too fast this slows it down
+    if (character.body.velocity.y < -320){
         if (character.body.velocity.y < -400){
-            character.body.velocity.y *= 0.4;
+            if (character.body.velocity.y < -520){
+                character.body.velocity.y *= 0.45;
+            }
+            else {character.body.velocity.y *= 0.55;}
+        }
+        else {character.body.velocity.y *= 0.65;}
+    }
+    //If character goes too slow this speeds it up
+    else if (character.body.velocity.y > -250){
+        if (character.body.velocity.y > -220){
+            character.body.velocity.y *= 1.35;
+        }
+        else{
+            character.body.velocity.y *= 1.15;
         }
     }
-    else if (character.body.velocity.y > -250){
-        character.body.velocity.y *= 1.15;
-    }
-    
-    /*if (character.body.velocity.y > -250){
-        character.body.velocity.y *= 1.1;
-    }*/
-    console.log(character.body.velocity.y);
+    console.log(character.body.velocity.y); //Just to visualize on console this values
 }
 
 function playerHitsPowerup(powerup, nombre)
@@ -193,8 +199,6 @@ function playerHitsPowerup(powerup, nombre)
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
-        
-        
         powerup.destroy();
         hasPowerup = true;
     }
@@ -207,8 +211,8 @@ function updateCounterPowerUp()
         //poner la velocidad normal
         timerEnds = game.add.audio('timerEnds');
         timerEnds.play();
-        timerSound.destroy();
-        powerupHUD.destroy();
+        //timerSound.destroy(); //Esto lo he comentado porque crasheaba REVISAR
+        //powerupHUD.destroy(); //Esto lo he comentado porque crasheaba REVISAR
         hasPowerup = false;
         if (hasBuble){
             bubleCharacter.destroy();

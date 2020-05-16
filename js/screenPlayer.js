@@ -18,8 +18,6 @@ function preloadPlayer() {
 function createPlayer() { //Cambiar nombre funcion da lugar a confusion
     CambiarNombre();
     
-    document.getElementById("player").style.display = "block"; //Esto sacaría a la luz los botones
-
     optionOnHover = game.add.audio('OptionOnHover');
 
     let w = game.world.width;
@@ -44,25 +42,25 @@ function createPlayer() { //Cambiar nombre funcion da lugar a confusion
     }
 }
 //En el HTML: PRIMERA O SEGUNDA PRACTICA FUENTES DE GOOGLE EN ESTILOS
-/*
-<div id = "player" style="display: none; position: absolute; left: 60%; top: 60%; font: '25px Sniglet'; " > 
-            <input type= "button" id="aceptar_nombre" value="Acepto este nombre" onclick="CambioNombre"><br>
-            <input type="radio" name="nombre" value="Newton" onclick="setName(this)"> Newton<br>
-            <input type="radio" name="nombre" value="Olga" onclick="setName(this)"> Olga<br>
-            <input type="radio" name="nombre" value="Sara" onclick="setName(this)"> Sara<br>
-            */
 
-//Funcion que muestra el selector de nombres del jugador y permite interactuar
+//Funcion que gestiona la selección de nombres
 function CambiarNombre(){
+
+    document.getElementById("player").style.display = "block"; //Esto sacaría a la luz los botones
+    //var nombre = document.forms[0];
+    // if (nombre[i].checked)
+    //https://www.w3schools.com/jsref/prop_radio_checked.asp
+
+    //Otra cosa por si sirve https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onchange
     nombresRadio = ['Newton','Olga','Fer','Sara'];
     nameAvailable=false;
     for (let name in nombresRadio)
         if (document.getElementById(name).checked)
-            nameAvailable=true;
-            nombre=document.getElementById(name).value;
+            nameAvailable = true;
+            nombre = document.getElementById(name).value;
     if (!nameAvailable)
     {
-        nombre=document.getElementById('textPlayer').value;
+        nombre = document.getElementById('LabelName').value;
     }
     return nombre;
 }
