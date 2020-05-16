@@ -12,7 +12,6 @@ let keyS;
 let counter;
 let clockText = 0;
 
-
 function preloadEnd() 
 {
     game.load.image('background_end', 'assets/imgs/background_end.png');

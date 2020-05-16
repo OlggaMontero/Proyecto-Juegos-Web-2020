@@ -5,7 +5,7 @@ let level1State = {
     update: updateLevel,
 };
 
-const STAGE_HEIGHT = 3200;
+const STAGE_HEIGHT = 4500;
 const STAGE_WIDTH = 400;
 const CANVAS_HEIGHT = 800;
 const CANVAS_WIDTH  = 400;
@@ -24,12 +24,12 @@ let assets = [];
 let remainingPlatforms;
 let condition;
 let counterPowerup;
-let hasPowerup = false;
+let hasPowerup;
 let mouse;
 let pointerX;
 let previousPointerX;
 let hasBuble;
-
+let musicLevel;
 
 let levelToPlay = 0;
 let levels = [LEVEL_ONE, LEVEL_TWO, LEVEL_THREE];
@@ -62,6 +62,8 @@ function loadImages()
 function loadSounds()
 {
     game.load.audio('musicFirstLevel', 'assets/snds/MusicFirstLevel.wav');
+    game.load.audio('musicSecondLevel', 'assets/snds/musicSecondLevel.wav');
+    game.load.audio('musicThirdLevel', 'assets/snds/musicThirdLevel.wav');
     game.load.audio('rebound', 'assets/snds/Rebound.wav');
     game.load.audio('pickPowerup', 'assets/snds/PowerUp.wav');
     game.load.audio('hurtSound', 'assets/snds/Hurt.wav');
@@ -79,6 +81,7 @@ function loadLevels()
 function createLevel() 
 {   
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
+    levelToPlay;
     test = 0;
     level = 1;
     life = 100;
@@ -86,10 +89,23 @@ function createLevel()
     remainingPlatforms = 20;
     hasPowerup = false;
     hasBuble = false;
+    game.time.events.loop(Phaser.Timer.SECOND, updateCounterPowerUp, this);
 
-    musicFirstLevel = game.add.audio('musicFirstLevel');
-    musicFirstLevel.loop = true;
-    musicFirstLevel.play();
+    if (levelToPlay == 0){
+        musicLevel = game.add.audio('musicFirstLevel');
+        musicLevel.loop = true;
+        musicLevel.play();
+    }
+    else if (levelToPlay == 1){
+        musicLevel = game.add.audio('musicSecondLevel');
+        musicLevel.loop = true;
+        musicLevel.play();
+    }
+    else if (levelToPlay == 2){
+        musicLevel = game.add.audio('musicThirdLevel');
+        musicLevel.loop = true;
+        musicLevel.play();
+    }
 
     createKeysInput();
     createStage();
@@ -114,7 +130,7 @@ function createStage()
 {
     game.world.setBounds(1, 0, STAGE_WIDTH-2, STAGE_HEIGHT, true, true, true, true);   
     background = game.add.tileSprite(0, 0, STAGE_WIDTH+20, STAGE_HEIGHT+20, 'background');
-    ground = game.add.tileSprite(0, 3100, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
+    ground = game.add.tileSprite(0, 4400, STAGE_WIDTH, STAGE_HEIGHT, 'ground');
     game.physics.arcade.enable(ground);
     createCharacter(200, 100);
     loadJSON(levels[levelToPlay]);
@@ -146,7 +162,7 @@ function createKeysInput()
 function nextLevel()
 {
     levelToPlay += 1;
-    musicFirstLevel.destroy();
+    musicLevel.destroy();
     if (levelToPlay < 3){
         startCurrentLevel();
     }

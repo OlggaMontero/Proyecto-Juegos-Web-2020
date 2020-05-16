@@ -35,7 +35,7 @@ function characterHurt(damage)
     }
     if (life <= 0)
     {
-        musicFirstLevel.destroy();
+        musicLevel.destroy();
         condition = 'lose';
         game.state.start('screenEnd');
         hasPowerup = false;

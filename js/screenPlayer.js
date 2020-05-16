@@ -8,7 +8,6 @@ let playerState = {
     update: updatePlayer
 };
 
-//Precarga las imagenes y el audio
 function preloadPlayer() {
     game.load.image('bg', 'assets/imgs/playerScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
@@ -16,7 +15,6 @@ function preloadPlayer() {
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
 }
 
-//Carga la imagen y coloca todo en su sitio
 function createPlayer() { //Cambiar nombre funcion da lugar a confusion
     CambiarNombre();
     

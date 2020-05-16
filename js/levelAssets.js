@@ -193,7 +193,8 @@ function playerHitsPowerup(powerup, nombre)
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
-        game.time.events.loop(Phaser.Timer.SECOND, updateCounterPowerUp, this);
+        
+        
         powerup.destroy();
         hasPowerup = true;
     }
