@@ -66,6 +66,8 @@ function createAsset(x, y, type)
     {
         asset = game.add.sprite(x, y, 'letter_A');
         game.physics.arcade.enable(asset);
+        asset.isKeyPlatform = true;
+        asset.keyCode = "KeyA";
         asset.body.immovable = true;
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
@@ -129,22 +131,12 @@ function playerHitsTrap(platform)
 
 function playerHitsObstacle(obstacle)
 {
-    if (character.y < obstacle.y)
+    if (character.y < obstacle.y + obstacle.height)
     {
         characterHurt(8);
         obstacle.destroy();
     }
     character.body.velocity.y *= 0.6;
-}
-
-function playerHitsTemp(n, platform, sound)
-{
-    if (character.y < platform.y)
-    {
-        characterHurt(n);
-        platform.destroy();
-    }
-    character.body.velocity.y *= 0.8; 
 }
 
 function playerHitsPlatform(platform)

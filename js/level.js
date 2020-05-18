@@ -141,6 +141,7 @@ function createKeysInput()
 {
     leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+    keyA = game.input.keyboard.addKey(Phaser.Keyboard.A);
 
     leftKey.onDown.add(function() { 
         if (!mouse) 
@@ -152,6 +153,16 @@ function createKeysInput()
         if (!mouse)
         {
             moveRight()
+        }
+    }, this);
+
+    keyA.onDown.add(function() {
+        for(i = 0; i < assets.length; i++)
+        {
+            if (assets[i].isKeyPlatform)
+            {
+                assets[i].destroy();
+            }
         }
     }, this);
 
