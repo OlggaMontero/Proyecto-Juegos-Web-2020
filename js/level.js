@@ -32,6 +32,7 @@ let previousPointerX;
 let hasBuble;
 let musicLevel;
 let colliderBoxes = [];
+let blasts = [];
 
 let levelToPlay = 0;
 let levels = [LEVEL_ONE, LEVEL_TWO, LEVEL_THREE];
@@ -39,6 +40,7 @@ let levels = [LEVEL_ONE, LEVEL_TWO, LEVEL_THREE];
 function loadLevelAssets()
 {
     loadImages();
+    loadSpriteSheets();
     loadSounds();
     loadLevels(); 
 }
@@ -82,6 +84,11 @@ function loadLevels()
     game.load.text(LEVEL_THREE, 'levels/levelThreeJSON.json', true);
 }
 
+function loadSpriteSheets()
+{
+    game.load.spritesheet('purple_blast', 'assets/imgs/purple_blast.png', 128, 128);
+}
+
 function render()
 {
     game.context.fillStyle = 'rgba(255,0,0,0.6)';
@@ -121,7 +128,6 @@ function createLevel()
     createKeysInput();
     createStage();
 }
-
 
 function updateLevel()
 {

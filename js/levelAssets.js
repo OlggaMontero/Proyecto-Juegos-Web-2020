@@ -156,10 +156,28 @@ function playerHitsBomb(platform)
         platform.width = 40;
         platform.height = 40;
         game.time.events.add(2500, function () {
+            displayBlast(platform.x, platform.y);
             platform.destroy();
         })
     }
     character.body.velocity.y *= 0.4;  
+}
+
+function displayBlast(x, y)
+{
+    blasts = game.add.group();
+    blasts.createMultiple(10, 'purple_blast');
+    blasts.forEach(setupBlast, this);
+    let blast = blasts.getFirstExists(false);
+    blast.reset(x, y);
+    blast.play('pruple_blast', 30, false, true);
+}
+
+function setupBlast(blast)
+{
+    blast.anchor.x = 0.5;
+    blast.anchor.y = 0.5;
+    blast.animations.add('pruple_blast');
 }
 
 function updateRemainingPlatforms(player, colliderBox)
