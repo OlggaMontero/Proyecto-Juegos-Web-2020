@@ -178,10 +178,11 @@ function playerHitsPowerup(powerup, nombre)
         let nombreHUD = nombre + 'HUD';
         powerupHUD = game.add.sprite(330, 660, nombreHUD);
         if (nombre == 'powerupSpeed'){
-            //cambiar la velocidad como piden para el primer powerup
+            //cambiar la aceleracion como piden para el primer powerup
         }
         else if (nombre == 'superSoldier'){
-            //cambiar la velocidad como piden para el segundo powerup
+            //cambiar la aceleracion como piden para el segundo powerup
+            //debe acabar cunado rompa la plataforma o la velocidad llegue a la norma
         }
         else if (nombre == 'buble'){
             bubleCharacter = game.add.sprite(character.x, character.y, 'buble');
@@ -198,19 +199,21 @@ function playerHitsPowerup(powerup, nombre)
 
 function updateCounterPowerUp()
 {
-    counterPowerup--;
-    if (counterPowerup == 0){
-        //poner la velocidad normal
-        timerEnds = game.add.audio('timerEnds');
-        timerEnds.play();
-        //timerSound.destroy(); //Esto lo he comentado porque crasheaba REVISAR
-        //powerupHUD.destroy(); //Esto lo he comentado porque crasheaba REVISAR
-        hasPowerup = false;
-        if (hasBuble){
-            bubleCharacter.destroy();
-            hasBuble = false;
+    if (hasPowerup){
+        counterPowerup--;
+        if (counterPowerup == 0){
+            //poner la aceleracion normal
+            timerEnds = game.add.audio('timerEnds');
+            timerEnds.play();
+            timerSound.destroy();
+            powerupHUD.destroy();
+            hasPowerup = false;
+            if (hasBuble){
+                bubleCharacter.destroy();
+                hasBuble = false;
+            }
         }
-    }
+    }   
 }
 
 function manageAppleMovement()

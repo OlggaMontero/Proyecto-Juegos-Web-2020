@@ -12,12 +12,17 @@ function createCharacter(x, y)
 
 function createLife()
 {
-    lifeText = game.add.text(x-30, y-700, life + '% '); 
+    lifeText = game.add.text(x-50, y-705, life + '% '); 
     lifeText.anchor.setTo(0.5); 
-
-    lifeText.font = '20px Revalia';
-    lifeText.fontSize = 20;
+    lifeText.font = '25px Revalia';
     lifeText.fixedToCamera = true; 
+    
+    grd = lifeText.context.createLinearGradient(0, 0, 0, lifeText.canvas.height);
+    grd.addColorStop(0, '#ffffff');
+    
+    lifeText.fill = grd;
+    lifeText.stroke = '#000000';
+    lifeText.strokeThickness = 2;
   
     healthBar = game.add.sprite(x-270, y-720, 'healthBar');
     healthBar.scale.setTo(0.15, 0.15);

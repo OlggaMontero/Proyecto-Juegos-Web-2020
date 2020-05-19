@@ -196,23 +196,33 @@ function createHUD()
 
 function createInfoLevel()
 {
-    levelText = game.add.text(x+40, y-20, 'Level: ' + (levelToPlay+1) + '  ');
+    levelText = game.add.text(x+50, y-20, 'Level: ' + (levelToPlay+1) + '  ');
     levelText.anchor.setTo(0.5, 0.5);
-    levelText.font = '20px Revalia';
-    levelText.fontSize = 20;
+    levelText.font = '25px Revalia';
     levelText.fixedToCamera = true;
-    
+ 
+    grd = levelText.context.createLinearGradient(0, 0, 0, levelText.canvas.height);
+    grd.addColorStop(0, '#ffffff');
+    levelText.fill = grd;
+    levelText.stroke = '#000000';
+    levelText.strokeThickness = 2;
+
     //plataformas que quedan para llegar al fin del nivel (cambiar cuando lo tengamos)
-    remainingPlatformsText = game.add.text(x-30, y+10, 'Remaining Platforms: ' + remainingPlatforms);
+    remainingPlatformsText = game.add.text(x-50, y+10, 'Remaining Platforms: ' + remainingPlatforms);
     remainingPlatformsText.anchor.setTo(0.5, 0.5);
-    remainingPlatformsText.font = '20px Revalia';
-    remainingPlatformsText.fontSize = 20;
+    remainingPlatformsText.font = '25px Revalia';
     remainingPlatformsText.fixedToCamera = true;
+    remainingPlatformsText.fill = grd;
+    remainingPlatformsText.stroke = '#000000';
+    remainingPlatformsText.strokeThickness = 2;
 
     //nombre elegido (cambiar cuando lo tengamos)
     nameText = game.add.text(x-230, y-660, CambiarNombre());
     nameText.anchor.setTo(0.5, 0.5);
-    nameText.font = '20px Revalia';
-    nameText.fontSize = 20;
+    nameText.font = '25px Revalia';
     nameText.fixedToCamera = true;
+    nameText.fill = grd;
+    nameText.stroke = '#000000';
+    nameText.strokeThickness = 2;
+    
 }
