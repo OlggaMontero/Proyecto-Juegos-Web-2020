@@ -73,6 +73,15 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
     }
+    else if (type == 8)
+    {
+        asset = game.add.sprite(x, y, 'platform_bomb');
+        game.physics.arcade.enable(asset);
+        asset.body.immovable = true;
+        asset.scale.setTo(0.15);
+        asset.body.onCollide = new Phaser.Signal();
+        asset.body.onCollide.add(playerHitsBomb, this);
+    }
     asset.width = 40;
     asset.height = 40;
     asset.checkWorldBounds = true;
@@ -121,7 +130,7 @@ function assetOut(asset)
 
 function playerHitsTrap(platform)
 {
-    if (character.y < platform.y)
+    if (character.y < platform.y + platform.height)
     {
         characterHurt(20);
         platform.destroy();
@@ -136,10 +145,23 @@ function playerHitsObstacle(obstacle)
         characterHurt(8);
         obstacle.destroy();
     }
-    character.body.velocity.y *= 0.6;
+    character.body.velocity.y *= 0.3;
 }
 
-//----------Provisional para contar plataformas---------
+function playerHitsBomb(platform)
+{
+    if (character.y < platform.y + platform.height)
+    {
+        platform.loadTexture('platform_bomb_active');
+        platform.width = 40;
+        platform.height = 40;
+        game.time.events.add(2500, function () {
+            platform.destroy();
+        })
+    }
+    character.body.velocity.y *= 0.4;  
+}
+
 function updateRemainingPlatforms(player, colliderBox)
 {
     remainingPlatforms -= 1;

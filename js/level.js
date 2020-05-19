@@ -59,6 +59,8 @@ function loadImages()
     game.load.image('buble', 'assets/imgs/buble.png');
     game.load.image('bubleHUD', 'assets/imgs/buble.png');
     game.load.image('letter_A', 'assets/imgs/platform_A.png');
+    game.load.image('platform_bomb', 'assets/imgs/platform_bomb.png');
+    game.load.image('platform_bomb_active', 'assets/imgs/platform_bomb_active.png');
 }
 
 function loadSounds()
