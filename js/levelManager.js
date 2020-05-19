@@ -27,21 +27,21 @@ function loadJSON(level)
         let x = levelJSON.ObjectsInMap.platforms[i].position.x;
         let y = levelJSON.ObjectsInMap.platforms[i].position.y;
         let type = levelJSON.ObjectsInMap.platforms[i].type;
-        createAssetsJSON(x, y, type);
+        createAssetsJSON(x, y, type, true);
     }
     for (i = 0; i < numberOfObstacles; i++)
     {
         let x = levelJSON.ObjectsInMap.obstacles[i].position.x;
         let y = levelJSON.ObjectsInMap.obstacles[i].position.y;
         let type = levelJSON.ObjectsInMap.obstacles[i].type;
-        createAssetsJSON(x, y, type);
+        createAssetsJSON(x, y, type, false);
     }
     for (i = 0; i < numberOfPowerups; i++)
     {
         let x = levelJSON.ObjectsInMap.powerup[i].position.x;
         let y = levelJSON.ObjectsInMap.powerup[i].position.y;
         let type = levelJSON.ObjectsInMap.powerup[i].type;
-        createAssetsJSON(x, y, type);
+        createAssetsJSON(x, y, type, false);
     }
     if (levelToPlay!=0)
     {
@@ -50,7 +50,7 @@ function loadJSON(level)
             let x = levelJSON.ObjectsInMap.supersoldier[i].position.x;
             let y = levelJSON.ObjectsInMap.supersoldier[i].position.y;
             let type = levelJSON.ObjectsInMap.supersoldier[i].type;
-            createAssetsJSON(x, y, type);
+            createAssetsJSON(x, y, type, false);
         }
     }
     if (levelToPlay!=0 && levelToPlay!=1)
@@ -60,12 +60,12 @@ function loadJSON(level)
             let x = levelJSON.ObjectsInMap.bubles[i].position.x;
             let y = levelJSON.ObjectsInMap.bubles[i].position.y;
             let type = levelJSON.ObjectsInMap.bubles[i].type;
-            createAssetsJSON(x, y, type);
+            createAssetsJSON(x, y, type, false);
         }
     }
 }
 
-function createAssetsJSON(x, y, platformTypes)
+function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
 {
     x = 0
     for(i = 0; i < 10; i++)
@@ -77,4 +77,16 @@ function createAssetsJSON(x, y, platformTypes)
         }
         x += 40;
     }
+    if (addTriggerToLane)
+    {
+        let colliderBox;
+        colliderBox = game.add.sprite(0, y + 10, 'platform');
+        game.physics.arcade.enable(colliderBox);
+        colliderBox.body.immovable = true;
+        colliderBox.height = 20;
+        colliderBox.width = 200000;
+        colliderBox.alpha = 0;
+        colliderBoxes.push(colliderBox);
+    }
 }
+

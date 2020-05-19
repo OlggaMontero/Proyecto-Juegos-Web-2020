@@ -139,6 +139,15 @@ function playerHitsObstacle(obstacle)
     character.body.velocity.y *= 0.6;
 }
 
+//----------Provisional para contar plataformas---------
+function updateRemainingPlatforms(player, colliderBox)
+{
+    remainingPlatforms -= 1;
+    remainingPlatformsText.text = 'Remaining Platforms: ' + remainingPlatforms;
+    colliderBox.destroy();
+    console.log(remainingPlatforms);
+}
+
 function playerHitsPlatform(platform)
 {
     reboundSound = game.add.audio('rebound');
@@ -164,7 +173,7 @@ function playerHitsPlatform(platform)
             character.body.velocity.y *= 1.15;
         }
     }
-    console.log(character.body.velocity.y); //Just to visualize on console this values
+    //console.log(character.body.velocity.y); //Just to visualize on console this values
 }
 
 function playerHitsPowerup(powerup, nombre)

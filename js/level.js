@@ -31,6 +31,7 @@ let pointerX;
 let previousPointerX;
 let hasBuble;
 let musicLevel;
+let colliderBoxes = [];
 
 let levelToPlay = 0;
 let levels = [LEVEL_ONE, LEVEL_TWO, LEVEL_THREE];
@@ -82,9 +83,7 @@ function loadLevels()
 function render()
 {
     game.context.fillStyle = 'rgba(255,0,0,0.6)';
-    game.context.fillRect(40, 40, 300, 150);
-    game.debug.cameraInfo(game.camera, 32, 32);
-    game.debug.spriteCoords(character, 32, 500);
+    //game.context.fillRect(40, 40, 300, 150);
 }
 
 function createLevel() 
@@ -99,6 +98,7 @@ function createLevel()
     hasPowerup = false;
     hasBuble = false;
     game.time.events.loop(Phaser.Timer.SECOND, updateCounterPowerUp, this);
+
 
     if (levelToPlay == 0){
         musicLevel = game.add.audio('musicFirstLevel');
@@ -124,12 +124,15 @@ function createLevel()
 function updateLevel()
 {
     game.physics.arcade.collide(character, assets);
+    game.physics.arcade.overlap(character, colliderBoxes, updateRemainingPlatforms);
     game.physics.arcade.collide(character, ground, nextLevel);
+
     if (mouse)
     {
         manageAppleMovement();
     }
-    if (hasBuble){
+    if (hasBuble)
+    {
         bubleCharacter.x = character.x - bubleCharacter.width/8;
         bubleCharacter.y = character.y - bubleCharacter.height/8;
     }
@@ -224,7 +227,7 @@ function createInfoLevel()
     remainingPlatformsText.fill = grd;
     remainingPlatformsText.stroke = '#000000';
     remainingPlatformsText.strokeThickness = 2;
-
+    
     //nombre elegido (cambiar cuando lo tengamos)
     nameText = game.add.text(x-230, y-660, CambiarNombre());
     nameText.anchor.setTo(0.5, 0.5);
@@ -233,5 +236,5 @@ function createInfoLevel()
     nameText.fill = grd;
     nameText.stroke = '#000000';
     nameText.strokeThickness = 2;
-    
 }
+
