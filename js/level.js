@@ -3,6 +3,7 @@ let level1State = {
     preload: loadLevelAssets,
     create: createLevel,
     update: updateLevel,
+    render: render
 };
 
 const STAGE_HEIGHT = 4500;
@@ -76,6 +77,14 @@ function loadLevels()
     game.load.text(LEVEL_ONE, 'levels/levelOneJSON.json', true);
     game.load.text(LEVEL_TWO, 'levels/levelTwoJSON.json', true);
     game.load.text(LEVEL_THREE, 'levels/levelThreeJSON.json', true);
+}
+
+function render()
+{
+    game.context.fillStyle = 'rgba(255,0,0,0.6)';
+    game.context.fillRect(40, 40, 300, 150);
+    game.debug.cameraInfo(game.camera, 32, 32);
+    game.debug.spriteCoords(character, 32, 500);
 }
 
 function createLevel() 

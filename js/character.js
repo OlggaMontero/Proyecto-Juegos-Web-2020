@@ -7,7 +7,8 @@ function createCharacter(x, y)
     character.body.bounce.y = 0.7; 
     character.body.gravity.y = 500; 
     //character.body.velocity.y = -300
-    game.camera.follow(character, Phaser.Camera.FOLLOW_PLATFORMER); 
+    game.camera.follow(character); 
+    game.camera.deadzone = new Phaser.Rectangle(40, 40, 300, 150);
 }
 
 function createLife()
