@@ -6,7 +6,7 @@ function createCharacter(x, y)
     character.body.collideWorldBounds = true; 
     character.body.bounce.y = 0.7; 
     character.body.gravity.y = 500; 
-    //character.body.velocity.y = -300
+    character.body.velocity.y = -300;
     game.camera.follow(character); 
     game.camera.deadzone = new Phaser.Rectangle(40, 40, 300, 150);
 }

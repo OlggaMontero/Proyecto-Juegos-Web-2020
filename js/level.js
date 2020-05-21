@@ -237,7 +237,7 @@ function createInfoLevel()
     remainingPlatformsText.strokeThickness = 2;
     
     //nombre elegido (cambiar cuando lo tengamos)
-    nameText = game.add.text(x-230, y-660, CambiarNombre());
+    nameText = game.add.text(x-230, y-660, username);
     nameText.anchor.setTo(0.5, 0.5);
     nameText.font = '25px Revalia';
     nameText.fixedToCamera = true;

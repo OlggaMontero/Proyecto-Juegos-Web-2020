@@ -62,15 +62,15 @@ function createInit()
     btnPlayer.anchor.setTo(0.5, 0.5);
     btnPlayer.scale.setTo(0.6);
 
-    btnLevel1 = game.add.button(posX+0, posY-200, 'buttonLevel1', startLevel1);
+    btnLevel1 = game.add.button(posX+0, posY-200, 'buttonLevel1', startLevel(0));
     btnLevel1.anchor.setTo(0.5, 0.5);
     btnLevel1.scale.setTo(0.1);
 
-    btnLevel2 = game.add.button(posX+200, posY-200, 'buttonLevel2', startLevel2);
+    btnLevel2 = game.add.button(posX+200, posY-200, 'buttonLevel2', startLevel(1));
     btnLevel2.anchor.setTo(0.5, 0.5);
     btnLevel2.scale.setTo(0.1);
 
-    btnLevel3 = game.add.button(posX+400, posY-200, 'buttonLevel3', startLevel3);
+    btnLevel3 = game.add.button(posX+400, posY-200, 'buttonLevel3', startLevel(2));
     btnLevel3.anchor.setTo(0.5, 0.5);
     btnLevel3.scale.setTo(0.1);
 
@@ -92,30 +92,17 @@ function createInit()
         game.state.start('screenPlayer')
     }
 
-    function startLevel1()
-    {
-        musicMenu.destroy();
-        optionChosen.play();
-        levelToPlay = 0;
-        game.state.start('level');
+//He convertido 3 funciones iguales salvo por el leveltoPlay en 1 sola
+    function startLevel(lvlNumber)
+    {   //Decirle al usuario que elija un nombre antes de jugar
+        //Desabilitar los botones (que estén como en gris y que no hagan animación)
+        if (username != ""){
+            musicMenu.destroy();
+            optionChosen.play();
+            levelToPlay = lvlNumber;
+            game.state.start('level');
+        }
     }
-
-    function startLevel2()
-    {
-        musicMenu.destroy();
-        optionChosen.play();
-        levelToPlay = 1;
-        game.state.start('level');
-    }
-
-    function startLevel3()
-    {
-        musicMenu.destroy();
-        optionChosen.play();
-        levelToPlay = 2;
-        game.state.start('level');
-    }
-
     createAnimation();
 }
 

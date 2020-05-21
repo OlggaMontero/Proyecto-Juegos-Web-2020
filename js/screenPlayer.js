@@ -11,13 +11,12 @@ let playerState = {
 function preloadPlayer() {
     game.load.image('bg', 'assets/imgs/playerScreen.jpg');
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
-
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
+
+    document.getElementById("player").style.display = "block"; //This shows the name change buttons
 }
 
-function createPlayer() { //Cambiar nombre funcion da lugar a confusion
-    CambiarNombre();
-    
+function createPlayer() { //Cambiar nombre funcion da lugar a confusion 
     optionOnHover = game.add.audio('OptionOnHover');
 
     let w = game.world.width;
@@ -37,32 +36,28 @@ function createPlayer() { //Cambiar nombre funcion da lugar a confusion
 
     function back()
     {
+        document.getElementById("player").style.display = "none"; //Hide the names options when returning to the main menu
         musicMenu.destroy();
         game.state.start('init');
     }
 }
-//En el HTML: PRIMERA O SEGUNDA PRACTICA FUENTES DE GOOGLE EN ESTILOS
 
-//Funcion que gestiona la selección de nombres
-function CambiarNombre(){
-
-    document.getElementById("player").style.display = "block"; //Esto sacaría a la luz los botones
-    //var nombre = document.forms[0];
-    // if (nombre[i].checked)
-    //https://www.w3schools.com/jsref/prop_radio_checked.asp
-
-    //Otra cosa por si sirve https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onchange
-    nombresRadio = ['Newton','Olga','Fer','Sara'];
-    nameAvailable=false;
-    for (let name in nombresRadio)
-        if (document.getElementById(name).checked)
-            nameAvailable = true;
-            nombre = document.getElementById(name).value;
-    if (!nameAvailable)
-    {
-        nombre = document.getElementById('LabelName').value;
+//These two global variables help the name change functions
+var username = "";
+var currentRadiobtn = undefined;
+//This function manages the radio buttons that chooses the predefined names
+function CambiarNombre(elem){
+    //console.log(elem.value); //For control purposes
+    username = elem.value;
+    currentRadiobtn = elem;
+}
+//This function manages the label that the player can write into
+function CambiarNombreLabel(element){
+    //If some radio button is enabled this condition disables it
+    if (currentRadiobtn != undefined){
+        currentRadiobtn.checked = false;
     }
-    return nombre;
+    username = element.value;
 }
 
 function updatePlayer()
