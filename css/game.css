@@ -4,7 +4,7 @@ canvas{
     margin-top: 2em;
 }
 
-chooseName {
+.chooseName {
     display: none;
     position: absolute;
     left: 80%;
