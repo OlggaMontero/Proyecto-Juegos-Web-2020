@@ -7,6 +7,7 @@ function loadJSON(level)
         assets = [];
     }
 
+    console.log("level: ", level);
     let levelJSON = JSON.parse(game.cache.getText(level));
 
     numberOfPlatforms = levelJSON.ObjectsInMap.platforms.length;

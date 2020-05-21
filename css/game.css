@@ -1,6 +1,14 @@
 
-
-canvas {
+canvas{
     margin: auto;
     margin-top: 2em;
+}
+
+chooseName {
+    display: none;
+    position: absolute;
+    left: 80%;
+    top: 80%;
+    font-family:sans-serif;
+    font-size: 25px;
 }

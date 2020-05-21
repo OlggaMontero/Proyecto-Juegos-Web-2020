@@ -40,6 +40,7 @@ function createAsset(x, y, type)
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
+        //game.physics.arcade.overlap(character, asset, function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
     }
     //Power up superSoldier
     else if (type == 5)

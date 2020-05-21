@@ -100,7 +100,7 @@ function createLevel()
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
     levelToPlay;
     test = 0;
-    level = 1;
+    //level = 1;
     life = 100;
     counterPowerup = 7;
     remainingPlatforms = 20;
