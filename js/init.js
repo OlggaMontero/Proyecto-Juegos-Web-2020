@@ -62,15 +62,15 @@ function createInit()
     btnPlayer.anchor.setTo(0.5, 0.5);
     btnPlayer.scale.setTo(0.6);
 
-    btnLevel1 = game.add.button(posX+0, posY-200, 'buttonLevel1', startLevel(0));
+    btnLevel1 = game.add.button(posX+0, posY-200, 'buttonLevel1', startLevel, 0);
     btnLevel1.anchor.setTo(0.5, 0.5);
     btnLevel1.scale.setTo(0.1);
 
-    btnLevel2 = game.add.button(posX+200, posY-200, 'buttonLevel2', startLevel(1));
+    btnLevel2 = game.add.button(posX+200, posY-200, 'buttonLevel2', startLevel, 1);
     btnLevel2.anchor.setTo(0.5, 0.5);
     btnLevel2.scale.setTo(0.1);
 
-    btnLevel3 = game.add.button(posX+400, posY-200, 'buttonLevel3', startLevel(2));
+    btnLevel3 = game.add.button(posX+400, posY-200, 'buttonLevel3', startLevel, 2);
     btnLevel3.anchor.setTo(0.5, 0.5);
     btnLevel3.scale.setTo(0.1);
 
