@@ -133,7 +133,7 @@ function updateLevel()
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.overlap(character, colliderBoxes, updateRemainingPlatforms);
     game.physics.arcade.collide(character, ground, nextLevel);
-    //game.physics.arcade.overlap(character, powerupSpeed, function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
+    game.physics.arcade.overlap(character, assetPowerup, function(assetPowerup){playerHitsPowerup(assetPowerup, 'powerupSpeed')}, this);
 
     if (mouse)
     {
@@ -232,7 +232,6 @@ function createInfoLevel()
     levelText.stroke = '#000000';
     levelText.strokeThickness = 2;
 
-    //plataformas que quedan para llegar al fin del nivel (cambiar cuando lo tengamos)
     remainingPlatformsText = game.add.text(x-50, y+10, 'Remaining Platforms: ' + remainingPlatforms);
     remainingPlatformsText.anchor.setTo(0.5, 0.5);
     remainingPlatformsText.font = '25px Revalia';
@@ -241,7 +240,6 @@ function createInfoLevel()
     remainingPlatformsText.stroke = '#000000';
     remainingPlatformsText.strokeThickness = 2;
     
-    //nombre elegido (cambiar cuando lo tengamos)
     nameText = game.add.text(x-230, y-660, username);
     nameText.anchor.setTo(0.5, 0.5);
     nameText.font = '25px Revalia';

@@ -269,25 +269,29 @@ function manageAppleMovement()
 
 function createPowerup(x, y, asset){
     if (asset=='powerupSpeed'){
-        asset = game.add.sprite(x, y, 'powerupSpeed');
-        game.physics.arcade.enable(asset);
-        asset.body.immovable = true;
-        asset.scale.setTo(0.15);
-        asset.body.onCollide = new Phaser.Signal();
-        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
+        assetPowerup = game.add.sprite(x, y, 'powerupSpeed');
+        game.physics.arcade.enable(assetPowerup);
+        assetPowerup.body.immovable = true;
+        assetPowerup.scale.setTo(0.15);
+        assetPowerup.body.onCollide = new Phaser.Signal();
+        assetPowerup.body.onCollide.add(function(assetPowerup){playerHitsPowerup(assetPowerup, 'powerupSpeed')}, this);
+        assetPowerup.width = 40;
+        assetPowerup.height = 40;
+        assetPowerup.checkWorldBounds = true;
+        assets.push(assetPowerup);
     }
     if (asset=='superSoldier'){
-        asset = game.add.sprite(x, y, 'superSoldier');
-        game.physics.arcade.enable(asset);
-        asset.body.immovable = true;
-        asset.scale.setTo(0.15);
-        asset.body.onCollide = new Phaser.Signal();
-        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'superSoldier')}, this);
+        assetSupersoldier = game.add.sprite(x, y, 'superSoldier');
+        game.physics.arcade.enable(assetSupersoldier);
+        assetSupersoldier.body.immovable = true;
+        assetSupersoldier.scale.setTo(0.15);
+        assetSupersoldier.body.onCollide = new Phaser.Signal();
+        //assetSupersoldier.body.onCollide.add(function(assetSupersoldier){playerHitsPowerup(assetSupersoldier, 'superSoldier')}, this);
+        assetSupersoldier.width = 40;
+        assetSupersoldier.height = 40;
+        assetSupersoldier.checkWorldBounds = true;
+        assets.push(assetSupersoldier);
     }
-    asset.width = 40;
-    asset.height = 40;
-    asset.checkWorldBounds = true;
-    asset.events.onOutOfBounds.add(assetOut, this);
 }
 
 function createPowerupsInMap(){
@@ -295,7 +299,7 @@ function createPowerupsInMap(){
     for (i=400; i<=4200; i+=200){
         for (j=0; j<=400; j+= 40){
             //if (hole){
-                let numberRandom = game.rnd.integerInRange(0,100);
+                let numberRandom = game.rnd.integerInRange(0,60);
                 if (numberRandom==0 || numberRandom==1 || numberRandom==2){
                     createPowerup(j, i, 'powerupSpeed')
                 }
