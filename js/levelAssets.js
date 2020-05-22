@@ -31,27 +31,6 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsObstacle, this);
         
     }
-    //Power up de la velocidad
-    else if (type == 4)
-    {
-        asset = game.add.sprite(x, y, 'powerupSpeed');
-        game.physics.arcade.enable(asset);
-        asset.body.immovable = true;
-        asset.scale.setTo(0.15);
-        asset.body.onCollide = new Phaser.Signal();
-        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
-        //game.physics.arcade.overlap(character, asset, function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
-    }
-    //Power up superSoldier
-    else if (type == 5)
-    {
-        asset = game.add.sprite(x, y, 'superSoldier');
-        game.physics.arcade.enable(asset);
-        asset.body.immovable = true;
-        asset.scale.setTo(0.15);
-        asset.body.onCollide = new Phaser.Signal();
-        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'superSoldier')}, this);
-    }
     //Power up de la burbuja
     else if (type == 6)
     {
@@ -74,6 +53,7 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
     }
+    //Plataforma bomba
     else if (type == 8)
     {
         asset = game.add.sprite(x, y, 'platform_bomb');
@@ -186,7 +166,6 @@ function updateRemainingPlatforms(player, colliderBox)
     remainingPlatforms -= 1;
     remainingPlatformsText.text = 'Remaining Platforms: ' + remainingPlatforms;
     colliderBox.destroy();
-    console.log(remainingPlatforms);
 }
 
 function playerHitsPlatform(platform)
@@ -194,6 +173,10 @@ function playerHitsPlatform(platform)
     reboundSound = game.add.audio('rebound');
     reboundSound.play();
 
+    //falta tener en cuenta el aumento de velocidad
+    if (hasPowerup){
+        platform.destroy();
+    }
     character.body.bounce.y = 1; //Infinite bounce
     //If character goes too fast this slows it down
     if (character.body.velocity.y < -320){
@@ -252,7 +235,7 @@ function updateCounterPowerUp()
     if (hasPowerup){
         counterPowerup--;
         if (counterPowerup == 0){
-            //poner la aceleracion normal
+            //poner la aceleracion y todos los valores a normal
             timerEnds = game.add.audio('timerEnds');
             timerEnds.play();
             timerSound.destroy();
@@ -281,5 +264,46 @@ function manageAppleMovement()
             moveLeft();
             previousPointerX = pointerX;
         }
+    }
+}
+
+function createPowerup(x, y, asset){
+    if (asset=='powerupSpeed'){
+        asset = game.add.sprite(x, y, 'powerupSpeed');
+        game.physics.arcade.enable(asset);
+        asset.body.immovable = true;
+        asset.scale.setTo(0.15);
+        asset.body.onCollide = new Phaser.Signal();
+        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
+    }
+    if (asset=='superSoldier'){
+        asset = game.add.sprite(x, y, 'superSoldier');
+        game.physics.arcade.enable(asset);
+        asset.body.immovable = true;
+        asset.scale.setTo(0.15);
+        asset.body.onCollide = new Phaser.Signal();
+        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'superSoldier')}, this);
+    }
+    asset.width = 40;
+    asset.height = 40;
+    asset.checkWorldBounds = true;
+    asset.events.onOutOfBounds.add(assetOut, this);
+}
+
+function createPowerupsInMap(){
+    
+    for (i=400; i<=4200; i+=200){
+        for (j=0; j<=400; j+= 40){
+            //if (hole){
+                let numberRandom = game.rnd.integerInRange(0,100);
+                if (numberRandom==0 || numberRandom==1 || numberRandom==2){
+                    createPowerup(j, i, 'powerupSpeed')
+                }
+
+                if ((numberRandom==4 || numberRandom==5 || numberRandom==6) && levelToPlay!=0){
+                    createPowerup(j, i, 'superSoldier')
+                }
+            //}
+        }   
     }
 }

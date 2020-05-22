@@ -32,7 +32,7 @@ function startGame() {
     game.state.add('screenEnd', endState);
     game.state.add('level', level1State);
     
-    game.state.start('init');
+    game.state.start('level');
     
     document.getElementById("game").children[0].onmouseover = function(){mouse = true; };
     document.getElementById("game").children[0].onmouseout = function(){mouse = false; };

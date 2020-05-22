@@ -17,7 +17,6 @@ const LEVEL_THREE = 'level3';
 
 let x = 300;
 let y = 750;
-let level;
 let life;
 let lifeText;
 let nameText;
@@ -63,6 +62,8 @@ function loadImages()
     game.load.image('letter_A', 'assets/imgs/platform_A.png');
     game.load.image('platform_bomb', 'assets/imgs/platform_bomb.png');
     game.load.image('platform_bomb_active', 'assets/imgs/platform_bomb_active.png');
+    game.load.image('gradient', 'assets/imgs/gradient.png');
+    game.load.image('gradientLeft', 'assets/imgs/gradienteLeft.png');
 }
 
 function loadSounds()
@@ -100,14 +101,12 @@ function createLevel()
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
     levelToPlay;
     test = 0;
-    //level = 1;
     life = 100;
     counterPowerup = 7;
     remainingPlatforms = 20;
     hasPowerup = false;
     hasBuble = false;
     game.time.events.loop(Phaser.Timer.SECOND, updateCounterPowerUp, this);
-
 
     if (levelToPlay == 0){
         musicLevel = game.add.audio('musicFirstLevel');
@@ -134,6 +133,7 @@ function updateLevel()
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.overlap(character, colliderBoxes, updateRemainingPlatforms);
     game.physics.arcade.collide(character, ground, nextLevel);
+    //game.physics.arcade.overlap(character, powerupSpeed, function(asset){playerHitsPowerup(asset, 'powerupSpeed')}, this);
 
     if (mouse)
     {
@@ -154,7 +154,12 @@ function createStage()
     game.physics.arcade.enable(ground);
     createCharacter(200, 100);
     loadJSON(levels[levelToPlay]);
+    createPowerupsInMap();
     createHUD();
+    gradientRight = game.add.sprite(330, 0, 'gradient');
+    gradientRight.scale.setTo(1, 10);
+    gradientLeft = game.add.sprite(-30, 0, 'gradientLeft');
+    gradientLeft.scale.setTo(1, 10); 
 }
 
 function createKeysInput()

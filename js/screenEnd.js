@@ -17,7 +17,10 @@ function preloadEnd()
     game.load.image('background_end', 'assets/imgs/background_end.png');
     game.load.image('background_win', 'assets/imgs/win.jpg');
     game.load.image('background_lose', 'assets/imgs/lost.jpg');
+    game.load.image('buttnBack', 'assets/imgs/button_back.png');
 
+
+    game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
     game.load.audio('musicEndScreen', 'assets/snds/musicEndScreen.wav');
     game.load.audio('musicWin', 'assets/snds/LevelWin.wav');
     game.load.audio('musicDefeat', 'assets/snds/LevelDefeat.wav');
@@ -26,26 +29,28 @@ function preloadEnd()
 function createEnd() 
 {
     game.scale.setGameSize(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT);
+    background = game.add.sprite(0, 0, 'background_win');
+    if (condition == 'lose')
+    {
+        background = game.add.sprite(0, 0, 'background_lose');
+    }
+    background.scale.setTo(1,1);
+    clockText = 0;
 
     musicEndScreen = game.add.audio('musicEndScreen');
     musicEndScreen.loop = true;
     musicEndScreen.play();
+    optionOnHover = game.add.audio('OptionOnHover');
+
+    
+    buttnBack = game.add.button(150, 700, 'buttnBack', back);
+    buttnBack.anchor.setTo(0.5, 0.5);
+    buttnBack.scale.setTo(0.7);
 
     keyS = game.input.keyboard.addKey(Phaser.Keyboard.S);
 
     let styleI = {font: '30px Sniglet', fill: '#000000', strokeThickness: '1'};
-    
-    if (condition == 'lose')
-    {
-        background = game.add.sprite(0, 0, 'background_lose');
-        background.scale.setTo(1,1);
-    }
-    else
-    {
-        background = game.add.sprite(0, 0, 'background_win');
-        background.scale.setTo(1,1);
-    }
-    
+
     let textI = 'Número de plataformas derribadas: '; 
     let instructions = game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+250, textI, styleI);
 
@@ -63,6 +68,17 @@ function updateEnd()
         musicEndScreen.stop();
         startCurrentLevel();
     }
+
+    if (buttnBack.input.pointerOver())
+    {
+        buttnBack.scale.setTo(0.9, 0.9);
+        optionOnHover.play();
+    }
+    else
+    {
+        buttnBack.scale.setTo(0.7);
+    }
+
 }
 
 function createTimer()
@@ -87,3 +103,11 @@ function updateCounter()
         game.state.start('init');
     }
 }
+
+function back()
+    {
+        //document.getElementById("player").style.display = "none"; //Hide the names options when returning to the main menu
+        musicEndScreen.destroy();
+        game.state.start('init');
+    }
+

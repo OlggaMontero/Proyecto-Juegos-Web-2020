@@ -6,18 +6,11 @@ function loadJSON(level)
         assets[i].destroy();
         assets = [];
     }
-
-    console.log("level: ", level);
     let levelJSON = JSON.parse(game.cache.getText(level));
 
     numberOfPlatforms = levelJSON.ObjectsInMap.platforms.length;
     numberOfObstacles = levelJSON.ObjectsInMap.obstacles.length;
-    numberOfPowerups = levelJSON.ObjectsInMap.powerup.length;
 
-    if (levelToPlay!=0)
-    {
-        numberOfSupersoldier = levelJSON.ObjectsInMap.supersoldier.length;
-    }
     if (levelToPlay!=0 && levelToPlay!=1)
     {
         numberOfBubles = levelJSON.ObjectsInMap.bubles.length;
@@ -36,23 +29,6 @@ function loadJSON(level)
         let y = levelJSON.ObjectsInMap.obstacles[i].position.y;
         let type = levelJSON.ObjectsInMap.obstacles[i].type;
         createAssetsJSON(x, y, type, false);
-    }
-    for (i = 0; i < numberOfPowerups; i++)
-    {
-        let x = levelJSON.ObjectsInMap.powerup[i].position.x;
-        let y = levelJSON.ObjectsInMap.powerup[i].position.y;
-        let type = levelJSON.ObjectsInMap.powerup[i].type;
-        createAssetsJSON(x, y, type, false);
-    }
-    if (levelToPlay!=0)
-    {
-        for (i = 0; i < numberOfSupersoldier; i++)
-        {
-            let x = levelJSON.ObjectsInMap.supersoldier[i].position.x;
-            let y = levelJSON.ObjectsInMap.supersoldier[i].position.y;
-            let type = levelJSON.ObjectsInMap.supersoldier[i].type;
-            createAssetsJSON(x, y, type, false);
-        }
     }
     if (levelToPlay!=0 && levelToPlay!=1)
     {

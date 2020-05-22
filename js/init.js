@@ -116,62 +116,64 @@ function updateInit()
 
 function onHoverButton()
 {
-    if (btnAbout.input.pointerOver())
-    {
-        btnAbout.scale.setTo(0.25, 0.25);
-        optionOnHover.play();
-    }
-    else
-    {
-        btnAbout.scale.setTo(0.15, 0.15);
-    }
-    
-    if (btnInstructions.input.pointerOver())
-    {
-        btnInstructions.scale.setTo(0.9, 0.9);
-        optionOnHover.play();
-    }
-    else
-    {
-        btnInstructions.scale.setTo(0.6);
-    }
-    
-    if (btnPlayer.input.pointerOver()){
-        btnPlayer.scale.setTo(0.9);
-        optionOnHover.play();
-    }
-    else{
-        btnPlayer.scale.setTo(0.6);
-    }
+    if (username!=""){
+        if (btnAbout.input.pointerOver())
+        {
+            btnAbout.scale.setTo(0.25, 0.25);
+            optionOnHover.play();
+        }
+        else
+        {
+            btnAbout.scale.setTo(0.15, 0.15);
+        }
+        
+        if (btnInstructions.input.pointerOver())
+        {
+            btnInstructions.scale.setTo(0.9, 0.9);
+            optionOnHover.play();
+        }
+        else
+        {
+            btnInstructions.scale.setTo(0.6);
+        }
+        
+        if (btnPlayer.input.pointerOver()){
+            btnPlayer.scale.setTo(0.9);
+            optionOnHover.play();
+        }
+        else{
+            btnPlayer.scale.setTo(0.6);
+        }
 
-    if (btnLevel1.input.pointerOver())
-    {
-        btnLevel1.scale.setTo(0.15, 0.15);
-        optionOnHover.play();
-    }
-    else
-    {
-        btnLevel1.scale.setTo(0.1);
-    }
+        if (btnLevel1.input.pointerOver())
+        {
+            btnLevel1.scale.setTo(0.15, 0.15);
+            optionOnHover.play();
+        }
+        else
+        {
+            btnLevel1.scale.setTo(0.1);
+        }
 
-    if (btnLevel2.input.pointerOver())
-    {
-        btnLevel2.scale.setTo(0.15, 0.15);
-        optionOnHover.play();
-    }
-    else
-    {
-        btnLevel2.scale.setTo(0.1);
-    }
+        if (btnLevel2.input.pointerOver())
+        {
+            btnLevel2.scale.setTo(0.15, 0.15);
+            optionOnHover.play();
+        }
+        else
+        {
+            btnLevel2.scale.setTo(0.1);
+        }
 
-    if (btnLevel3.input.pointerOver())
-    {
-        btnLevel3.scale.setTo(0.15, 0.15);
-        optionOnHover.play();
-    }
-    else
-    {
-        btnLevel3.scale.setTo(0.1);
+        if (btnLevel3.input.pointerOver())
+        {
+            btnLevel3.scale.setTo(0.15, 0.15);
+            optionOnHover.play();
+        }
+        else
+        {
+            btnLevel3.scale.setTo(0.1);
+        }
     }
 }
 

@@ -36,9 +36,11 @@ function createPlayer() { //Cambiar nombre funcion da lugar a confusion
 
     function back()
     {
-        document.getElementById("player").style.display = "none"; //Hide the names options when returning to the main menu
-        musicMenu.destroy();
-        game.state.start('init');
+        if (username!=""){
+            document.getElementById("player").style.display = "none"; //Hide the names options when returning to the main menu
+            musicMenu.destroy();
+            game.state.start('init');
+        }
     }
 }
 
@@ -62,13 +64,15 @@ function CambiarNombreLabel(element){
 
 function updatePlayer()
 {
-    if (buttonBack.input.pointerOver())
-    {
-        buttonBack.scale.setTo(0.9, 0.9);
-        optionOnHover.play();
-    }
-    else
-    {
-        buttonBack.scale.setTo(0.6, 0.6);
+    if(username!=""){
+        if (buttonBack.input.pointerOver())
+        {
+            buttonBack.scale.setTo(0.9, 0.9);
+            optionOnHover.play();
+        }
+        else
+        {
+            buttonBack.scale.setTo(0.6, 0.6);
+        }
     }
 }
