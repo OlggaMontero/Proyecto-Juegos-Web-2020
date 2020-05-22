@@ -278,7 +278,7 @@ function createPowerup(x, y, asset){
         assetPowerup.width = 40;
         assetPowerup.height = 40;
         assetPowerup.checkWorldBounds = true;
-        assets.push(assetPowerup);
+        return assetPowerup;
     }
     if (asset=='superSoldier'){
         assetSupersoldier = game.add.sprite(x, y, 'superSoldier');
@@ -290,17 +290,19 @@ function createPowerup(x, y, asset){
         assetSupersoldier.width = 40;
         assetSupersoldier.height = 40;
         assetSupersoldier.checkWorldBounds = true;
-        assets.push(assetSupersoldier);
+        return assetSupersoldier;
     }
 }
 
 function createPowerupsInMap(x, y){
+
     let numberRandom = game.rnd.integerInRange(0,20);
     if (numberRandom==0 || numberRandom==1 || numberRandom==2){
-        createPowerup(x, y, 'powerupSpeed');
+        return "powerupSpeed";
     }
 
     if ((numberRandom==4 || numberRandom==5 || numberRandom==6) && levelToPlay!=0){
-        createPowerup(x, y, 'superSoldier');
+        return "superSoldier";
     }
+    return "";
 }

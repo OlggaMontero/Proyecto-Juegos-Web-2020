@@ -52,8 +52,12 @@ function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
             let asset = createAsset(x, y, platformTypes[i]);
             assets.push(asset);
         }
-        else{
-            createPowerupsInMap(x, y);
+        if (platformTypes[i] == 0){
+            let asset = createPowerupsInMap(x, y);
+            if (asset!=""){
+                newAsset = createPowerup(x, y, asset);
+                assets.push(newAsset);
+            }
         }
         x += 40;
     }
