@@ -133,7 +133,7 @@ function updateLevel()
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.overlap(character, colliderBoxes, updateRemainingPlatforms);
     game.physics.arcade.collide(character, ground, nextLevel);
-    game.physics.arcade.overlap(character, assetPowerup, function(assetPowerup){playerHitsPowerup(assetPowerup, 'powerupSpeed')}, this);
+    //game.physics.arcade.overlap(character, assetPowerup, function(assetPowerup){playerHitsPowerup(assetPowerup, 'powerupSpeed')}, this);
 
     if (mouse)
     {
@@ -154,7 +154,7 @@ function createStage()
     game.physics.arcade.enable(ground);
     createCharacter(200, 100);
     loadJSON(levels[levelToPlay]);
-    createPowerupsInMap();
+    //createPowerupsInMap();
     createHUD();
     gradientRight = game.add.sprite(330, 0, 'gradient');
     gradientRight.scale.setTo(1, 10);

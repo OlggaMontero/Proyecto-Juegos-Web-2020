@@ -44,13 +44,16 @@ function loadJSON(level)
 
 function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
 {
-    x = 0
+    x = 0;
     for(i = 0; i < 10; i++)
     {
         if (platformTypes[i] != 0)
         {
             let asset = createAsset(x, y, platformTypes[i]);
             assets.push(asset);
+        }
+        else{
+            createPowerupsInMap(x, y);
         }
         x += 40;
     }

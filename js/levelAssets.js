@@ -286,7 +286,7 @@ function createPowerup(x, y, asset){
         assetSupersoldier.body.immovable = true;
         assetSupersoldier.scale.setTo(0.15);
         assetSupersoldier.body.onCollide = new Phaser.Signal();
-        //assetSupersoldier.body.onCollide.add(function(assetSupersoldier){playerHitsPowerup(assetSupersoldier, 'superSoldier')}, this);
+        assetSupersoldier.body.onCollide.add(function(assetSupersoldier){playerHitsPowerup(assetSupersoldier, 'superSoldier')}, this);
         assetSupersoldier.width = 40;
         assetSupersoldier.height = 40;
         assetSupersoldier.checkWorldBounds = true;
@@ -294,20 +294,13 @@ function createPowerup(x, y, asset){
     }
 }
 
-function createPowerupsInMap(){
-    
-    for (i=400; i<=4200; i+=200){
-        for (j=0; j<=400; j+= 40){
-            //if (hole){
-                let numberRandom = game.rnd.integerInRange(0,60);
-                if (numberRandom==0 || numberRandom==1 || numberRandom==2){
-                    createPowerup(j, i, 'powerupSpeed')
-                }
+function createPowerupsInMap(x, y){
+    let numberRandom = game.rnd.integerInRange(0,20);
+    if (numberRandom==0 || numberRandom==1 || numberRandom==2){
+        createPowerup(x, y, 'powerupSpeed');
+    }
 
-                if ((numberRandom==4 || numberRandom==5 || numberRandom==6) && levelToPlay!=0){
-                    createPowerup(j, i, 'superSoldier')
-                }
-            //}
-        }   
+    if ((numberRandom==4 || numberRandom==5 || numberRandom==6) && levelToPlay!=0){
+        createPowerup(x, y, 'superSoldier');
     }
 }
