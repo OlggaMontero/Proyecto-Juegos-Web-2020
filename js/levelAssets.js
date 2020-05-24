@@ -1,5 +1,5 @@
 let differentLetters = "ABCDEFGHIJKLMNOPQRSTUWXYZ";
-let platformTextStyle = {font: "32px Courier", fill: "#00ff44"};
+let platformTextStyle = {font: "32px Verdana", fill: "#000000"};
 
 function createAsset(x, y, type)
 {
