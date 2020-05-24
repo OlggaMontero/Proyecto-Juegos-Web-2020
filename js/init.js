@@ -31,7 +31,8 @@ function preloadInit()
 function createInit() 
 {   
     game.scale.setGameSize(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT);
-
+    game.world.setBounds(0, 0, GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT, true, true, true, true);
+    
     let w = game.world.width;
     let h = game.world.height;
 
