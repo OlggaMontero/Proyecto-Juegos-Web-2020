@@ -1,3 +1,6 @@
+let differentLetters = "ABCDEFGHIJKLMNOPQRSTUWXYZ";
+let platformTextStyle = {font: "32px Courier", fill: "#00ff44"};
+
 function createAsset(x, y, type)
 {
     let asset;
@@ -41,13 +44,17 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'buble')}, this);
     }
-    //Plataforma prueba letra -- LETRA A
+    //Plataforma letras
     else if (type == 7)
     {
-        asset = game.add.sprite(x, y, 'letter_A');
+        asset = game.add.sprite(x, y, 'platform');
         game.physics.arcade.enable(asset);
+        let index = Math.floor(Math.random() * differentLetters.length);
+        let selectedLetter = differentLetters.charAt(index);
+        let letter = game.add.text(x, y, selectedLetter, platformTextStyle);
+        asset.platformText = letter;
         asset.isKeyPlatform = true;
-        asset.keyCode = "KeyA";
+        asset.keyCode = selectedLetter;
         asset.body.immovable = true;
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
@@ -74,11 +81,19 @@ function createAsset(x, y, type)
 function moveAssetLeft(asset)
 {
     asset.x -= asset.width;
+    if (asset.platformText != null)
+    {
+        asset.platformText.x -= asset.width;
+    }
 }
 
 function moveAssetRight(asset)
 {
     asset.x += asset.width;
+    if (asset.platformText != null)
+    {
+        asset.platformText.x += asset.width;
+    }
 }
 
 function moveRight()
