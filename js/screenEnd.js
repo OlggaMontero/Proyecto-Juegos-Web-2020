@@ -19,7 +19,6 @@ function preloadEnd()
     game.load.image('background_lose', 'assets/imgs/lost.jpg');
     game.load.image('buttnBack', 'assets/imgs/button_back.png');
 
-
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
     game.load.audio('musicEndScreen', 'assets/snds/musicEndScreen.wav');
     game.load.audio('musicWin', 'assets/snds/LevelWin.wav');
@@ -42,7 +41,6 @@ function createEnd()
     musicEndScreen.play();
     optionOnHover = game.add.audio('OptionOnHover');
 
-    
     buttnBack = game.add.button(150, 700, 'buttnBack', back);
     buttnBack.anchor.setTo(0.5, 0.5);
     buttnBack.scale.setTo(0.7);
@@ -51,11 +49,12 @@ function createEnd()
 
     let styleI = {font: '30px Sniglet', fill: '#000000', strokeThickness: '1'};
 
-    let textI = 'Número de plataformas derribadas: '; 
-    let instructions = game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+250, textI, styleI);
+    let textI = 'Platforms knocked down: ' + totalPlatformsKnocked;
+    totalPlatformsKnocked = 0; 
+    game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+250, textI, styleI);
 
-    let textJ = '¡Pulsa S para volver a jugar!';
-    let instructionsJ = game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+350, textJ, styleI);
+    let textJ = 'Press S to play again!';
+    game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+350, textJ, styleI);
 
     counter = 15;
     createTimer();

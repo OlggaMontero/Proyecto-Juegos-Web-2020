@@ -34,9 +34,8 @@ function createInstructions()
     textI += 'facilities to finish the level.\n';
     textI += 'If you complete all levels, you will win.';
 
-    
     let styleI = {font: '25px Sniglet', fill: '#000000', fontWeight: 'bold', align: 'center'};
-    let instructions = game.add.text(TEXT_OFFSET_HOR_I+25, TEXT_OFFSET_VER_I+300, textI, styleI);
+    game.add.text(TEXT_OFFSET_HOR_I+25, TEXT_OFFSET_VER_I+300, textI, styleI);
 
     let extPosX = 200;
     let extPosY = 350;

@@ -20,7 +20,6 @@ function preloadAbout()
 
 function createAbout() 
 {
-
     optionOnHover = game.add.audio('OptionOnHover');
 
     let w = game.world.width;
@@ -31,16 +30,16 @@ function createAbout()
     let styleText2 = {font: '27px Sniglet', fill: '#000000', fontWeight: 'bold', fontStyle: 'italic'};
 
     let textI = 'Olga Montero, Fernando Soria and Sara Montagud';
-    let instructionsI = game.add.text(TEXT_OFFSET_HOR+240, TEXT_OFFSET_VER+265, textI, styleText);
+    game.add.text(TEXT_OFFSET_HOR+240, TEXT_OFFSET_VER+265, textI, styleText);
 
     let textJ = 'Los ancestrales';
-    let instructionsJ = game.add.text(TEXT_OFFSET_HOR+170, TEXT_OFFSET_VER+380, textJ, styleText2);
+    game.add.text(TEXT_OFFSET_HOR+170, TEXT_OFFSET_VER+380, textJ, styleText2);
 
     let textK = 'Apple Jump is a skill game where you must move the\n'
     textK += 'platforms to get the ball to the end.\n';
     textK += 'You will find power-ups and traps that will make\n';
     textK += 'the game more exciting.';
-    let instructionsK = game.add.text(TEXT_OFFSET_HOR+275, TEXT_OFFSET_VER+505, textK, styleText);
+    game.add.text(TEXT_OFFSET_HOR+275, TEXT_OFFSET_VER+505, textK, styleText);
 
     let extPosX = 200;
     let extPosY = 350;

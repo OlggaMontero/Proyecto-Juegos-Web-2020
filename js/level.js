@@ -32,6 +32,7 @@ let hasBuble;
 let musicLevel;
 let colliderBoxes = [];
 let blasts = [];
+let totalPlatformsKnocked;
 
 let levelToPlay = 0;
 let levels = [LEVEL_ONE, LEVEL_TWO, LEVEL_THREE];

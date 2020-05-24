@@ -32,7 +32,7 @@ function createInit()
 {   
     game.scale.setGameSize(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT);
     game.world.setBounds(0, 0, GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT, true, true, true, true);
-    
+
     let w = game.world.width;
     let h = game.world.height;
 
@@ -41,6 +41,7 @@ function createInit()
     background.scale.setTo(0.8, 1.2); 
 
     selected = null;
+    totalPlatformsKnocked = 0;
 
     musicMenu = game.add.audio('MusicMenu');
     musicMenu.play();
@@ -117,7 +118,8 @@ function updateInit()
 
 function onHoverButton()
 {
-    if (username!=""){
+    if (username!="")
+    {
         if (btnAbout.input.pointerOver())
         {
             btnAbout.scale.setTo(0.25, 0.25);
@@ -142,7 +144,8 @@ function onHoverButton()
             btnPlayer.scale.setTo(0.9);
             optionOnHover.play();
         }
-        else{
+        else
+        {
             btnPlayer.scale.setTo(0.6);
         }
 

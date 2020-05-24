@@ -32,7 +32,8 @@ function createLife()
 
 function characterHurt(damage)
 {
-    if (!hasBuble){
+    if (!hasBuble)
+    {
         hurtSound = game.add.audio('hurtSound');
         hurtSound.play();
         healthBar.width = healthBar.width - damage; 

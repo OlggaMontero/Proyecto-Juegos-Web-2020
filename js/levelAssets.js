@@ -164,6 +164,7 @@ function setupBlast(blast)
 function updateRemainingPlatforms(player, colliderBox)
 {
     remainingPlatforms -= 1;
+    totalPlatformsKnocked += 1;
     remainingPlatformsText.text = 'Remaining Platforms: ' + remainingPlatforms;
     colliderBox.destroy();
 }
@@ -174,26 +175,36 @@ function playerHitsPlatform(platform)
     reboundSound.play();
 
     //falta tener en cuenta el aumento de velocidad
-    if (hasPowerup){
+    if (hasPowerup)
+    {
         platform.destroy();
     }
     character.body.bounce.y = 1; //Infinite bounce
     //If character goes too fast this slows it down
-    if (character.body.velocity.y < -320){
-        if (character.body.velocity.y < -400){
-            if (character.body.velocity.y < -520){
+    if (character.body.velocity.y < -320)
+    {
+        if (character.body.velocity.y < -400)
+        {
+            if (character.body.velocity.y < -520)
+            {
                 character.body.velocity.y *= 0.45;
             }
-            else {character.body.velocity.y *= 0.55;}
+            else 
+            {
+                character.body.velocity.y *= 0.55;
+            }
         }
         else {character.body.velocity.y *= 0.65;}
     }
     //If character goes too slow this speeds it up
-    else if (character.body.velocity.y > -250){
-        if (character.body.velocity.y > -220){
+    else if (character.body.velocity.y > -250)
+    {
+        if (character.body.velocity.y > -220)
+        {
             character.body.velocity.y *= 1.35;
         }
-        else{
+        else
+        {
             character.body.velocity.y *= 1.15;
         }
     }
@@ -210,14 +221,17 @@ function playerHitsPowerup(powerup, nombre)
         pickPowerup.play();
         let nombreHUD = nombre + 'HUD';
         powerupHUD = game.add.sprite(330, 660, nombreHUD);
-        if (nombre == 'powerupSpeed'){
+        if (nombre == 'powerupSpeed')
+        {
             //cambiar la aceleracion como piden para el primer powerup
         }
-        else if (nombre == 'superSoldier'){
+        else if (nombre == 'superSoldier')
+        {
             //cambiar la aceleracion como piden para el segundo powerup
             //debe acabar cunado rompa la plataforma o la velocidad llegue a la norma
         }
-        else if (nombre == 'buble'){
+        else if (nombre == 'buble')
+        {
             bubleCharacter = game.add.sprite(character.x, character.y, 'buble');
             bubleCharacter.scale.setTo(0.07);
             hasBuble = true;
@@ -232,16 +246,19 @@ function playerHitsPowerup(powerup, nombre)
 
 function updateCounterPowerUp()
 {
-    if (hasPowerup){
+    if (hasPowerup)
+    {
         counterPowerup--;
-        if (counterPowerup == 0){
+        if (counterPowerup == 0)
+        {
             //poner la aceleracion y todos los valores a normal
             timerEnds = game.add.audio('timerEnds');
             timerEnds.play();
             timerSound.destroy();
             powerupHUD.destroy();
             hasPowerup = false;
-            if (hasBuble){
+            if (hasBuble)
+            {
                 bubleCharacter.destroy();
                 hasBuble = false;
             }
@@ -268,7 +285,8 @@ function manageAppleMovement()
 }
 
 function createPowerup(x, y, asset){
-    if (asset=='powerupSpeed'){
+    if (asset=='powerupSpeed')
+    {
         assetPowerup = game.add.sprite(x, y, 'powerupSpeed');
         game.physics.arcade.enable(assetPowerup);
         assetPowerup.body.immovable = true;
@@ -280,7 +298,8 @@ function createPowerup(x, y, asset){
         assetPowerup.checkWorldBounds = true;
         return assetPowerup;
     }
-    if (asset=='superSoldier'){
+    if (asset=='superSoldier')
+    {
         assetSupersoldier = game.add.sprite(x, y, 'superSoldier');
         game.physics.arcade.enable(assetSupersoldier);
         assetSupersoldier.body.immovable = true;
