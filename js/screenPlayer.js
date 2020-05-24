@@ -36,7 +36,8 @@ function createPlayer() { //Cambiar nombre funcion da lugar a confusion
 
     function back()
     {
-        if (username!=""){
+        if (username!="")
+        {
             document.getElementById("player").style.display = "none"; //Hide the names options when returning to the main menu
             musicMenu.destroy();
             game.state.start('init');

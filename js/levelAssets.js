@@ -21,7 +21,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsTrap, this);
 
     }
-    //Enemigos
+    //Obstaculos
     else if (type == 3)
     {
         asset = game.add.sprite(x, y, 'enemy');
