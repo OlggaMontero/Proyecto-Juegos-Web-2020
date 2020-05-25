@@ -187,13 +187,14 @@ function createKeysInput()
     leftKey.onDown.add(function() { 
         if (!mouse) 
         {
-            moveLeft();
+            moveRight();
         }
     }, this);
     rightKey.onDown.add(function() {
         if (!mouse)
         {
-            moveRight()
+            moveLeft();
+            
         }
     }, this);
 

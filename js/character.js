@@ -48,3 +48,4 @@ function characterHurt(damage)
         hasPowerup = false;
     }
 }
+

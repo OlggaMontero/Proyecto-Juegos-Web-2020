@@ -71,6 +71,7 @@ function createAsset(x, y, type)
         asset = game.add.sprite(x, y, 'platform_bomb');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
+        asset.bombEnabled = false;
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsBomb, this);
     }
@@ -151,20 +152,21 @@ function playerHitsObstacle(obstacle)
 
 function playerHitsBomb(platform)
 {
-    if (character.y < platform.y + platform.height)
+    if (character.y < platform.y + platform.height && platform.bombEnabled == false)
     {
         platform.loadTexture('platform_bomb_active');
         platform.width = PLATFORM_SIZE;
         platform.height = PLATFORM_SIZE;
+        platform.bombEnabled = true;
         game.time.events.add(2500, function () {
-            displayBlast(platform.x, platform.y);
+            blast(platform.x + platform.width/2, platform.y + platform.height/2);
             platform.destroy();
         })
     }
-    character.body.velocity.y *= 0.4;  
+    LimitPlayerSpeed();
 }
 
-function displayBlast(x, y)
+function blast(x, y)
 {
     blasts = game.add.group();
     blasts.createMultiple(10, 'purple_blast');
@@ -172,12 +174,17 @@ function displayBlast(x, y)
     let blast = blasts.getFirstExists(false);
     blast.reset(x, y);
     blast.play('pruple_blast', 30, false, true);
+    if (game.physics.arcade.distanceBetween(platform, character) < blast.width)
+    {
+        characterHurt(20);
+    }
 }
 
 function setupBlast(blast)
 {
     blast.anchor.x = 0.5;
     blast.anchor.y = 0.5;
+    blast.scale.setTo(2);
     blast.animations.add('pruple_blast');
 }
 
@@ -199,6 +206,11 @@ function playerHitsPlatform(platform)
     {
         platform.destroy();
     }
+    LimitPlayerSpeed();
+}
+
+function LimitPlayerSpeed()
+{
     character.body.bounce.y = 1; //Infinite bounce
     //If character goes too fast this slows it down
     if (character.body.velocity.y < -320)
@@ -228,7 +240,6 @@ function playerHitsPlatform(platform)
             character.body.velocity.y *= 1.15;
         }
     }
-    //console.log(character.body.velocity.y); //Just to visualize on console this values
 }
 
 function playerHitsPowerup(powerup, nombre)
