@@ -14,7 +14,7 @@ function preloadPlayer()
     game.load.image('buttonBack', 'assets/imgs/button_back.png');
     game.load.audio('OptionOnHover', 'assets/snds/MenuOptionOnHover.wav');
 
-    document.getElementById("player").style.display = "block"; //This shows the name change buttons
+    document.getElementById("chooseName").style.display = "block"; //This shows the name change buttons
 }
 
 function createPlayer() //Cambiar nombre funcion da lugar a confusion 
@@ -40,7 +40,7 @@ function createPlayer() //Cambiar nombre funcion da lugar a confusion
     {
         if (username!="")
         {
-            document.getElementById("player").style.display = "none"; //Hide the names options when returning to the main menu
+            document.getElementById("chooseName").style.display = "none"; //Hide the names options when returning to the main menu
             musicMenu.destroy();
             game.state.start('init');
         }

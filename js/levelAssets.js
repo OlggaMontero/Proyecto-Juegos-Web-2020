@@ -75,6 +75,20 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsBomb, this);
     }
+      /*
+    //Platform on movemet
+    else if (type == 9)
+    {
+        asset = game.add.sprite(x, y, 'platform');
+        game.physics.arcade.enable(asset);
+        asset.body.immovable = true;
+        asset.scale.setTo(0.15);
+        asset.body.onCollide = new Phaser.Signal();
+        asset.body.onCollide.add(playerHitsPlatform, this);
+        //Now we add the movemement
+        asset.body.velocity.x = 50;
+    }*/
+
     asset.width = PLATFORM_SIZE;
     asset.height = PLATFORM_SIZE;
     asset.checkWorldBounds = true;
@@ -137,7 +151,37 @@ function playerHitsTrap(platform)
         console.log(NewValue);
         platform.destroy();
     }
-    character.body.velocity.y *= 0.4;  
+        character.body.velocity.y *= 0.4;
+        //Aqui igual serviría la funcion de limit player speed
+    //If character goes too fast this slows it down
+    if (character.body.velocity.y < -320)
+    {
+        if (character.body.velocity.y < -400)
+        {
+            if (character.body.velocity.y < -520)
+            {
+                character.body.velocity.y *= 0.45;
+            }
+            else 
+            {
+                character.body.velocity.y *= 0.55;
+            }
+        }
+        else {character.body.velocity.y *= 0.65;}
+    }
+    //If character goes too slow this speeds it up
+    else if (character.body.velocity.y > -250)
+    {
+        if (character.body.velocity.y > -220)
+        {
+            character.body.velocity.y *= 1.35;
+        }
+        else
+        {
+            character.body.velocity.y *= 1.15;
+        }
+    }
+
 }
 
 function playerHitsObstacle(obstacle)
@@ -204,6 +248,9 @@ function playerHitsPlatform(platform)
     //falta tener en cuenta el aumento de velocidad
     if (hasPowerup)
     {
+        platform.destroy();
+    }
+    if (character.body.velocity.y < - 450){
         platform.destroy();
     }
     LimitPlayerSpeed();
@@ -294,7 +341,8 @@ function updateCounterPowerUp()
                 hasBuble = false;
             }
         }
-    }   
+    }
+    //Reaction to crash when hits a power up Limit speed?   
 }
 
 function manageAppleMovement()
