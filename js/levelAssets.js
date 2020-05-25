@@ -124,7 +124,16 @@ function playerHitsTrap(platform)
 {
     if (character.y < platform.y + platform.height)
     {
-        characterHurt(20);
+        //Para calcular el daño con la velocidad pero mapeando el rango de valores en uno mas pequeño (Solo tiene 100 de vida y la velocidad es +300) 
+        //https://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio
+
+        let velocity = Math.min(500, Math.abs(character.body.velocity.y));
+        let OldRange = (500 - 0);
+        let NewRange = (30 - 5);
+        let NewValue = (((velocity - 0) * NewRange) / OldRange) + 5;
+        NewValue = Math.floor(NewValue);
+        characterHurt(NewValue);
+        console.log(NewValue);
         platform.destroy();
     }
     character.body.velocity.y *= 0.4;  
