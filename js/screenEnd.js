@@ -47,6 +47,11 @@ function createEnd()
 
     keyS = game.input.keyboard.addKey(Phaser.Keyboard.S);
 
+    keyS.onDown.add(function() { 
+        musicEndScreen.stop();
+        startCurrentLevel();
+    }, this);
+
     let styleI = {font: '30px Sniglet', fill: '#000000', strokeThickness: '1'};
 
     let textI = 'Platforms knocked down: ' + totalPlatformsKnocked;
@@ -62,12 +67,6 @@ function createEnd()
 
 function updateEnd()
 {
-    if (keyS.isDown) 
-    {
-        musicEndScreen.stop();
-        startCurrentLevel();
-    }
-
     if (buttnBack.input.pointerOver())
     {
         buttnBack.scale.setTo(0.9, 0.9);

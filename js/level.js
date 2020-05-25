@@ -100,7 +100,6 @@ function render()
 function createLevel() 
 {   
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
-    levelToPlay;
     test = 0;
     life = 100;
     counterPowerup = 7;
@@ -204,12 +203,14 @@ function createKeysInput()
 
 function nextLevel()
 {
-    levelToPlay += 1;
     musicLevel.destroy();
-    if (levelToPlay < 3){
+    if (levelToPlay < 2)
+    {
+        levelToPlay += 1;
         startCurrentLevel();
     }
-    else{
+    else
+    {
         condition = 'win';
         game.state.start('screenEnd');
     }
