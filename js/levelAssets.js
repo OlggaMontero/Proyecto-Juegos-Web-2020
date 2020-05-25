@@ -147,9 +147,12 @@ function playerHitsTrap(platform)
         let NewRange = (30 - 5);
         let NewValue = (((velocity - 0) * NewRange) / OldRange) + 5;
         NewValue = Math.floor(NewValue);
-        characterHurt(NewValue);
-        console.log(NewValue);
+        if (!hasSupersoldier){
+            characterHurt(NewValue);
+        }
         platform.destroy();
+        hasSupersoldier = false;
+        console.log(NewValue);
     }
         character.body.velocity.y *= 0.4;
         //Aqui igual serviría la funcion de limit player speed
@@ -181,7 +184,6 @@ function playerHitsTrap(platform)
             character.body.velocity.y *= 1.15;
         }
     }
-
 }
 
 function playerHitsObstacle(obstacle)
@@ -245,8 +247,8 @@ function playerHitsPlatform(platform)
     reboundSound = game.add.audio('rebound');
     reboundSound.play();
 
-    //falta tener en cuenta el aumento de velocidad
-    if (hasPowerup)
+    //falta adecuar la velocidad
+    if (hasPowerup && (character.body.velocity.y<-400))
     {
         platform.destroy();
     }
@@ -335,6 +337,7 @@ function updateCounterPowerUp()
             timerSound.destroy();
             powerupHUD.destroy();
             hasPowerup = false;
+            hasSupersoldier = false;
             if (hasBuble)
             {
                 bubleCharacter.destroy();
@@ -375,6 +378,7 @@ function createPowerup(x, y, asset){
         assetPowerup.width = PLATFORM_SIZE;
         assetPowerup.height = PLATFORM_SIZE;
         assetPowerup.checkWorldBounds = true;
+        assetPwrup = assetPowerup;
         return assetPowerup;
     }
     if (asset=='superSoldier')
@@ -388,19 +392,21 @@ function createPowerup(x, y, asset){
         assetSupersoldier.width = PLATFORM_SIZE;
         assetSupersoldier.height = PLATFORM_SIZE;
         assetSupersoldier.checkWorldBounds = true;
+        hasSupersoldier = true;
         return assetSupersoldier;
     }
 }
 
-function createPowerupsInMap(x, y){
+function createPowerupsInMap(){
 
-    let numberRandom = game.rnd.integerInRange(0,20);
+    let result = "";
+    let numberRandom = game.rnd.integerInRange(0,80);
     if (numberRandom==0 || numberRandom==1 || numberRandom==2){
-        return "powerupSpeed";
+        result = "powerupSpeed";
     }
 
-    if ((numberRandom==4 || numberRandom==5 || numberRandom==6) && levelToPlay!=0){
-        return "superSoldier";
+    if ((numberRandom==3 || numberRandom==4) && levelToPlay!=0){
+        result = "superSoldier";
     }
-    return "";
+    return result;
 }

@@ -14,7 +14,6 @@ let clockText = 0;
 
 function preloadEnd() 
 {
-    game.load.image('background_end', 'assets/imgs/background_end.png');
     game.load.image('background_win', 'assets/imgs/win.jpg');
     game.load.image('background_lose', 'assets/imgs/lost.jpg');
     game.load.image('buttnBack', 'assets/imgs/button_back.png');
