@@ -59,7 +59,7 @@ function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
                 assets.push(newAsset);
             }
         }
-        x += 40;
+        x += PLATFORM_SIZE;
     }
     if (addTriggerToLane)
     {

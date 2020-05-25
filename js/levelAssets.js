@@ -1,5 +1,6 @@
 let differentLetters = "ABCDEFGHIJKLMNOPQRSTUWXYZ";
-let platformTextStyle = {font: "32px Verdana", fill: "#000000"};
+const PLATFORM_SIZE = 40;
+
 
 function createAsset(x, y, type)
 {
@@ -51,14 +52,18 @@ function createAsset(x, y, type)
         game.physics.arcade.enable(asset);
         let index = Math.floor(Math.random() * differentLetters.length);
         let selectedLetter = differentLetters.charAt(index);
-        let letter = game.add.text(x, y, selectedLetter, platformTextStyle);
+        let platformTextStyle = {font: "256px Verdana", fill: "#000000"};
+        let letter = game.add.text(0, 0, selectedLetter, platformTextStyle);
+        letter.x += asset.width/2 - letter.width/2;
+        letter.y += asset.height/2 - letter.height/2;
+        asset.addChild(letter);
         asset.platformText = letter;
         asset.isKeyPlatform = true;
         asset.keyCode = selectedLetter;
         asset.body.immovable = true;
-        asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
+
     }
     //Plataforma bomba
     else if (type == 8)
@@ -66,12 +71,11 @@ function createAsset(x, y, type)
         asset = game.add.sprite(x, y, 'platform_bomb');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
-        asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsBomb, this);
     }
-    asset.width = 40;
-    asset.height = 40;
+    asset.width = PLATFORM_SIZE;
+    asset.height = PLATFORM_SIZE;
     asset.checkWorldBounds = true;
     asset.events.onOutOfBounds.add(assetOut, this);
 
@@ -81,19 +85,11 @@ function createAsset(x, y, type)
 function moveAssetLeft(asset)
 {
     asset.x -= asset.width;
-    if (asset.platformText != null)
-    {
-        asset.platformText.x -= asset.width;
-    }
 }
 
 function moveAssetRight(asset)
 {
     asset.x += asset.width;
-    if (asset.platformText != null)
-    {
-        asset.platformText.x += asset.width;
-    }
 }
 
 function moveRight()
@@ -149,8 +145,8 @@ function playerHitsBomb(platform)
     if (character.y < platform.y + platform.height)
     {
         platform.loadTexture('platform_bomb_active');
-        platform.width = 40;
-        platform.height = 40;
+        platform.width = PLATFORM_SIZE;
+        platform.height = PLATFORM_SIZE;
         game.time.events.add(2500, function () {
             displayBlast(platform.x, platform.y);
             platform.destroy();
@@ -308,8 +304,8 @@ function createPowerup(x, y, asset){
         assetPowerup.scale.setTo(0.15);
         assetPowerup.body.onCollide = new Phaser.Signal();
         assetPowerup.body.onCollide.add(function(assetPowerup){playerHitsPowerup(assetPowerup, 'powerupSpeed')}, this);
-        assetPowerup.width = 40;
-        assetPowerup.height = 40;
+        assetPowerup.width = PLATFORM_SIZE;
+        assetPowerup.height = PLATFORM_SIZE;
         assetPowerup.checkWorldBounds = true;
         return assetPowerup;
     }
@@ -321,8 +317,8 @@ function createPowerup(x, y, asset){
         assetSupersoldier.scale.setTo(0.15);
         assetSupersoldier.body.onCollide = new Phaser.Signal();
         assetSupersoldier.body.onCollide.add(function(assetSupersoldier){playerHitsPowerup(assetSupersoldier, 'superSoldier')}, this);
-        assetSupersoldier.width = 40;
-        assetSupersoldier.height = 40;
+        assetSupersoldier.width = PLATFORM_SIZE;
+        assetSupersoldier.height = PLATFORM_SIZE;
         assetSupersoldier.checkWorldBounds = true;
         return assetSupersoldier;
     }

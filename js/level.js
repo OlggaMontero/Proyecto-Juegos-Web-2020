@@ -178,7 +178,6 @@ function createKeysInput()
             {
                 if (assets[i].keyCode == capital)
                 {
-                    assets[i].platformText.destroy();
                     assets[i].destroy();
                 }
                 
