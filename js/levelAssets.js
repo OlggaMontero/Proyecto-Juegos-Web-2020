@@ -75,7 +75,7 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsBomb, this);
     }
-      /*
+    /*
     //Platform on movemet
     else if (type == 9)
     {
@@ -87,7 +87,8 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsPlatform, this);
         //Now we add the movemement
         asset.body.velocity.x = 50;
-    }*/
+    }
+    */
 
     asset.width = PLATFORM_SIZE;
     asset.height = PLATFORM_SIZE;
@@ -154,8 +155,9 @@ function playerHitsTrap(platform)
         hasSupersoldier = false;
         console.log(NewValue);
     }
-        character.body.velocity.y *= 0.4;
-        //Aqui igual serviría la funcion de limit player speed
+    character.body.velocity.y *= 0.4;
+    
+    //Aqui igual serviría la funcion de limit player speed
     //If character goes too fast this slows it down
     if (character.body.velocity.y < -320)
     {
@@ -247,12 +249,15 @@ function playerHitsPlatform(platform)
     reboundSound = game.add.audio('rebound');
     reboundSound.play();
 
+   // console.log(levelJSON.ObjectsInMap.platforms[0].position.y);
+    console.log('Current position' + platform.position.y);
+
     //falta adecuar la velocidad
     if (hasPowerup && (character.body.velocity.y<-400))
     {
         platform.destroy();
     }
-    if (character.body.velocity.y < - 450){
+    if (character.body.velocity.y < - 550){
         platform.destroy();
     }
     LimitPlayerSpeed();
@@ -316,6 +321,15 @@ function playerHitsPowerup(powerup, nombre)
             bubleCharacter.scale.setTo(0.07);
             hasBuble = true;
         }
+        /*
+        else if (nombre == 'nuke')
+        {
+            for (let e in platform.siguiente.enemies)
+            {
+                e.kill(); // o destroy() o lo que sea
+            }
+        }
+        */
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
