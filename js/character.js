@@ -49,3 +49,4 @@ function characterHurt(damage)
     }
 }
 
+

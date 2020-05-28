@@ -80,6 +80,8 @@ function loadSounds()
     game.load.audio('timerSound', 'assets/snds/Timer.wav');
     game.load.audio('bombFused', 'assets/snds/BombFuse.wav');
     game.load.audio('bombExplode', 'assets/snds/BombExplode.mp3');
+    game.load.audio('crashPlatform', 'assets/snds/CrashPlatform.wav');
+    game.load.audio('destroyLetter', 'assets/snds/DestroyLetter.wav');
 }
 
 function loadLevels()
@@ -179,6 +181,8 @@ function createKeysInput()
             {
                 if (assets[i].keyCode == capital)
                 {
+                    destroyLetter = game.add.audio('destroyLetter');
+                    destroyLetter.play();
                     assets[i].destroy();
                 }
             }

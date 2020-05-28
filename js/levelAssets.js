@@ -254,16 +254,20 @@ function playerHitsPlatform(platform)
 {
     reboundSound = game.add.audio('rebound');
     reboundSound.play();
-
+    crashPlatform = game.add.audio('crashPlatform');
+    
    // console.log(levelJSON.ObjectsInMap.platforms[0].position.y);
     console.log('Current position' + platform.position.y);
 
     //falta adecuar la velocidad
     if (hasPowerup && (character.body.velocity.y<-400))
     {
+        crashPlatform.play();
         platform.destroy();
     }
-    if (character.body.velocity.y < - 550){
+    if (character.body.velocity.y < - 550)
+    {
+        crashPlatform.play();
         platform.destroy();
     }
     LimitPlayerSpeed();
