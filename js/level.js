@@ -78,7 +78,8 @@ function loadSounds()
     game.load.audio('pickPowerup', 'assets/snds/PowerUp.wav');
     game.load.audio('hurtSound', 'assets/snds/Hurt.wav');
     game.load.audio('timerSound', 'assets/snds/Timer.wav');
-    game.load.audio('timerEnds', 'assets/snds/Ding.wav');
+    game.load.audio('bombFused', 'assets/snds/BombFuse.wav');
+    game.load.audio('bombExplode', 'assets/snds/BombExplode.mp3');
 }
 
 function loadLevels()

@@ -200,13 +200,19 @@ function playerHitsObstacle(obstacle)
 
 function playerHitsBomb(platform)
 {
+    bombFused = game.add.audio('bombFused');
+    bombExplode = game.add.audio('bombExplode');
+
     if (character.y < platform.y + platform.height && platform.bombEnabled == false)
     {
+        bombFused.play();
         platform.loadTexture('platform_bomb_active');
         platform.width = PLATFORM_SIZE;
         platform.height = PLATFORM_SIZE;
         platform.bombEnabled = true;
         game.time.events.add(2500, function () {
+            bombFused.destroy();
+            bombExplode.play();
             blast(platform.x + platform.width/2, platform.y + platform.height/2);
             platform.destroy();
         })
