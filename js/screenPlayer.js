@@ -25,10 +25,10 @@ function createPlayer() //Cambiar nombre funcion da lugar a confusion
     let h = game.world.height;
     fondo = game.add.tileSprite(0, 0, w, h, 'bg');
     
-    let textI = 'En esta pantalla el jugador debe escoger un nombre\n';
-    textI += 'o escribir el suyo\n';
+    let textI = 'To play, you have to choose between these pre-established names \n';
+    textI += 'or you can write your own if this adventurers do not fit you\n';
     let styleI = {font: '25px Sniglet', fill: '#000000', fontWeight: 'bold', align: 'center'};
-    game.add.text(TEXT_OFFSET_HOR_P+300, TEXT_OFFSET_VER_P+300, textI, styleI);
+    game.add.text(TEXT_OFFSET_HOR_P+100, TEXT_OFFSET_VER_P+300, textI, styleI);
 
     let extPosX = 200;
     let extPosY = 350;
