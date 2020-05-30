@@ -75,7 +75,6 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsBomb, this);
     }
-    
     //Platform on movemet
     /*else if (type == 9)
     {
@@ -89,7 +88,16 @@ function createAsset(x, y, type)
         //Now we add the movemement
         //platformMovement(asset);
     }*/
-    
+    //Plataforma bomba
+    else if (type == 10)
+    {
+        asset = game.add.sprite(x, y, 'nuke');
+        game.physics.arcade.enable(asset);
+        asset.body.immovable = true;
+        asset.bombEnabled = false;
+        asset.body.onCollide = new Phaser.Signal();
+        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'nuke')}, this);
+    }
 
     asset.width = PLATFORM_SIZE;
     asset.height = PLATFORM_SIZE;
@@ -294,14 +302,11 @@ function playerHitsPowerup(powerup, nombre)
         //Lightning power-up
         if (nombre == 'powerupSpeed')
         {
-            //cambiar la aceleracion como piden para el primer powerup
             character.body.gravity.y *= 1.25; 
         }
         //Rocket power-up
         else if (nombre == 'superSoldier')
         {
-            //cambiar la aceleracion como piden para el segundo powerup
-            //debe acabar cunado rompa la plataforma o la velocidad llegue a la norma
             character.body.gravity.y *= 1.45; 
         }
         else if (nombre == 'buble')
@@ -310,13 +315,13 @@ function playerHitsPowerup(powerup, nombre)
             bubleCharacter.scale.setTo(0.07);
             hasBuble = true;
         }
-        /*else if (nombre == 'nuke')
+        else if (nombre == 'nuke')
         {
-            for (let e in platform.siguiente.enemies)
+            /*for (let e in platform.siguiente.enemies)
             {
                 e.destroy();
-            }
-        }*/
+            }*/
+        }
 
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;

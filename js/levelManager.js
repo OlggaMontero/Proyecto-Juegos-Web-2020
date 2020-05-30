@@ -14,6 +14,7 @@ function loadJSON(level)
     if (levelToPlay!=0 && levelToPlay!=1)
     {
         numberOfBubles = levelJSON.ObjectsInMap.bubles.length;
+        numberOfNukes = levelJSON.ObjectsInMap.nukes.length;
     }
     
     for (i = 0; i < numberOfPlatforms; i++)
@@ -39,6 +40,13 @@ function loadJSON(level)
             let x = levelJSON.ObjectsInMap.bubles[i].position.x;
             let y = levelJSON.ObjectsInMap.bubles[i].position.y;
             let type = levelJSON.ObjectsInMap.bubles[i].type;
+            createAssetsJSON(x, y, type, false);
+        }
+        for (i = 0; i < numberOfNukes; i++)
+        {
+            let x = levelJSON.ObjectsInMap.nukes[i].position.x;
+            let y = levelJSON.ObjectsInMap.nukes[i].position.y;
+            let type = levelJSON.ObjectsInMap.nukes[i].type;
             createAssetsJSON(x, y, type, false);
         }
     }
