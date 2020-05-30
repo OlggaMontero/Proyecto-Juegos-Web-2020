@@ -161,7 +161,7 @@ function playerHitsTrap(platform)
             characterHurt(NewValue);
         }
         platform.destroy();
-        hasSupersoldier = false;
+        hasPowerup = false;
         console.log(NewValue);
     }
     if(!hasPowerup){character.body.velocity.y *= 0.4;}
@@ -247,6 +247,7 @@ function playerHitsPlatform(platform)
         crashPlatform.play();
         platform.destroy();
         hasPowerup = false;
+        powerupEnd();
     }
     if (character.body.velocity.y < - 550)
     {
@@ -338,22 +339,27 @@ function updateCounterPowerUp()
         counterPowerup--;
         if (counterPowerup == 0)
         {
-            timerEnds = game.add.audio('timerEnds');
-            timerEnds.play();
-            timerSound.destroy();
-            powerupHUD.destroy();
-            hasPowerup = false;
-            hasSupersoldier = false;
-            character.body.gravity.y = 500; 
-            if (hasBuble)
-            {
-                bubleCharacter.destroy();
-                hasBuble = false;
-            }
+           powerupEnd();
         }
+    }
+}
+
+function powerupEnd(){
+    timerEnds = game.add.audio('timerEnds');
+    timerEnds.play();
+    timerSound.destroy();
+    powerupHUD.destroy();
+    hasPowerup = false;
+    hasSupersoldier = false;
+    character.body.gravity.y = 500; 
+    if (hasBuble)
+    {
+        bubleCharacter.destroy();
+        hasBuble = false;
     }
     //Reaction to crash when hits a power up Limit speed?   
 }
+
 
 function manageAppleMovement()
 {
@@ -407,12 +413,12 @@ function createPowerup(x, y, asset){
 function createPowerupsInMap(){
 
     let result = "";
-    let numberRandom = game.rnd.integerInRange(0,80);
-    if (numberRandom==0 || numberRandom==1 || numberRandom==2){
+    let numberRandom = game.rnd.integerInRange(0,10);
+    if (numberRandom==0){
         result = "powerupSpeed";
     }
 
-    if ((numberRandom==3 || numberRandom==4) && levelToPlay!=0){
+    if (numberRandom==1 && levelToPlay!=0){
         result = "superSoldier";
     }
     return result;
