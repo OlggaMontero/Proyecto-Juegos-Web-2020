@@ -35,6 +35,8 @@ let colliderBoxes = [];
 let blasts = [];
 let totalPlatformsKnocked;
 let assetPwrup;
+let limitLeft;
+let limitRight;
 
 let levelToPlay = 0;
 let levels = [LEVEL_ONE, LEVEL_TWO, LEVEL_THREE];

@@ -77,7 +77,7 @@ function createAsset(x, y, type)
     }
     
     //Platform on movemet
-    else if (type == 9)
+    /*else if (type == 9)
     {
         asset = game.add.sprite(x, y, 'platform');
         game.physics.arcade.enable(asset);
@@ -85,10 +85,10 @@ function createAsset(x, y, type)
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
-        
+        //asset.body.velocity.x = 40;
         //Now we add the movemement
-        platformMovement(asset);
-    }
+        //platformMovement(asset);
+    }*/
     
 
     asset.width = PLATFORM_SIZE;
@@ -406,9 +406,14 @@ function createPowerupsInMap(){
     return result;
 }
 
+/*
 function platformMovement(asset){
-    for (let i=0; i<100; i++){
-        if (asset.position.x <= platform) {asset.body.velocity.x = 40;}
-        else if (asset.position.x>= 100){asset.body.velocity.x = -40;}
+    for (let i=0; i<100; i++){      //cambiar
+        if (asset.position.x == limitLeft) {
+            asset.body.velocity.x = 40;
+        }
+        if (asset.position.x == limitRight){
+            asset.body.velocity.x = -40;
+        }
     }
-}
+}*/

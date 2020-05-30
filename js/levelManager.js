@@ -51,27 +51,25 @@ function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
 
     for(i = 0; i < 10; i++) //Este 10 es número mágico, debería ser la fila .length
     {
+        //limitLeft = 0;
         if (platformTypes[i] != 0)
         {
             let asset = createAsset(x, y, platformTypes[i]);
             assets.push(asset);
+            /*if (platformTypes[i] == 1){
+                limitLeft = x;
+            }*/
+            //vamos estableciendo el limite de la izquierda
+            //limite de la izquiedda = 0
             
-            //assetsNow.push(asset);
+            /*if (platformTypes[i]==9){
+                //ya tyenemos el limite de la izq, nos lo guardamos 
+                //lka siguiente platagorma que encontremos que sea 1 es la derecha 
+                //lo guardmaos todo
+            }*/
         }
         //x += 40;
-/*
-        if (platformTypes[i]==9){
-            let limitLeft;
-            let limitRight;
-            for (let e = 0; e < 160; e += 40){
-                if (e == i){
-                    limitRight = e;
-                }
-
-            }
-        }*/
        
-
         if (platformTypes[i] == 0){
             let asset = createPowerupsInMap();
             if (asset!=""){
@@ -95,4 +93,3 @@ function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
     //Añadir assetsNow a assets
     //return assetsNow;
 }
-
