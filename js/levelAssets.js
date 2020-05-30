@@ -156,8 +156,8 @@ function playerHitsTrap(platform)
         hasSupersoldier = false;
         console.log(NewValue);
     }
-    character.body.velocity.y *= 0.4;
-    LimitPlayerSpeed()
+    if(!hasPowerup){character.body.velocity.y *= 0.4;}
+    LimitPlayerSpeed();
 }
 
 function playerHitsObstacle(obstacle)
@@ -167,7 +167,8 @@ function playerHitsObstacle(obstacle)
         characterHurt(8);
         obstacle.destroy();
     }
-    character.body.velocity.y *= 0.3;
+    if (!hasPowerup){character.body.velocity.y *= 0.3;}
+    LimitPlayerSpeed();
 }
 
 function playerHitsBomb(platform)
@@ -232,10 +233,12 @@ function playerHitsPlatform(platform)
     console.log('Current position' + platform.position.y);
 
     //falta adecuar la velocidad
-    if (hasPowerup && (character.body.velocity.y<-400))
+    //HABLAR PROFESOR
+    if (hasPowerup && (character.body.velocity.y < -800))
     {
         crashPlatform.play();
         platform.destroy();
+        hasPowerup = false;
     }
     if (character.body.velocity.y < - 550)
     {
@@ -288,14 +291,18 @@ function playerHitsPowerup(powerup, nombre)
         pickPowerup.play();
         let nombreHUD = nombre + 'HUD';
         powerupHUD = game.add.sprite(330, 660, nombreHUD);
+        //Lightning power-up
         if (nombre == 'powerupSpeed')
         {
             //cambiar la aceleracion como piden para el primer powerup
+            character.body.gravity.y *= 1.25; 
         }
+        //Rocket power-up
         else if (nombre == 'superSoldier')
         {
             //cambiar la aceleracion como piden para el segundo powerup
             //debe acabar cunado rompa la plataforma o la velocidad llegue a la norma
+            character.body.gravity.y *= 1.45; 
         }
         else if (nombre == 'buble')
         {
@@ -326,13 +333,13 @@ function updateCounterPowerUp()
         counterPowerup--;
         if (counterPowerup == 0)
         {
-            //poner la aceleracion y todos los valores a normal
             timerEnds = game.add.audio('timerEnds');
             timerEnds.play();
             timerSound.destroy();
             powerupHUD.destroy();
             hasPowerup = false;
             hasSupersoldier = false;
+            character.body.gravity.y = 500; 
             if (hasBuble)
             {
                 bubleCharacter.destroy();
