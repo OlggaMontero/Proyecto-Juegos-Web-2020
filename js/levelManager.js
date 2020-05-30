@@ -48,15 +48,30 @@ function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
 {
     x = 0;
     //assetsNow=[];
+
     for(i = 0; i < 10; i++) //Este 10 es número mágico, debería ser la fila .length
     {
         if (platformTypes[i] != 0)
         {
             let asset = createAsset(x, y, platformTypes[i]);
             assets.push(asset);
+            
             //assetsNow.push(asset);
         }
         //x += 40;
+/*
+        if (platformTypes[i]==9){
+            let limitLeft;
+            let limitRight;
+            for (let e = 0; e < 160; e += 40){
+                if (e == i){
+                    limitRight = e;
+                }
+
+            }
+        }*/
+       
+
         if (platformTypes[i] == 0){
             let asset = createPowerupsInMap();
             if (asset!=""){

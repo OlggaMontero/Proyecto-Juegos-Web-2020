@@ -75,7 +75,7 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsBomb, this);
     }
-    /*
+    
     //Platform on movemet
     else if (type == 9)
     {
@@ -85,10 +85,11 @@ function createAsset(x, y, type)
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
+        
         //Now we add the movemement
-        asset.body.velocity.x = 50;
+        platformMovement(asset);
     }
-    */
+    
 
     asset.width = PLATFORM_SIZE;
     asset.height = PLATFORM_SIZE;
@@ -156,36 +157,7 @@ function playerHitsTrap(platform)
         console.log(NewValue);
     }
     character.body.velocity.y *= 0.4;
-    
-    //Aqui igual serviría la funcion de limit player speed
-    //If character goes too fast this slows it down
-    if (character.body.velocity.y < -320)
-    {
-        if (character.body.velocity.y < -400)
-        {
-            if (character.body.velocity.y < -520)
-            {
-                character.body.velocity.y *= 0.45;
-            }
-            else 
-            {
-                character.body.velocity.y *= 0.55;
-            }
-        }
-        else {character.body.velocity.y *= 0.65;}
-    }
-    //If character goes too slow this speeds it up
-    else if (character.body.velocity.y > -250)
-    {
-        if (character.body.velocity.y > -220)
-        {
-            character.body.velocity.y *= 1.35;
-        }
-        else
-        {
-            character.body.velocity.y *= 1.15;
-        }
-    }
+    LimitPlayerSpeed()
 }
 
 function playerHitsObstacle(obstacle)
@@ -331,15 +303,14 @@ function playerHitsPowerup(powerup, nombre)
             bubleCharacter.scale.setTo(0.07);
             hasBuble = true;
         }
-        /*
-        else if (nombre == 'nuke')
+        /*else if (nombre == 'nuke')
         {
             for (let e in platform.siguiente.enemies)
             {
-                e.kill(); // o destroy() o lo que sea
+                e.destroy();
             }
-        }
-        */
+        }*/
+
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
@@ -433,4 +404,11 @@ function createPowerupsInMap(){
         result = "superSoldier";
     }
     return result;
+}
+
+function platformMovement(asset){
+    for (let i=0; i<100; i++){
+        if (asset.position.x <= platform) {asset.body.velocity.x = 40;}
+        else if (asset.position.x>= 100){asset.body.velocity.x = -40;}
+    }
 }
