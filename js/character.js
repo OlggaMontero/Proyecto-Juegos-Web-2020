@@ -44,8 +44,10 @@ function characterHurt(damage)
     {
         musicLevel.destroy();
         condition = 'lose';
+        if (hasPowerup){
+            powerupEnd();
+        }
         game.state.start('screenEnd');
-        hasPowerup = false;
     }
 }
 

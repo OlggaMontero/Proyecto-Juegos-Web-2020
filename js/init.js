@@ -44,6 +44,7 @@ function createInit()
     totalPlatformsKnocked = 0;
 
     musicMenu = game.add.audio('MusicMenu');
+    musicMenu.loop = true;
     musicMenu.play();
     
     optionOnHover = game.add.audio('OptionOnHover');
@@ -95,9 +96,7 @@ function createInit()
     }
 
     function startLevel(lvlNumber)
-    {   //Decirle al usuario que elija un nombre antes de jugar
-        //Desabilitar los botones (que estén como en gris y que no hagan animación)
-        
+    {           
         if (username != "")
         {
             musicMenu.destroy();

@@ -310,7 +310,6 @@ function playerHitsPlatform(platform)
     reboundSound.play();
     crashPlatform = game.add.audio('crashPlatform');
     
-    //console.log(levelJSON.ObjectsInMap.platforms[0].position.y);
     console.log('Current position' + platform.position.y);
 
     //falta adecuar la velocidad
@@ -320,7 +319,6 @@ function playerHitsPlatform(platform)
         crashPlatform.play();
         platform.destroy();
         platform.transitionOutSprite.destroy();
-        hasPowerup = false;
         powerupEnd();
     }
     if (character.body.velocity.y < - 550)
@@ -377,12 +375,12 @@ function playerHitsPowerup(powerup, nombre)
         //Lightning power-up
         if (nombre == 'powerupSpeed')
         {
-            character.body.gravity.y *= 1.25; 
+            character.body.gravity.y *= 1.3; 
         }
         //Rocket power-up
         else if (nombre == 'superSoldier')
         {
-            character.body.gravity.y *= 1.45; 
+            character.body.gravity.y *= 1.5; 
         }
         else if (nombre == 'buble')
         {
@@ -412,6 +410,8 @@ function updateCounterPowerUp()
     if (hasPowerup)
     {
         counterPowerup--;
+        console.log('Resto 1 al powerup');
+        console.log(counterPowerup);
         if (counterPowerup == 0)
         {
            powerupEnd();
@@ -420,19 +420,24 @@ function updateCounterPowerUp()
 }
 
 function powerupEnd(){
-    timerEnds = game.add.audio('timerEnds');
-    timerEnds.play();
-    timerSound.destroy();
-    powerupHUD.destroy();
-    hasPowerup = false;
-    hasSupersoldier = false;
-    character.body.gravity.y = 500; 
-    if (hasBuble)
-    {
-        bubleCharacter.destroy();
-        hasBuble = false;
-    }
-    //Reaction to crash when hits a power up Limit speed?   
+    if (hasPowerup){
+        console.log('he entrado a powerupEND');
+        timerEnds = game.add.audio('timerEnds');
+        timerEnds.play();
+        timerSound.destroy();
+        powerupHUD.destroy();
+        hasPowerup = false;
+        hasSupersoldier = false;
+        character.body.gravity.y = 500; 
+        if (hasBuble)
+        {
+            bubleCharacter.destroy();
+            hasBuble = false;
+            console.log('he puesto buble a false');
+            console.log('prueba: ', hasBuble);
+        }
+        //Reaction to crash when hits a power up Limit speed?
+    }   
 }
 
 function createPowerup(x, y, asset){
