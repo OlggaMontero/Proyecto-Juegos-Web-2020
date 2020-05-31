@@ -2,7 +2,8 @@ let level1State = {
 
     preload: loadLevelAssets,
     create: createLevel,
-    update: updateLevel
+    update: updateLevel,
+    render: render
 };
 
 const STAGE_HEIGHT = 4500;
@@ -99,6 +100,18 @@ function loadSpriteSheets()
     game.load.spritesheet('purple_blast', 'assets/imgs/purple_blast.png', 128, 128);
 }
 
+function render()
+{
+    /*for(i = 0; i < assets.length; i++)
+    {
+        game.debug.bodyInfo(assets[i], 32, 32);
+        game.debug.body(assets[i]);
+
+    }
+    game.debug.bodyInfo(character, 32, 32);
+    game.debug.body(character);*/
+}
+
 function createLevel() 
 {   
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -146,6 +159,14 @@ function updateLevel()
         bubleCharacter.x = character.x - bubleCharacter.width/8;
         bubleCharacter.y = character.y - bubleCharacter.height/8;
     }
+    if(leftKey.isDown)
+    {
+        moveRight();
+    }
+    if(rightKey.isDown)
+    {
+        moveLeft();
+    }
 }
 
 function createStage()
@@ -186,7 +207,7 @@ function createKeysInput()
         }
     }
 
-    leftKey.onDown.add(function() { 
+    /*leftKey.onDown.add(function() { 
         if (!mouse) 
         {
             moveRight();
@@ -198,7 +219,7 @@ function createKeysInput()
             moveLeft();
             
         }
-    }, this);
+    }, this);*/
     pointerX = game.input.mousePointer.x;
     previousPointerX = pointerX;
 }

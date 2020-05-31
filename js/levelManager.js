@@ -81,8 +81,8 @@ function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
             let asset = createPowerupsInMap();
             if (asset!=""){
                 if ((x-60)%100 == 40){
-                    newAsset = createPowerup(x, y, asset);
-                    assets.push(newAsset);
+                    //newAsset = createPowerup(x, y, asset);
+                    //assets.push(newAsset);
                     /*console.log('360-60: ', (360-60)%100);
                     console.log('300-60: ', (300-60)%100);
                     console.log((x-60)%100);

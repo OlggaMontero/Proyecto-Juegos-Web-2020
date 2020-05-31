@@ -1,6 +1,7 @@
 let differentLetters = "ABCDEFGHIJKLMNOPQRSTUWXYZ";
 const PLATFORM_SIZE = 40;
 const NUMBER_PLATFORMS_ROW = 10;
+const CHARACTER_SPEED = 5;
 
 function createAsset(x, y, type)
 {
@@ -9,6 +10,7 @@ function createAsset(x, y, type)
     if (type == 1)
     {
         asset = game.add.sprite(x, y, 'platform');
+        asset.transitionOutSprite = game.add.sprite(x, y, 'platform');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true
         asset.body.onCollide = new Phaser.Signal();
@@ -18,6 +20,7 @@ function createAsset(x, y, type)
     else if (type == 2)
     {
         asset = game.add.sprite(x, y, 'platform_trap');
+        asset.transitionOutSprite = game.add.sprite(x, y, 'platform_trap');
         game.physics.arcade.enable(asset);
         asset.body.bounce.y = 0.1;
         asset.body.immovable = true;
@@ -29,6 +32,7 @@ function createAsset(x, y, type)
     else if (type == 3)
     {
         asset = game.add.sprite(x, y, 'enemy');
+        asset.transitionOutSprite = game.add.sprite(x, y, 'enemy');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.body.onCollide = new Phaser.Signal();
@@ -39,6 +43,7 @@ function createAsset(x, y, type)
     else if (type == 6)
     {
         asset = game.add.sprite(x, y, 'buble');
+        asset.transitionOutSprite = game.add.sprite(x, y, 'buble');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.scale.setTo(0.15);
@@ -49,6 +54,7 @@ function createAsset(x, y, type)
     else if (type == 7)
     {
         asset = game.add.sprite(x, y, 'platform');
+        asset.transitionOutSprite = game.add.sprite(x, y, 'platform');
         game.physics.arcade.enable(asset);
         let index = Math.floor(Math.random() * differentLetters.length);
         let selectedLetter = differentLetters.charAt(index);
@@ -69,6 +75,7 @@ function createAsset(x, y, type)
     else if (type == 8)
     {
         asset = game.add.sprite(x, y, 'platform_bomb');
+        asset.transitionOutSprite = game.add.sprite(x, y, 'platform_bomb');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.bombEnabled = false;
@@ -92,6 +99,7 @@ function createAsset(x, y, type)
     else if (type == 10)
     {
         asset = game.add.sprite(x, y, 'nuke');
+        asset.transitionOutSprite = game.add.sprite(x, y, 'nuke');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.bombEnabled = false;
@@ -99,6 +107,10 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'nuke')}, this);
     }
 
+    //asset.transitionOutSprite.tint = 0xff00ff; //debug
+    asset.transitionOutSprite.alpha = 0;
+    asset.transitionOutSprite.width = PLATFORM_SIZE;
+    asset.transitionOutSprite.height = PLATFORM_SIZE;
     asset.width = PLATFORM_SIZE;
     asset.height = PLATFORM_SIZE;
     asset.checkWorldBounds = true;
@@ -109,12 +121,32 @@ function createAsset(x, y, type)
 
 function moveAssetLeft(asset)
 {
-    asset.x -= asset.width;
+    asset.x -= CHARACTER_SPEED;
+    if (asset.x < 0 && asset.transitionOutSprite.alpha == 0)
+    {
+        asset.transitionOutSprite.alpha = 1;
+        asset.transitionOutSprite.x = CANVAS_WIDTH - Math.abs(asset.x);
+    }
+    else if (asset.transitionOutSprite.alpha == 1)
+    {
+        asset.transitionOutSprite.x -= CHARACTER_SPEED;
+    }
 }
 
 function moveAssetRight(asset)
 {
-    asset.x += asset.width;
+    asset.x += CHARACTER_SPEED;
+    if (asset.x + asset.width > CANVAS_WIDTH && asset.transitionOutSprite.alpha == 0)
+    {
+        asset.transitionOutSprite.alpha = 1;
+        loQueSeSale = asset.x + asset.width - CANVAS_WIDTH;
+
+        asset.transitionOutSprite.x = -asset.width + loQueSeSale;
+    }
+    else if (asset.transitionOutSprite.alpha == 1)
+    {
+        asset.transitionOutSprite.x += CHARACTER_SPEED;
+    }
 }
 
 function moveRight()
@@ -143,11 +175,12 @@ function assetOut(asset)
     {
         asset.x = 0;
     }
+    asset.transitionOutSprite.alpha = 0;
 }
 
 function playerHitsTrap(platform)
 {
-    if (character.y < platform.y + platform.height)
+    if (character.y + character.height <= platform.y)
     {
         //Para calcular el daño con la velocidad pero mapeando el rango de valores en uno mas pequeño (Solo tiene 100 de vida y la velocidad es +300) 
         //https://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio
@@ -160,6 +193,7 @@ function playerHitsTrap(platform)
         if (!hasSupersoldier){
             characterHurt(NewValue);
         }
+        platform.transitionOutSprite.destroy();
         platform.destroy();
         hasPowerup = false;
         console.log(NewValue);
@@ -173,7 +207,9 @@ function playerHitsObstacle(obstacle)
     if (character.y < obstacle.y + obstacle.height)
     {
         characterHurt(8);
+        obstacle.transitionOutSprite.destroy();
         obstacle.destroy();
+        
     }
     if (!hasPowerup){character.body.velocity.y *= 0.3;}
     LimitPlayerSpeed();
@@ -195,6 +231,7 @@ function playerHitsBomb(platform)
             bombFused.destroy();
             bombExplode.play();
             blast(platform);
+            platform.transitionOutSprite.destroy();
             platform.destroy();
         })
     }
@@ -248,6 +285,7 @@ function playerHitsPlatform(platform)
     {
         crashPlatform.play();
         platform.destroy();
+        platform.transitionOutSprite.destroy();
         hasPowerup = false;
         powerupEnd();
     }
@@ -329,6 +367,7 @@ function playerHitsPowerup(powerup, nombre)
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
+        powerup.transitionOutSprite.destroy();
         powerup.destroy();
         hasPowerup = true;
     }
