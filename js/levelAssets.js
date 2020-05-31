@@ -1,7 +1,8 @@
 let differentLetters = "ABCDEFGHIJKLMNOPQRSTUWXYZ";
 const PLATFORM_SIZE = 40;
 const NUMBER_PLATFORMS_ROW = 10;
-const CHARACTER_SPEED = 5;
+const CHARACTER_STEP_KEY = 5;
+const CHARACTER_STEP_MOUSE = 20;
 
 function createAsset(x, y, type)
 {
@@ -107,7 +108,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'nuke')}, this);
     }
 
-    //asset.transitionOutSprite.tint = 0xff00ff; //debug
+    //asset.transitionOutSprite.tint = 0x0000ff; //debug
     asset.transitionOutSprite.alpha = 0;
     asset.transitionOutSprite.width = PLATFORM_SIZE;
     asset.transitionOutSprite.height = PLATFORM_SIZE;
@@ -119,9 +120,9 @@ function createAsset(x, y, type)
     return asset;
 }
 
-function moveAssetLeft(asset)
+function moveAssetLeft(asset, speed)
 {
-    asset.x -= CHARACTER_SPEED;
+    asset.x -= speed;
     if (asset.x < 0 && asset.transitionOutSprite.alpha == 0)
     {
         asset.transitionOutSprite.alpha = 1;
@@ -129,58 +130,91 @@ function moveAssetLeft(asset)
     }
     else if (asset.transitionOutSprite.alpha == 1)
     {
-        asset.transitionOutSprite.x -= CHARACTER_SPEED;
+        asset.transitionOutSprite.x -= speed;
     }
 }
 
-function moveAssetRight(asset)
+function moveAssetRight(asset, speed)
 {
-    asset.x += CHARACTER_SPEED;
+    asset.x += speed;
     if (asset.x + asset.width > CANVAS_WIDTH && asset.transitionOutSprite.alpha == 0)
     {
         asset.transitionOutSprite.alpha = 1;
-        loQueSeSale = asset.x + asset.width - CANVAS_WIDTH;
+        outOfScreen = asset.x + asset.width - CANVAS_WIDTH;
 
-        asset.transitionOutSprite.x = -asset.width + loQueSeSale;
+        asset.transitionOutSprite.x = -asset.width + outOfScreen;
     }
     else if (asset.transitionOutSprite.alpha == 1)
     {
-        asset.transitionOutSprite.x += CHARACTER_SPEED;
+        asset.transitionOutSprite.x += speed;
     }
 }
 
-function moveRight()
+function moveRight(speed)
 {
     for(i = 0; i < assets.length; i++)
     {
-        moveAssetRight(assets[i]);
+        moveAssetLeft(assets[i], speed);
     }
 }
 
-function moveLeft()
+function moveLeft(speed)
 {
     for(i = 0; i < assets.length; i++)
     {
-        moveAssetLeft(assets[i]);  
+        moveAssetRight(assets[i], speed); 
+    }
+}
+
+function manageAppleMovementMouse()
+{
+    if (mouse)
+    {
+        pointerX = game.input.mousePointer.x;
+        if (pointerX >= previousPointerX + THRESHOLD)
+        {
+            moveRight(CHARACTER_STEP_MOUSE);
+            previousPointerX = pointerX;
+        }
+        else if (pointerX <= previousPointerX - THRESHOLD)
+        {
+            moveLeft(CHARACTER_STEP_MOUSE);
+            previousPointerX = pointerX;
+        }
+    }
+}
+
+function manageAppleMovementKeys()
+{
+    if(leftKey.isDown)
+    {
+        moveLeft(CHARACTER_STEP_KEY);
+    }
+
+    if(rightKey.isDown)
+    {
+        moveRight(CHARACTER_STEP_KEY);       
     }
 }
 
 function assetOut(asset)
 {
+    console.log(asset.x);
     if (asset.x <= 0)
-    {     
-        asset.x = game.width - asset.width;
+    {   
+        asset.x = CANVAS_WIDTH - Math.abs(asset.x);
     }
     else if (asset.x >= game.width)
     {
-        asset.x = 0;
+        outOfScreen = asset.x + asset.width - CANVAS_WIDTH;
+        asset.x = -asset.width + outOfScreen;
     }
     asset.transitionOutSprite.alpha = 0;
 }
 
 function playerHitsTrap(platform)
 {
-    if (character.y + character.height <= platform.y)
+    if (character.y <  platform.y + platform.height)
     {
         //Para calcular el daño con la velocidad pero mapeando el rango de valores en uno mas pequeño (Solo tiene 100 de vida y la velocidad es +300) 
         //https://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio
@@ -401,29 +435,11 @@ function powerupEnd(){
     //Reaction to crash when hits a power up Limit speed?   
 }
 
-
-function manageAppleMovement()
-{
-    if (mouse)
-    {
-        pointerX = game.input.mousePointer.x;
-        if (pointerX >= previousPointerX + THRESHOLD)
-        {
-            moveRight();
-            previousPointerX = pointerX;
-        }
-        else if (pointerX <= previousPointerX - THRESHOLD)
-        {
-            moveLeft();
-            previousPointerX = pointerX;
-        }
-    }
-}
-
 function createPowerup(x, y, asset){
     if (asset=='powerupSpeed')
     {
         assetPowerup = game.add.sprite(x, y, 'powerupSpeed');
+        assetPowerup.transitionOutSprite = game.add.sprite(x, y, 'powerupSpeed');
         game.physics.arcade.enable(assetPowerup);
         assetPowerup.body.immovable = true;
         assetPowerup.scale.setTo(0.15);
@@ -431,13 +447,18 @@ function createPowerup(x, y, asset){
         assetPowerup.body.onCollide.add(function(assetPowerup){playerHitsPowerup(assetPowerup, 'powerupSpeed')}, this);
         assetPowerup.width = PLATFORM_SIZE;
         assetPowerup.height = PLATFORM_SIZE;
+        assetPowerup.transitionOutSprite.width = PLATFORM_SIZE;
+        assetPowerup.transitionOutSprite.height = PLATFORM_SIZE;
+        assetPowerup.transitionOutSprite.alpha = 0;
         assetPowerup.checkWorldBounds = true;
+        assetPowerup.events.onOutOfBounds.add(assetOut, this);
         assetPwrup = assetPowerup;
         return assetPowerup;
     }
     if (asset=='superSoldier')
     {
         assetSupersoldier = game.add.sprite(x, y, 'superSoldier');
+        assetSupersoldier.transitionOutSprite = game.add.sprite(x, y, 'superSoldier');
         game.physics.arcade.enable(assetSupersoldier);
         assetSupersoldier.body.immovable = true;
         assetSupersoldier.scale.setTo(0.15);
@@ -445,7 +466,11 @@ function createPowerup(x, y, asset){
         assetSupersoldier.body.onCollide.add(function(assetSupersoldier){playerHitsPowerup(assetSupersoldier, 'superSoldier')}, this);
         assetSupersoldier.width = PLATFORM_SIZE;
         assetSupersoldier.height = PLATFORM_SIZE;
+        assetSupersoldier.transitionOutSprite.width = PLATFORM_SIZE;
+        assetSupersoldier.transitionOutSprite.height = PLATFORM_SIZE;
+        assetSupersoldier.transitionOutSprite.alpha = 0;
         assetSupersoldier.checkWorldBounds = true;
+        assetSupersoldier.events.onOutOfBounds.add(assetOut, this);
         hasSupersoldier = true;
         return assetSupersoldier;
     }

@@ -10,7 +10,7 @@ const STAGE_HEIGHT = 4500;
 const STAGE_WIDTH = 400;
 const CANVAS_HEIGHT = 800;
 const CANVAS_WIDTH  = 400;
-const THRESHOLD = 25;
+const THRESHOLD = 10;
 const LEVEL_ONE = 'level1';
 const LEVEL_TWO = 'level2';
 const LEVEL_THREE = 'level3';
@@ -152,21 +152,19 @@ function updateLevel()
 
     if (mouse)
     {
-        manageAppleMovement();
+        manageAppleMovementMouse();
     }
+    else
+    {
+        manageAppleMovementKeys();
+    }
+
     if (hasBuble)
     {
         bubleCharacter.x = character.x - bubleCharacter.width/8;
         bubleCharacter.y = character.y - bubleCharacter.height/8;
     }
-    if(leftKey.isDown)
-    {
-        moveRight();
-    }
-    if(rightKey.isDown)
-    {
-        moveLeft();
-    }
+
 }
 
 function createStage()
@@ -201,6 +199,7 @@ function createKeysInput()
                 {
                     destroyLetter = game.add.audio('destroyLetter');
                     destroyLetter.play();
+                    assets[i].transitionOutSprite.destroy();
                     assets[i].destroy();
                 }
             }
