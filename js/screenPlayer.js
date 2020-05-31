@@ -4,7 +4,7 @@ const TEXT_OFFSET_VER_P = 40;
 let playerState = {
 
     preload: preloadPlayer,
-    create: createPlayer,
+    create: choosePlayer,
     update: updatePlayer
 };
 
@@ -17,7 +17,7 @@ function preloadPlayer()
     document.getElementById("chooseName").style.display = "block"; //This shows the name change buttons
 }
 
-function createPlayer() //Cambiar nombre funcion da lugar a confusion 
+function choosePlayer() 
 { 
     optionOnHover = game.add.audio('OptionOnHover');
 
@@ -51,14 +51,13 @@ function createPlayer() //Cambiar nombre funcion da lugar a confusion
 var username = "";
 var currentRadiobtn = undefined;
 //This function manages the radio buttons that chooses the predefined names
-function CambiarNombre(elem)
+function changeName(elem)
 {
-    //console.log(elem.value); //For control purposes
     username = elem.value;
     currentRadiobtn = elem;
 }
 //This function manages the label that the player can write into
-function CambiarNombreLabel(element)
+function changeNameLabel(element)
 {
     //If some radio button is enabled this condition disables it
     if (currentRadiobtn != undefined)

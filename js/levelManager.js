@@ -56,8 +56,7 @@ function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
 {
     x = 0;
     //assetsNow=[];
-
-    for(i = 0; i < 10; i++) //Este 10 es número mágico, debería ser la fila .length
+    for(i = 0; i < NUMBER_PLATFORMS_ROW; i++) 
     {
         //limitLeft = 0;
         if (platformTypes[i] != 0)

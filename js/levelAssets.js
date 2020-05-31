@@ -1,11 +1,11 @@
 let differentLetters = "ABCDEFGHIJKLMNOPQRSTUWXYZ";
 const PLATFORM_SIZE = 40;
-
+const NUMBER_PLATFORMS_ROW = 10;
 
 function createAsset(x, y, type)
 {
     let asset;
-    //Plataformas
+    //Normal Platform
     if (type == 1)
     {
         asset = game.add.sprite(x, y, 'platform');
@@ -14,7 +14,7 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
     }
-    //Plataformas trampa
+    //Platform trap
     else if (type == 2)
     {
         asset = game.add.sprite(x, y, 'platform_trap');
@@ -25,7 +25,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsTrap, this);
 
     }
-    //Obstaculos
+    //Cactus obstacles
     else if (type == 3)
     {
         asset = game.add.sprite(x, y, 'enemy');
@@ -35,7 +35,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsObstacle, this);
         
     }
-    //Power up de la burbuja
+    //Buble power up
     else if (type == 6)
     {
         asset = game.add.sprite(x, y, 'buble');
@@ -45,7 +45,7 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'buble')}, this);
     }
-    //Plataforma letras
+    //Letter platform
     else if (type == 7)
     {
         asset = game.add.sprite(x, y, 'platform');
@@ -65,7 +65,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsPlatform, this);
 
     }
-    //Plataforma bomba
+    //Bomb platform
     else if (type == 8)
     {
         asset = game.add.sprite(x, y, 'platform_bomb');
@@ -88,7 +88,7 @@ function createAsset(x, y, type)
         //Now we add the movemement
         //platformMovement(asset);
     }*/
-    //Plataforma bomba
+    //Bomb power up
     else if (type == 10)
     {
         asset = game.add.sprite(x, y, 'nuke');
@@ -194,22 +194,26 @@ function playerHitsBomb(platform)
         game.time.events.add(2500, function () {
             bombFused.destroy();
             bombExplode.play();
-            blast(platform.x + platform.width/2, platform.y + platform.height/2);
+            blast(platform);
             platform.destroy();
         })
     }
     LimitPlayerSpeed();
 }
 
-function blast(x, y)
+function blast(platform)
 {
     blasts = game.add.group();
     blasts.createMultiple(10, 'purple_blast');
     blasts.forEach(setupBlast, this);
     let blast = blasts.getFirstExists(false);
-    blast.reset(x, y);
+    blast.reset(platform.x + platform.width/2 - blast.width/2, platform.y + platform.height/2 - blast.height/2);
     blast.play('pruple_blast', 30, false, true);
-    if (game.physics.arcade.distanceBetween(platform, character) < blast.width)
+    if (character.x >= platform.x && character.x < platform.x + platform.width && character.y < platform.y + platform.height)
+    {
+        characterHurt(20);  
+    }
+    else if (game.physics.arcade.distanceBetween(platform, character) < blast.width)
     {
         characterHurt(20);
     }
@@ -217,8 +221,6 @@ function blast(x, y)
 
 function setupBlast(blast)
 {
-    blast.anchor.x = 0.5;
-    blast.anchor.y = 0.5;
     blast.scale.setTo(2);
     blast.animations.add('pruple_blast');
 }
@@ -237,7 +239,7 @@ function playerHitsPlatform(platform)
     reboundSound.play();
     crashPlatform = game.add.audio('crashPlatform');
     
-   // console.log(levelJSON.ObjectsInMap.platforms[0].position.y);
+    //console.log(levelJSON.ObjectsInMap.platforms[0].position.y);
     console.log('Current position' + platform.position.y);
 
     //falta adecuar la velocidad

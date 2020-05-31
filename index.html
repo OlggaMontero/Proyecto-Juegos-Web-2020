@@ -11,12 +11,12 @@
 
     <body>
         <ol id="chooseName">
-            <input type="radio" id="Newton" name="nombre" value="Newton" onclick="CambiarNombre(this)"> Newton<br>
-            <input type="radio" id="Olga" name="nombre" value="Olga" onclick="CambiarNombre(this)"> Olga<br>
-            <input type="radio" id="Sara" name="nombre" value="Sara" onclick="CambiarNombre(this)"> Sara<br>
-            <input type="radio" id="Fer" name="nombre" value="Fer" onclick="CambiarNombre(this)"> Fer<br>
+            <input type="radio" id="Newton" name="nombre" value="Newton" onclick="changeName(this)"> Newton<br>
+            <input type="radio" id="Olga" name="nombre" value="Olga" onclick="changeName(this)"> Olga<br>
+            <input type="radio" id="Sara" name="nombre" value="Sara" onclick="changeName(this)"> Sara<br>
+            <input type="radio" id="Fer" name="nombre" value="Fer" onclick="changeName(this)"> Fer<br>
             <label for="player">Your name: </label>
-            <input type="text" id="LabelName" onchange="CambiarNombreLabel(this)" name="nombre"><br><br>
+            <input type="text" id="LabelName" onchange="changeNameLabel(this)" name="nombre"><br><br>
         </ol>
         <div id="game"></div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js"></script> 

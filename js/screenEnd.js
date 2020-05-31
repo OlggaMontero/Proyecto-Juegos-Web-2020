@@ -103,7 +103,6 @@ function updateCounter()
 
 function back()
     {
-        //document.getElementById("player").style.display = "none"; //Hide the names options when returning to the main menu
         musicEndScreen.destroy();
         game.state.start('init');
     }

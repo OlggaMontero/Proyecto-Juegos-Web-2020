@@ -2,8 +2,7 @@ let level1State = {
 
     preload: loadLevelAssets,
     create: createLevel,
-    update: updateLevel,
-    render: render
+    update: updateLevel
 };
 
 const STAGE_HEIGHT = 4500;
@@ -98,12 +97,6 @@ function loadLevels()
 function loadSpriteSheets()
 {
     game.load.spritesheet('purple_blast', 'assets/imgs/purple_blast.png', 128, 128);
-}
-
-function render()
-{
-    game.context.fillStyle = 'rgba(255,0,0,0.6)';
-    //game.context.fillRect(40, 40, 300, 150);
 }
 
 function createLevel() 
