@@ -199,7 +199,7 @@ function manageAppleMovementKeys()
 
 function assetOut(asset)
 {
-    console.log(asset.x);
+    //console.log(asset.x);
     if (asset.x <= 0)
     {   
         asset.x = CANVAS_WIDTH - Math.abs(asset.x);
@@ -229,8 +229,7 @@ function playerHitsTrap(platform)
         }
         platform.transitionOutSprite.destroy();
         platform.destroy();
-        hasPowerup = false;
-        console.log(NewValue);
+        //console.log(NewValue);
     }
     if(!hasPowerup){character.body.velocity.y *= 0.4;}
     LimitPlayerSpeed();
@@ -310,7 +309,7 @@ function playerHitsPlatform(platform)
     reboundSound.play();
     crashPlatform = game.add.audio('crashPlatform');
     
-    console.log('Current position' + platform.position.y);
+    //console.log('Current position' + platform.position.y);
 
     //falta adecuar la velocidad
     //HABLAR PROFESOR
@@ -410,9 +409,7 @@ function updateCounterPowerUp()
     if (hasPowerup)
     {
         counterPowerup--;
-        console.log('Resto 1 al powerup');
-        console.log(counterPowerup);
-        if (counterPowerup == 0)
+        if (counterPowerup <= 0)
         {
            powerupEnd();
         }
@@ -421,7 +418,6 @@ function updateCounterPowerUp()
 
 function powerupEnd(){
     if (hasPowerup){
-        console.log('he entrado a powerupEND');
         timerEnds = game.add.audio('timerEnds');
         timerEnds.play();
         timerSound.destroy();
@@ -433,8 +429,6 @@ function powerupEnd(){
         {
             bubleCharacter.destroy();
             hasBuble = false;
-            console.log('he puesto buble a false');
-            console.log('prueba: ', hasBuble);
         }
         //Reaction to crash when hits a power up Limit speed?
     }   
