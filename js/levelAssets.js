@@ -442,6 +442,8 @@ function createPowerup(x, y, asset){
         game.physics.arcade.enable(assetPowerup);
         assetPowerup.body.immovable = true;
         assetPowerup.scale.setTo(0.15);
+        //assetPowerup.inputEnabled = true;
+        //assetPowerup.input.enableDrag();
         assetPowerup.body.onCollide = new Phaser.Signal();
         assetPowerup.body.onCollide.add(function(assetPowerup){playerHitsPowerup(assetPowerup, 'powerupSpeed')}, this);
         assetPowerup.width = PLATFORM_SIZE;

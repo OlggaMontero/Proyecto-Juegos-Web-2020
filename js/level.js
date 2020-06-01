@@ -146,10 +146,15 @@ function createLevel()
 
 function updateLevel()
 {
+    /*if (checkOverlap(character, assetPwrup))
+    {
+        //assetPwrup.body.onCollide.add(function(assetPwrup){playerHitsPowerup(assetPwrup, 'powerupSpeed')}, this);
+        playerHitsPowerup(assetPwrup, 'powerupSpeed');
+    }*/
+    //game.physics.arcade.overlap(character, assetPwrup, function(assetPwrup){playerHitsPowerup(assetPwrup, 'powerupSpeed')}, this);
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.overlap(character, colliderBoxes, updateRemainingPlatforms);
     game.physics.arcade.collide(character, ground, nextLevel);
-    game.physics.arcade.overlap(character, assetPwrup, function(assetPwrup){playerHitsPowerup(assetPwrup, 'powerupSpeed')});
 
     if (mouse)
     {
