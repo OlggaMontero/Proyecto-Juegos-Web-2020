@@ -30,7 +30,7 @@ function loadJSON(level)
         let x = levelJSON.ObjectsInMap.obstacles[i].position.x;
         let y = levelJSON.ObjectsInMap.obstacles[i].position.y;
         let type = levelJSON.ObjectsInMap.obstacles[i].type;
-        // levelJSON.ObjectsInMap.platforms[i].obstacles = 
+        //let  = levelJSON.ObjectsInMap.obstacles[i]. ;
         createAssetsJSON(x, y, type, false);
     }
     if (levelToPlay!=0 && levelToPlay!=1)
@@ -55,27 +55,17 @@ function loadJSON(level)
 function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
 {
     x = 0;
-    //assetsNow=[];
+    //Crear AssetsNow[] para que me interese
     for(i = 0; i < NUMBER_PLATFORMS_ROW; i++) 
     {
-        //limitLeft = 0;
         if (platformTypes[i] != 0)
         {
             let asset = createAsset(x, y, platformTypes[i]);
             assets.push(asset);
-            /*if (platformTypes[i] == 1){
+            if (platformTypes[i] == 1){
                 limitLeft = x;
-            }*/
-            //vamos estableciendo el limite de la izquierda
-            //limite de la izquiedda = 0
-            
-            /*if (platformTypes[i]==9){
-                //ya tyenemos el limite de la izq, nos lo guardamos 
-                //lka siguiente platagorma que encontremos que sea 1 es la derecha 
-                //lo guardmaos todo
-            }*/
+            }
         }
-        //x += 40;
        
         if (platformTypes[i] == 0){
             let asset = createPowerupsInMap();

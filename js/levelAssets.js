@@ -84,7 +84,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsBomb, this);
     }
     //Platform on movemet
-    /*else if (type == 9)
+    else if (type == 9)
     {
         asset = game.add.sprite(x, y, 'platform');
         game.physics.arcade.enable(asset);
@@ -92,10 +92,8 @@ function createAsset(x, y, type)
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
-        //asset.body.velocity.x = 40;
-        //Now we add the movemement
-        //platformMovement(asset);
-    }*/
+        asset.body.velocity.x = 40;
+    }
     //Bomb power up
     else if (type == 10)
     {
@@ -361,11 +359,12 @@ function LimitPlayerSpeed()
     }
 }
 
-function playerHitsPowerup(powerup, nombre)
+function playerHitsPowerup(character, powerup) //Antes estaba (powerup, nombre) 
 {
+    nombre = powerup.nombre; //Alternativa
     if (!hasPowerup)
     {
-        timerSound = game.add.audio('timerSound');
+        timerSound = game.add.audio('timerSound'); //Tener el audio en otro lugar antes
         pickPowerup = game.add.audio('pickPowerup');
         timerSound.play();
         pickPowerup.play();
@@ -389,7 +388,7 @@ function playerHitsPowerup(powerup, nombre)
         }
         else if (nombre == 'nuke')
         {
-            /*for (let e in platform.siguiente.enemies)
+            /*for (let e in platform.siguiente.obstacles)
             {
                 e.destroy();
             }*/
@@ -490,15 +489,3 @@ function createPowerupsInMap(){
     }
     return result;
 }
-
-/*
-function platformMovement(asset){
-    for (let i=0; i<100; i++){      //cambiar
-        if (asset.position.x == limitLeft) {
-            asset.body.velocity.x = 40;
-        }
-        if (asset.position.x == limitRight){
-            asset.body.velocity.x = -40;
-        }
-    }
-}*/
