@@ -396,7 +396,7 @@ function playerHitsPowerup(powerup, nombre) //Antes estaba (powerup, nombre)
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
-        //powerup.transitionOutSprite.destroy(); //Esto da error al tocar un power up
+        powerup.transitionOutSprite.destroy(); //Esto da error al tocar un power up
         powerup.destroy(); //Esto da error en el nivel 2 al tocar un power up
         hasPowerup = true;
     }
