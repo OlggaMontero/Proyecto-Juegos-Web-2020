@@ -81,17 +81,18 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsBomb, this);
     }
-    //Platform on movemet
+    //Moving obstacle
     else if (type == 7)
     {
-        asset = game.add.sprite(x, y, 'platform');
-        asset.transitionOutSprite = game.add.sprite(x, y, 'platform');
+        asset = game.add.sprite(x, y, 'moving_enemy');
+        asset.transitionOutSprite = game.add.sprite(x, y, 'moving_enemy');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
-        asset.body.onCollide.add(playerHitsPlatform, this);
-        asset.body.velocity.x = 40;
+        asset.body.onCollide.add(playerHitsObstacle, this);
+        asset.body.velocity.x = 20;
+
     }
     //Bomb power up
     /*

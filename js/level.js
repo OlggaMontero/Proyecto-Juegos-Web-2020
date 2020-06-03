@@ -70,6 +70,7 @@ function loadImages()
     game.load.image('gradientLeft', 'assets/imgs/gradienteLeft.png');
     game.load.image('nuke', 'assets/imgs/nuke.png');
     game.load.image('nukeHUD', 'assets/imgs/nuke.png');
+    game.load.image('moving_enemy', 'assets/imgs/moving_enemy.png');
 }
 
 function loadSounds()
@@ -167,6 +168,13 @@ function createStage()
     gradientRight.scale.setTo(1, 10);
     gradientLeft = game.add.sprite(-30, 0, 'gradientLeft');
     gradientLeft.scale.setTo(1, 10); 
+
+    game.time.events.loop(2000, function () {
+        for(i = 0; i< assets.length; i++)
+        {
+            assets[i].body.velocity.x *= -1;
+        }
+    })
 }
 
 function createKeysInput()
