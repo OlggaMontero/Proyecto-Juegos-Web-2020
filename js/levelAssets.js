@@ -95,6 +95,7 @@ function createAsset(x, y, type)
         asset.body.velocity.x = 40;
     }
     //Bomb power up
+    /*
     else if (type == 10)
     {
         asset = game.add.sprite(x, y, 'nuke');
@@ -104,7 +105,7 @@ function createAsset(x, y, type)
         asset.bombEnabled = false;
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'nuke')}, this);
-    }
+    }*/
 
     //asset.transitionOutSprite.tint = 0x0000ff; //debug
     asset.transitionOutSprite.alpha = 0;
@@ -308,9 +309,6 @@ function playerHitsPlatform(platform)
     crashPlatform = game.add.audio('crashPlatform');
     
     //console.log('Current position' + platform.position.y);
-
-    //falta adecuar la velocidad
-    //HABLAR PROFESOR
     if (hasPowerup && (character.body.velocity.y < -800))
     {
         crashPlatform.play();
@@ -386,19 +384,20 @@ function playerHitsPowerup(character, powerup) //Antes estaba (powerup, nombre)
             bubleCharacter.scale.setTo(0.07);
             hasBuble = true;
         }
+        /*
         else if (nombre == 'nuke')
         {
             /*for (let e in platform.siguiente.obstacles)
             {
                 e.destroy();
-            }*/
+            }
         }
-
+        */
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
-        powerup.transitionOutSprite.destroy();
-        powerup.destroy();
+        //powerup.transitionOutSprite.destroy(); //Esto da error al tocar un power up
+        powerup.destroy(); //Esto da error en el nivel 2 al tocar un power up
         hasPowerup = true;
     }
 }
