@@ -85,14 +85,15 @@ function createAsset(x, y, type)
     else if (type == 7)
     {
         asset = game.add.sprite(x, y, 'moving_enemy');
-        asset.transitionOutSprite = game.add.sprite(x, y, 'moving_enemy');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.scale.setTo(0.15);
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsObstacle, this);
-        asset.body.velocity.x = 20;
+        asset.body.velocity.x = 0;
         asset.isMovableObstacle = true;
+        asset.secondsBetweenChanges = Math.floor(Math.random() * 5) + 1;
+        asset.secondsToChange = asset.secondsBetweenChanges;
 
     }
     //Bomb power up
@@ -107,11 +108,13 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'nuke')}, this);
     }*/
-
-    asset.transitionOutSprite.tint = 0x0000ff; //debug
-    asset.transitionOutSprite.alpha = 0;
-    asset.transitionOutSprite.width = PLATFORM_SIZE;
-    asset.transitionOutSprite.height = PLATFORM_SIZE;
+    if(asset.transitionOutSprite != null)
+    {
+        asset.transitionOutSprite.tint = 0x0000ff; //debug
+        asset.transitionOutSprite.alpha = 0;
+        asset.transitionOutSprite.width = PLATFORM_SIZE;
+        asset.transitionOutSprite.height = PLATFORM_SIZE;
+    }
     asset.width = PLATFORM_SIZE;
     asset.height = PLATFORM_SIZE;
     asset.checkWorldBounds = true;
@@ -122,30 +125,36 @@ function createAsset(x, y, type)
 function moveAssetLeft(asset, speed)
 {
     asset.x -= speed;
-    if (asset.x < 0 && asset.transitionOutSprite.alpha == 0)
+    if (asset.transitionOutSprite != null)
     {
-        asset.transitionOutSprite.alpha = 1;
-        asset.transitionOutSprite.x = CANVAS_WIDTH - Math.abs(asset.x);
-    }
-    else if (asset.transitionOutSprite.alpha == 1)
-    {
-        asset.transitionOutSprite.x -= speed;
+        if (asset.x < 0 && asset.transitionOutSprite.alpha == 0)
+        {
+            asset.transitionOutSprite.alpha = 1;
+            asset.transitionOutSprite.x = CANVAS_WIDTH - Math.abs(asset.x);
+        }
+        else if (asset.transitionOutSprite.alpha == 1)
+        {
+            asset.transitionOutSprite.x -= speed;
+        }
     }
 }
 
 function moveAssetRight(asset, speed)
 {
     asset.x += speed;
-    if (asset.x + asset.width > CANVAS_WIDTH && asset.transitionOutSprite.alpha == 0)
+    if (asset.transitionOutSprite != null)
     {
-        asset.transitionOutSprite.alpha = 1;
-        outOfScreen = asset.x + asset.width - CANVAS_WIDTH;
-
-        asset.transitionOutSprite.x = -asset.width + outOfScreen;
-    }
-    else if (asset.transitionOutSprite.alpha == 1)
-    {
-        asset.transitionOutSprite.x += speed;
+        if (asset.x + asset.width > CANVAS_WIDTH && asset.transitionOutSprite.alpha == 0)
+        {
+            asset.transitionOutSprite.alpha = 1;
+            outOfScreen = asset.x + asset.width - CANVAS_WIDTH;
+    
+            asset.transitionOutSprite.x = -asset.width + outOfScreen;
+        }
+        else if (asset.transitionOutSprite.alpha == 1)
+        {
+            asset.transitionOutSprite.x += speed;
+        }
     }
 }
 
@@ -202,12 +211,15 @@ function assetOut(asset)
     {   
         asset.x = CANVAS_WIDTH - Math.abs(asset.x);
     }
-    else if (asset.x >= game.width)
+    else //if (asset.x >= game.width)
     {
         outOfScreen = asset.x + asset.width - CANVAS_WIDTH;
         asset.x = -asset.width + outOfScreen;
     }
-    asset.transitionOutSprite.alpha = 0;
+    if (asset.transitionOutSprite != null)
+    {
+        asset.transitionOutSprite.alpha = 0;
+    }
 }
 
 function playerHitsTrap(platform)
@@ -222,7 +234,10 @@ function playerHitsTrap(platform)
         if (!hasSupersoldier){
             characterHurt(NewValue);
         }
-        platform.transitionOutSprite.destroy();
+        if (platform.transitionOutSprite != null)
+        {
+            platform.transitionOutSprite.destroy();
+        }
         platform.destroy();
     }
     if(!hasPowerup){character.body.velocity.y *= 0.4;}
@@ -233,8 +248,12 @@ function playerHitsObstacle(obstacle)
 {
     if (character.y < obstacle.y + obstacle.height)
     {
+        character.body.velocity.x = 0;
         characterHurt(8);
-        obstacle.transitionOutSprite.destroy();
+        if (obstacle.transitionOutSprite != null)
+        {
+            obstacle.transitionOutSprite.destroy();
+        }
         obstacle.destroy();
         for (var i = assets.length - 1; i >= 0; --i) 
         {
@@ -264,7 +283,10 @@ function playerHitsBomb(platform)
             bombFused.destroy();
             bombExplode.play();
             blast(platform);
-            platform.transitionOutSprite.destroy();
+            if (platform.transitionOutSprite != null)
+            {
+                platform.transitionOutSprite.destroy();
+            }
             platform.destroy();
         })
     }
@@ -301,7 +323,11 @@ function updateRemainingPlatforms(player, colliderBox)
     totalPlatformsKnocked += 1;
     remainingPlatformsText.text = 'Remaining Platforms: ' + remainingPlatforms;
     colliderBox.destroy();
-    enableMovableObstacles(colliderBox.position.y + 200);
+    colliderBoxes.shift();
+    if (colliderBoxes.length > 0)
+    {
+        enableMovableObstacles(colliderBoxes[0].y);
+    }
 }
 
 function enableMovableObstacles(maxYtoEnable)
@@ -312,7 +338,14 @@ function enableMovableObstacles(maxYtoEnable)
         {
             if(assets[i].position.y > character.position.y && assets[i].position.y < maxYtoEnable)
             {
-                assets[i].body.velocity.x = 20;
+                if (Math.random() < 0.5)
+                {
+                    assets[i].body.velocity.x = 20;
+                }
+                else
+                {
+                    assets[i].body.velocity.x = -20;
+                }
             }
             else
             {
@@ -332,7 +365,10 @@ function playerHitsPlatform(platform)
     {
         crashPlatform.play();
         platform.destroy();
-        platform.transitionOutSprite.destroy();
+        if (platform.transitionOutSprite != null)
+        {
+            platform.transitionOutSprite.destroy();
+        }
         powerupEnd();
     }
     if (character.body.velocity.y < - 550)
@@ -412,7 +448,10 @@ function playerHitsPowerup(powerup, nombre)
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
-        powerup.transitionOutSprite.destroy();
+        if (powerup.transitionOutSprite != null)
+        {
+            powerup.transitionOutSprite.destroy();
+        }
         powerup.destroy();
         hasPowerup = true;
     }

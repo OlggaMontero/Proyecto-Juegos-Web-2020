@@ -1,7 +1,7 @@
 function createCharacter(x, y)
 {
     character = game.add.sprite(x, y, 'character'); 
-    character.scale.setTo(0.04, 0.04); 
+    character.scale.setTo(0.035, 0.035); 
     game.physics.arcade.enable(character); 
     character.body.collideWorldBounds = true; 
     character.body.bounce.y = 0.7; 

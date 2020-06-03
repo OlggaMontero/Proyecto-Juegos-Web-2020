@@ -169,15 +169,24 @@ function createStage()
     gradientLeft = game.add.sprite(-30, 0, 'gradientLeft');
     gradientLeft.scale.setTo(1, 10); 
 
-    game.time.events.loop(2000, function () {
+    game.time.events.loop(1000, function () {
         for(i = 0; i< assets.length; i++)
         {
             if (assets[i].isMovableObstacle)
             {
-                assets[i].body.velocity.x *= -1;
+                assets[i].secondsToChange -= 1;
+                if(assets[i].secondsToChange <= 0)
+                {
+                    assets[i].body.velocity.x *= -1;
+                    assets[i].secondsToChange = assets[i].secondsBetweenChanges;
+                }
             }
         }
     })
+    if (colliderBoxes.length > 0)
+    {
+        enableMovableObstacles(colliderBoxes[0].y);
+    }
 }
 
 function createKeysInput()
@@ -197,7 +206,10 @@ function createKeysInput()
                 {
                     destroyLetter = game.add.audio('destroyLetter');
                     destroyLetter.play();
-                    assets[i].transitionOutSprite.destroy();
+                    if (assets[i].transitionOutSprite != null)
+                    {
+                        assets[i].transitionOutSprite.destroy();
+                    }
                     assets[i].destroy();
                 }
             }
