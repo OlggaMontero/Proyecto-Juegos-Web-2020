@@ -92,6 +92,7 @@ function createAsset(x, y, type)
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsObstacle, this);
         asset.body.velocity.x = 20;
+        asset.isMovableObstacle = true;
 
     }
     //Bomb power up
@@ -107,7 +108,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'nuke')}, this);
     }*/
 
-    //asset.transitionOutSprite.tint = 0x0000ff; //debug
+    asset.transitionOutSprite.tint = 0x0000ff; //debug
     asset.transitionOutSprite.alpha = 0;
     asset.transitionOutSprite.width = PLATFORM_SIZE;
     asset.transitionOutSprite.height = PLATFORM_SIZE;
@@ -235,6 +236,13 @@ function playerHitsObstacle(obstacle)
         characterHurt(8);
         obstacle.transitionOutSprite.destroy();
         obstacle.destroy();
+        for (var i = assets.length - 1; i >= 0; --i) 
+        {
+            if (assets[i].body == null) 
+            {
+                assets.splice(i, 1);
+            }
+        }
     }
     if (!hasPowerup){character.body.velocity.y *= 0.3;}
     limitPlayerSpeed();
@@ -293,6 +301,25 @@ function updateRemainingPlatforms(player, colliderBox)
     totalPlatformsKnocked += 1;
     remainingPlatformsText.text = 'Remaining Platforms: ' + remainingPlatforms;
     colliderBox.destroy();
+    enableMovableObstacles(colliderBox.position.y + 200);
+}
+
+function enableMovableObstacles(maxYtoEnable)
+{
+    for(i = 0; i < assets.length; i++)
+    {
+        if(assets[i].isMovableObstacle)
+        {
+            if(assets[i].position.y > character.position.y && assets[i].position.y < maxYtoEnable)
+            {
+                assets[i].body.velocity.x = 20;
+            }
+            else
+            {
+                assets[i].body.velocity.x = 0;
+            }
+        }
+    }
 }
 
 function playerHitsPlatform(platform)

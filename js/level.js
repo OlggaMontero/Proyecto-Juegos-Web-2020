@@ -172,7 +172,10 @@ function createStage()
     game.time.events.loop(2000, function () {
         for(i = 0; i< assets.length; i++)
         {
-            assets[i].body.velocity.x *= -1;
+            if (assets[i].isMovableObstacle)
+            {
+                assets[i].body.velocity.x *= -1;
+            }
         }
     })
 }
