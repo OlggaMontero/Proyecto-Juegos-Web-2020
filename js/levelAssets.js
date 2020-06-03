@@ -110,7 +110,7 @@ function createAsset(x, y, type)
     }*/
     if(asset.transitionOutSprite != null)
     {
-        asset.transitionOutSprite.tint = 0x0000ff; //debug
+        //asset.transitionOutSprite.tint = 0x0000ff; //debug
         asset.transitionOutSprite.alpha = 0;
         asset.transitionOutSprite.width = PLATFORM_SIZE;
         asset.transitionOutSprite.height = PLATFORM_SIZE;
