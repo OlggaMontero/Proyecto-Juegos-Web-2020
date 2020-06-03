@@ -9,6 +9,8 @@ ol {
     position: absolute;
     left: 40%;
     top: 50%;
+    text-align: left;
+    vertical-align: auto;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 30px;
 }
