@@ -87,6 +87,7 @@ function createAsset(x, y, type)
     else if (type == 9)
     {
         asset = game.add.sprite(x, y, 'platform');
+        asset.transitionOutSprite = game.add.sprite(x, y, 'platform');
         game.physics.arcade.enable(asset);
         asset.body.immovable = true;
         asset.scale.setTo(0.15);

@@ -178,7 +178,7 @@ function createStage()
     game.physics.arcade.enable(ground);
     createCharacter(200, 100);
     loadJSON(levels[levelToPlay]);
-    createHUD();
+    createHUD(); 
     gradientRight = game.add.sprite(330, 0, 'gradient');
     gradientRight.scale.setTo(1, 10);
     gradientLeft = game.add.sprite(-30, 0, 'gradientLeft');

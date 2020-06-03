@@ -42,13 +42,13 @@ function loadJSON(level)
             let type = levelJSON.ObjectsInMap.bubles[i].type;
             createAssetsJSON(x, y, type, false);
         }
-        for (i = 0; i < numberOfNukes; i++)
+        /*for (i = 0; i < numberOfNukes; i++)
         {
             let x = levelJSON.ObjectsInMap.nukes[i].position.x;
             let y = levelJSON.ObjectsInMap.nukes[i].position.y;
             let type = levelJSON.ObjectsInMap.nukes[i].type;
             createAssetsJSON(x, y, type, false);
-        }
+        }*/
     }
 }
 
@@ -67,9 +67,11 @@ function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
             }
         }
        
-        if (platformTypes[i] == 0){
+        if (platformTypes[i] == 0)
+        {
             let asset = createPowerupsInMap();
-            if (asset!=""){
+            if (asset!="")
+            {
                 if (y % 100 == 0)
                 {
                     newAsset = createPowerup(x, y, asset);
