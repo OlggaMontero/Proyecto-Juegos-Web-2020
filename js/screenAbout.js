@@ -29,11 +29,8 @@ function createAbout()
     let styleText = {font: '27px Sniglet', fill: '#000000', fontWeight: 'bold'};
     let styleText2 = {font: '27px Sniglet', fill: '#000000', fontWeight: 'bold', fontStyle: 'italic'};
 
-    let textI = 'Olga Montero, Fernando Soria and Sara Montagud';
-    game.add.text(TEXT_OFFSET_HOR+240, TEXT_OFFSET_VER+265, textI, styleText);
-
-    let textJ = 'Los ancestrales';
-    game.add.text(TEXT_OFFSET_HOR+170, TEXT_OFFSET_VER+380, textJ, styleText2);
+    game.add.text(TEXT_OFFSET_HOR+240, TEXT_OFFSET_VER+265, 'Olga Montero, Fernando Soria and Sara Montagud', styleText);
+    game.add.text(TEXT_OFFSET_HOR+170, TEXT_OFFSET_VER+380, 'Los ancestrales', styleText2);
 
     let textK = 'Apple Jump is a skill game where you must move the\n'
     textK += 'platforms to get the ball to the end.\n';
@@ -41,9 +38,7 @@ function createAbout()
     textK += 'the game more exciting.';
     game.add.text(TEXT_OFFSET_HOR+275, TEXT_OFFSET_VER+505, textK, styleText);
 
-    let extPosX = 200;
-    let extPosY = 350;
-    buttonBack = game.add.button(extPosX-50, extPosY+350, 'buttonBack', back);
+    buttonBack = game.add.button(150, 750, 'buttonBack', back);
     buttonBack.anchor.setTo(0.5, 0.5);
     buttonBack.scale.setTo(0.7);
 
@@ -51,7 +46,6 @@ function createAbout()
         musicMenu.destroy();
         game.state.start('init');
     }
-
 }
 
 function updateAbout()

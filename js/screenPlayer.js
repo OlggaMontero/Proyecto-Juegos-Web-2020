@@ -30,9 +30,7 @@ function choosePlayer()
     let styleI = {font: '25px Sniglet', fill: '#000000', fontWeight: 'bold', align: 'center'};
     game.add.text(TEXT_OFFSET_HOR_P+100, TEXT_OFFSET_VER_P+300, textI, styleI);
 
-    let extPosX = 200;
-    let extPosY = 350;
-    buttonBack = game.add.button(extPosX-50, extPosY+350, 'buttonBack', back);
+    buttonBack = game.add.button(150, 700, 'buttonBack', back);
     buttonBack.anchor.setTo(0.5, 0.5);
     buttonBack.scale.setTo(0.7);
 
@@ -47,19 +45,17 @@ function choosePlayer()
     }
 }
 
-//These two global variables help the name change functions
 var username = "";
 var currentRadiobtn = undefined;
-//This function manages the radio buttons that chooses the predefined names
+
 function changeName(elem)
 {
     username = elem.value;
     currentRadiobtn = elem;
 }
-//This function manages the label that the player can write into
+
 function changeNameLabel(element)
 {
-    //If some radio button is enabled this condition disables it
     if (currentRadiobtn != undefined)
     {
         currentRadiobtn.checked = false;

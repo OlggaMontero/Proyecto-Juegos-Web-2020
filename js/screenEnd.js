@@ -35,10 +35,10 @@ function createEnd()
     background.scale.setTo(1,1);
     clockText = 0;
 
+    optionOnHover = game.add.audio('OptionOnHover');
     musicEndScreen = game.add.audio('musicEndScreen');
     musicEndScreen.loop = true;
     musicEndScreen.play();
-    optionOnHover = game.add.audio('OptionOnHover');
 
     buttnBack = game.add.button(150, 700, 'buttnBack', back);
     buttnBack.anchor.setTo(0.5, 0.5);
@@ -53,12 +53,9 @@ function createEnd()
 
     let styleI = {font: '30px Sniglet', fill: '#000000', strokeThickness: '1'};
 
-    let textI = 'Platforms knocked down: ' + totalPlatformsKnocked;
     totalPlatformsKnocked = 0; 
-    game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+250, textI, styleI);
-
-    let textJ = 'Press S to play again!';
-    game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+350, textJ, styleI);
+    game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+250, 'Platforms knocked down: ' + totalPlatformsKnocked, styleI);
+    game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+350, 'Press S to play again!', styleI);
 
     counter = 15;
     createTimer();
@@ -75,7 +72,6 @@ function updateEnd()
     {
         buttnBack.scale.setTo(0.7);
     }
-
 }
 
 function createTimer()
@@ -96,8 +92,7 @@ function updateCounter()
     clockText.setText('Counter: ' + counter + '  ');
     if (counter == 0)
     {
-        musicEndScreen.destroy();
-        game.state.start('init');
+        back();
     }
 }
 

@@ -55,7 +55,6 @@ function loadJSON(level)
 function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
 {
     x = 0;
-    //Crear AssetsNow[] para que me interese
     for(i = 0; i < NUMBER_PLATFORMS_ROW; i++) 
     {
         if (platformTypes[i] != 0)
@@ -92,6 +91,4 @@ function createAssetsJSON(x, y, platformTypes, addTriggerToLane)
         colliderBox.alpha = 0;
         colliderBoxes.push(colliderBox);
     }
-    //Añadir assetsNow a assets
-    //return assetsNow;
 }

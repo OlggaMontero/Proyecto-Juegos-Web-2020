@@ -23,8 +23,6 @@ WebFont.load(wfConfig);
 game = new Phaser.Game(GAME_STAGE_WIDTH, GAME_STAGE_HEIGHT, Phaser.CANVAS, 'game');
 
 function startGame() {
-
-
     game.state.add('init', initState);
     game.state.add('screenAbout', aboutState);
     game.state.add('screenInstructions', instructionsState);

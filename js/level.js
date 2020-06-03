@@ -2,8 +2,7 @@ let level1State = {
 
     preload: loadLevelAssets,
     create: createLevel,
-    update: updateLevel,
-    render: render
+    update: updateLevel
 };
 
 const STAGE_HEIGHT = 4500;
@@ -101,18 +100,6 @@ function loadSpriteSheets()
     game.load.spritesheet('purple_blast', 'assets/imgs/purple_blast.png', 128, 128);
 }
 
-function render()
-{
-    /*for(i = 0; i < assets.length; i++)
-    {
-        game.debug.bodyInfo(assets[i], 32, 32);
-        game.debug.body(assets[i]);
-
-    }
-    game.debug.bodyInfo(character, 32, 32);
-    game.debug.body(character);*/
-}
-
 function createLevel() 
 {   
     game.scale.setGameSize(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -146,9 +133,6 @@ function createLevel()
 
 function updateLevel()
 { 
-
-    //No tiene sentido llamar en el update todo el rato a estas confirmaciones
-    //game.physics.arcade.overlap(character, assetPwrup, playerHitsPowerup); 
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.overlap(character, colliderBoxes, updateRemainingPlatforms);
     game.physics.arcade.collide(character, ground, nextLevel);
@@ -208,20 +192,6 @@ function createKeysInput()
             }
         }
     }
-
-    /*leftKey.onDown.add(function() { 
-        if (!mouse) 
-        {
-            moveRight();
-        }
-    }, this);
-    rightKey.onDown.add(function() {
-        if (!mouse)
-        {
-            moveLeft();
-            
-        }
-    }, this);*/
     pointerX = game.input.mousePointer.x;
     previousPointerX = pointerX;
 }
@@ -232,18 +202,13 @@ function nextLevel()
     if (levelToPlay < 2)
     {
         levelToPlay += 1;
-        startCurrentLevel();
+        game.state.start('level');
     }
     else
     {
         condition = 'win';
         game.state.start('screenEnd');
     }
-}
-
-function startCurrentLevel()
-{
-    game.state.start('level');
 }
 
 function createHUD()
@@ -255,30 +220,23 @@ function createHUD()
 function createInfoLevel()
 {
     levelText = game.add.text(x+50, y-20, 'Level: ' + (levelToPlay+1) + '  ');
-    levelText.anchor.setTo(0.5, 0.5);
-    levelText.font = '25px Revalia';
-    levelText.fixedToCamera = true;
  
     grd = levelText.context.createLinearGradient(0, 0, 0, levelText.canvas.height);
     grd.addColorStop(0, '#ffffff');
-    levelText.fill = grd;
-    levelText.stroke = '#000000';
-    levelText.strokeThickness = 2;
-
-    remainingPlatformsText = game.add.text(x-50, y+10, 'Remaining Platforms: ' + remainingPlatforms);
-    remainingPlatformsText.anchor.setTo(0.5, 0.5);
-    remainingPlatformsText.font = '25px Revalia';
-    remainingPlatformsText.fixedToCamera = true;
-    remainingPlatformsText.fill = grd;
-    remainingPlatformsText.stroke = '#000000';
-    remainingPlatformsText.strokeThickness = 2;
     
+    remainingPlatformsText = game.add.text(x-50, y+10, 'Remaining Platforms: ' + remainingPlatforms);
     nameText = game.add.text(x-230, y-660, username);
-    nameText.anchor.setTo(0.5, 0.5);
-    nameText.font = '25px Revalia';
-    nameText.fixedToCamera = true;
-    nameText.fill = grd;
-    nameText.stroke = '#000000';
-    nameText.strokeThickness = 2;
+    
+    putStyle(levelText);
+    putStyle(remainingPlatformsText);
+    putStyle(nameText);
 }
 
+function putStyle(text){
+    text.anchor.setTo(0.5, 0.5);
+    text.font = '25px Revalia';
+    text.fixedToCamera = true;
+    text.fill = grd;
+    text.stroke = '#000000';
+    text.strokeThickness = 2;
+}

@@ -1,7 +1,6 @@
 const SHIP_OFFSET_HOR = 550;
 const SHIP_OFFSET_VER = 150;
 
-let selected;
 let pointer;
 
 let initState = 
@@ -40,7 +39,6 @@ function createInit()
     background = game.add.sprite(0, 0,'bg'); 
     background.scale.setTo(0.8, 1.2); 
 
-    selected = null;
     totalPlatformsKnocked = 0;
 
     musicMenu = game.add.audio('MusicMenu');

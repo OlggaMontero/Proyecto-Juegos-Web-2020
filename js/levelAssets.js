@@ -38,10 +38,9 @@ function createAsset(x, y, type)
         asset.body.immovable = true;
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsObstacle, this);
-        
     }
     //Buble power up
-    else if (type == 6)
+    else if (type == 4)
     {
         asset = game.add.sprite(x, y, 'buble');
         asset.transitionOutSprite = game.add.sprite(x, y, 'buble');
@@ -52,7 +51,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'buble')}, this);
     }
     //Letter platform
-    else if (type == 7)
+    else if (type == 5)
     {
         asset = game.add.sprite(x, y, 'platform');
         asset.transitionOutSprite = game.add.sprite(x, y, 'platform');
@@ -70,10 +69,9 @@ function createAsset(x, y, type)
         asset.body.immovable = true;
         asset.body.onCollide = new Phaser.Signal();
         asset.body.onCollide.add(playerHitsPlatform, this);
-
     }
     //Bomb platform
-    else if (type == 8)
+    else if (type == 6)
     {
         asset = game.add.sprite(x, y, 'platform_bomb');
         asset.transitionOutSprite = game.add.sprite(x, y, 'platform_bomb');
@@ -84,7 +82,7 @@ function createAsset(x, y, type)
         asset.body.onCollide.add(playerHitsBomb, this);
     }
     //Platform on movemet
-    else if (type == 9)
+    else if (type == 7)
     {
         asset = game.add.sprite(x, y, 'platform');
         asset.transitionOutSprite = game.add.sprite(x, y, 'platform');
@@ -97,7 +95,7 @@ function createAsset(x, y, type)
     }
     //Bomb power up
     /*
-    else if (type == 10)
+    else if (type == 8)
     {
         asset = game.add.sprite(x, y, 'nuke');
         asset.transitionOutSprite = game.add.sprite(x, y, 'nuke');
@@ -116,7 +114,6 @@ function createAsset(x, y, type)
     asset.height = PLATFORM_SIZE;
     asset.checkWorldBounds = true;
     asset.events.onOutOfBounds.add(assetOut, this);
-
     return asset;
 }
 
@@ -199,7 +196,6 @@ function manageAppleMovementKeys()
 
 function assetOut(asset)
 {
-    //console.log(asset.x);
     if (asset.x <= 0)
     {   
         asset.x = CANVAS_WIDTH - Math.abs(asset.x);
@@ -216,9 +212,6 @@ function playerHitsTrap(platform)
 {
     if (character.y <  platform.y + platform.height)
     {
-        //Para calcular el daño con la velocidad pero mapeando el rango de valores en uno mas pequeño (Solo tiene 100 de vida y la velocidad es +300) 
-        //https://stackoverflow.com/questions/929103/convert-a-number-range-to-another-range-maintaining-ratio
-
         let velocity = Math.min(500, Math.abs(character.body.velocity.y));
         let OldRange = (500 - 0);
         let NewRange = (30 - 5);
@@ -229,10 +222,9 @@ function playerHitsTrap(platform)
         }
         platform.transitionOutSprite.destroy();
         platform.destroy();
-        //console.log(NewValue);
     }
     if(!hasPowerup){character.body.velocity.y *= 0.4;}
-    LimitPlayerSpeed();
+    limitPlayerSpeed();
 }
 
 function playerHitsObstacle(obstacle)
@@ -242,10 +234,9 @@ function playerHitsObstacle(obstacle)
         characterHurt(8);
         obstacle.transitionOutSprite.destroy();
         obstacle.destroy();
-        
     }
     if (!hasPowerup){character.body.velocity.y *= 0.3;}
-    LimitPlayerSpeed();
+    limitPlayerSpeed();
 }
 
 function playerHitsBomb(platform)
@@ -268,7 +259,7 @@ function playerHitsBomb(platform)
             platform.destroy();
         })
     }
-    LimitPlayerSpeed();
+    limitPlayerSpeed();
 }
 
 function blast(platform)
@@ -309,7 +300,6 @@ function playerHitsPlatform(platform)
     reboundSound.play();
     crashPlatform = game.add.audio('crashPlatform');
     
-    //console.log('Current position' + platform.position.y);
     if (hasPowerup && (character.body.velocity.y < -800))
     {
         crashPlatform.play();
@@ -322,12 +312,12 @@ function playerHitsPlatform(platform)
         crashPlatform.play();
         platform.destroy();
     }
-    LimitPlayerSpeed();
+    limitPlayerSpeed();
 }
 
-function LimitPlayerSpeed()
+function limitPlayerSpeed()
 {
-    character.body.bounce.y = 1; //Infinite bounce
+    character.body.bounce.y = 1;
     //If character goes too fast this slows it down
     if (character.body.velocity.y < -320)
     {
@@ -358,23 +348,20 @@ function LimitPlayerSpeed()
     }
 }
 
-function playerHitsPowerup(powerup, nombre) //Antes estaba (powerup, nombre) 
+function playerHitsPowerup(powerup, nombre) 
 {
-    //nombre = powerup.nombre; //Alternativa
     if (!hasPowerup)
     {
-        timerSound = game.add.audio('timerSound'); //Tener el audio en otro lugar antes
+        timerSound = game.add.audio('timerSound');
         pickPowerup = game.add.audio('pickPowerup');
         timerSound.play();
         pickPowerup.play();
         let nombreHUD = nombre + 'HUD';
         powerupHUD = game.add.sprite(330, 660, nombreHUD);
-        //Lightning power-up
         if (nombre == 'powerupSpeed')
         {
             character.body.gravity.y *= 1.3; 
         }
-        //Rocket power-up
         else if (nombre == 'superSoldier')
         {
             character.body.gravity.y *= 1.5; 
@@ -397,8 +384,8 @@ function playerHitsPowerup(powerup, nombre) //Antes estaba (powerup, nombre)
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
-        powerup.transitionOutSprite.destroy(); //Esto da error al tocar un power up
-        powerup.destroy(); //Esto da error en el nivel 2 al tocar un power up
+        powerup.transitionOutSprite.destroy();
+        powerup.destroy();
         hasPowerup = true;
     }
 }
@@ -429,7 +416,6 @@ function powerupEnd(){
             bubleCharacter.destroy();
             hasBuble = false;
         }
-        //Reaction to crash when hits a power up Limit speed?
     }   
 }
 

@@ -37,9 +37,7 @@ function createInstructions()
     let styleI = {font: '25px Sniglet', fill: '#000000', fontWeight: 'bold', align: 'center'};
     game.add.text(TEXT_OFFSET_HOR_I+25, TEXT_OFFSET_VER_I+300, textI, styleI);
 
-    let extPosX = 200;
-    let extPosY = 350;
-    buttonBack = game.add.button(extPosX-50, extPosY+350, 'buttonBack', back);
+    buttonBack = game.add.button(150, 700, 'buttonBack', back);
     buttonBack.anchor.setTo(0.5, 0.5);
     buttonBack.scale.setTo(0.7);
 
