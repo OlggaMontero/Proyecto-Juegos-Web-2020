@@ -145,17 +145,10 @@ function createLevel()
 }
 
 function updateLevel()
-{ /* Esto en teoría se debería de borrar
-    if (checkOverlap(character, assetPwrup))
-    {
-        //assetPwrup.body.onCollide.add(function(assetPwrup){playerHitsPowerup(assetPwrup, 'powerupSpeed')}, this);
-        playerHitsPowerup(assetPwrup, 'powerupSpeed');
-    }*/
-    //game.physics.arcade.overlap(character, assetPwrup, function(assetPwrup){playerHitsPowerup(assetPwrup, 'powerupSpeed')}, this);
+{ 
 
     //No tiene sentido llamar en el update todo el rato a estas confirmaciones
-    game.physics.arcade.overlap(character, assetPwrup, playerHitsPowerup); 
-
+    //game.physics.arcade.overlap(character, assetPwrup, playerHitsPowerup); 
     game.physics.arcade.collide(character, assets);
     game.physics.arcade.overlap(character, colliderBoxes, updateRemainingPlatforms);
     game.physics.arcade.collide(character, ground, nextLevel);

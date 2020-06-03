@@ -357,9 +357,9 @@ function LimitPlayerSpeed()
     }
 }
 
-function playerHitsPowerup(character, powerup) //Antes estaba (powerup, nombre) 
+function playerHitsPowerup(powerup, nombre) //Antes estaba (powerup, nombre) 
 {
-    nombre = powerup.nombre; //Alternativa
+    //nombre = powerup.nombre; //Alternativa
     if (!hasPowerup)
     {
         timerSound = game.add.audio('timerSound'); //Tener el audio en otro lugar antes
@@ -440,8 +440,6 @@ function createPowerup(x, y, asset){
         game.physics.arcade.enable(assetPowerup);
         assetPowerup.body.immovable = true;
         assetPowerup.scale.setTo(0.15);
-        //assetPowerup.inputEnabled = true;
-        //assetPowerup.input.enableDrag();
         assetPowerup.body.onCollide = new Phaser.Signal();
         assetPowerup.body.onCollide.add(function(assetPowerup){playerHitsPowerup(assetPowerup, 'powerupSpeed')}, this);
         assetPowerup.width = PLATFORM_SIZE;
