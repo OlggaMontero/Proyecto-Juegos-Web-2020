@@ -53,10 +53,10 @@ function createEnd()
 
     let styleI = {font: '30px Sniglet', fill: '#000000', strokeThickness: '1'};
 
-    totalPlatformsKnocked = 0; 
     game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+250, 'Platforms knocked down: ' + totalPlatformsKnocked, styleI);
     game.add.text(TEXT_OFFSET_HOR_E+80, TEXT_OFFSET_VER_E+350, 'Press S to play again!', styleI);
-
+    
+    totalPlatformsKnocked = 0; 
     counter = 15;
     createTimer();
 }

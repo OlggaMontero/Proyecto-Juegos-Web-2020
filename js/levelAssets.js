@@ -211,7 +211,7 @@ function assetOut(asset)
     {   
         asset.x = CANVAS_WIDTH - Math.abs(asset.x);
     }
-    else //if (asset.x >= game.width)
+    else 
     {
         outOfScreen = asset.x + asset.width - CANVAS_WIDTH;
         asset.x = -asset.width + outOfScreen;
@@ -231,7 +231,8 @@ function playerHitsTrap(platform)
         let NewRange = (30 - 5);
         let NewValue = (((velocity - 0) * NewRange) / OldRange) + 5;
         NewValue = Math.floor(NewValue);
-        if (!hasSupersoldier){
+        if (!hasSupersoldier)
+        {
             characterHurt(NewValue);
         }
         if (platform.transitionOutSprite != null)
@@ -469,8 +470,10 @@ function updateCounterPowerUp()
     }
 }
 
-function powerupEnd(){
-    if (hasPowerup){
+function powerupEnd()
+{
+    if (hasPowerup)
+    {
         timerEnds = game.add.audio('timerEnds');
         timerEnds.play();
         timerSound.destroy();
@@ -486,7 +489,8 @@ function powerupEnd(){
     }   
 }
 
-function createPowerup(x, y, asset){
+function createPowerup(x, y, asset)
+{
     if (asset=='powerupSpeed')
     {
         assetPowerup = game.add.sprite(x, y, 'powerupSpeed');
@@ -527,15 +531,16 @@ function createPowerup(x, y, asset){
     }
 }
 
-function createPowerupsInMap(){
-
+function createPowerupsInMap()
+{
     let result = "";
     let numberRandom = game.rnd.integerInRange(0,10);
     if (numberRandom==0){
         result = "powerupSpeed";
     }
 
-    if (numberRandom==1 && levelToPlay!=0){
+    if (numberRandom==1 && levelToPlay!=0)
+    {
         result = "superSoldier";
     }
     return result;

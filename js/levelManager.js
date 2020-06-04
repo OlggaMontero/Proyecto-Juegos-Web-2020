@@ -21,7 +21,6 @@ function loadJSON(level)
     {
         let x = levelJSON.ObjectsInMap.platforms[i].position.x;
         let y = levelJSON.ObjectsInMap.platforms[i].position.y;
-        //levelJSON.ObjectsInMap.platforms[i].siguiente = levelJSON.ObjectsInMap.platforms[i+1]; // check i+1
         let type = levelJSON.ObjectsInMap.platforms[i].type;
         createAssetsJSON(x, y, type, true);
     }
@@ -30,7 +29,6 @@ function loadJSON(level)
         let x = levelJSON.ObjectsInMap.obstacles[i].position.x;
         let y = levelJSON.ObjectsInMap.obstacles[i].position.y;
         let type = levelJSON.ObjectsInMap.obstacles[i].type;
-        //let  = levelJSON.ObjectsInMap.obstacles[i]. ;
         createAssetsJSON(x, y, type, false);
     }
     if (levelToPlay!=0 && levelToPlay!=1)

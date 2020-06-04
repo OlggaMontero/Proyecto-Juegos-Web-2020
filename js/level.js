@@ -225,13 +225,18 @@ function nextLevel()
     if (levelToPlay < 2)
     {
         levelToPlay += 1;
-        game.state.start('level');
+        startCurrentLevel();
     }
     else
     {
         condition = 'win';
         game.state.start('screenEnd');
     }
+}
+
+function startCurrentLevel()
+{
+    game.state.start('level');
 }
 
 function createHUD()
@@ -255,7 +260,8 @@ function createInfoLevel()
     putStyle(nameText);
 }
 
-function putStyle(text){
+function putStyle(text)
+{
     text.anchor.setTo(0.5, 0.5);
     text.font = '25px Revalia';
     text.fixedToCamera = true;
