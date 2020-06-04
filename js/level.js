@@ -68,8 +68,6 @@ function loadImages()
     game.load.image('platform_bomb_active', 'assets/imgs/platform_bomb_active.png');
     game.load.image('gradient', 'assets/imgs/gradient.png');
     game.load.image('gradientLeft', 'assets/imgs/gradienteLeft.png');
-    game.load.image('nuke', 'assets/imgs/nuke.png');
-    game.load.image('nukeHUD', 'assets/imgs/nuke.png');
     game.load.image('moving_enemy', 'assets/imgs/moving_enemy.png');
 }
 

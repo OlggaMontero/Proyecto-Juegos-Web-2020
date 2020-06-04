@@ -96,21 +96,9 @@ function createAsset(x, y, type)
         asset.secondsToChange = asset.secondsBetweenChanges;
 
     }
-    //Bomb power up
-    /*
-    else if (type == 8)
-    {
-        asset = game.add.sprite(x, y, 'nuke');
-        asset.transitionOutSprite = game.add.sprite(x, y, 'nuke');
-        game.physics.arcade.enable(asset);
-        asset.body.immovable = true;
-        asset.bombEnabled = false;
-        asset.body.onCollide = new Phaser.Signal();
-        asset.body.onCollide.add(function(asset){playerHitsPowerup(asset, 'nuke')}, this);
-    }*/
+
     if(asset.transitionOutSprite != null)
     {
-        //asset.transitionOutSprite.tint = 0x0000ff; //debug
         asset.transitionOutSprite.alpha = 0;
         asset.transitionOutSprite.width = PLATFORM_SIZE;
         asset.transitionOutSprite.height = PLATFORM_SIZE;
@@ -437,15 +425,7 @@ function playerHitsPowerup(powerup, nombre)
             bubleCharacter.scale.setTo(0.07);
             hasBuble = true;
         }
-        /*
-        else if (nombre == 'nuke')
-        {
-            /*for (let e in platform.siguiente.obstacles)
-            {
-                e.destroy();
-            }
-        }
-        */
+    
         powerupHUD.scale.setTo(0.05);
         powerupHUD.fixedToCamera = true;
         counterPowerup = 5;
